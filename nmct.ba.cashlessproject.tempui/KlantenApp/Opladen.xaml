@@ -1,0 +1,96 @@
+﻿<Window x:Class="nmct.ba.cashlessproject.tempui.KlantenApp.Opladen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bestellen" Height="520" Width="780">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource BorderBoven}"/>
+            <Image Source="/nmct.ba.cashlessproject.tempui;component/Images/afbeelding.png" />
+            <TextBlock Grid.Column="1" Style="{StaticResource Titel}" Text="Naam klant x"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2" Text="Huidig saldo"/>
+            <TextBox Grid.Column="2" Grid.ColumnSpan="2"/>
+
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="Opladen (max 100 euro)"/>
+
+            <Border Grid.Row="2" Grid.ColumnSpan="12" BorderThickness="0,1,0,0" BorderBrush="#e8e8e8"/>
+
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Cash (biljetten tot 50 euro)"/>
+            <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Nieuw saldo:"/>
+            <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
+            <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Text="(Plaats biljetten in om saldo te verhogen)"/>
+            <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
+
+            <Border Grid.Row="2" Grid.Column="5" Grid.RowSpan="5" BorderThickness="0,0,1,0" BorderBrush="#e8e8e8"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="Bankkaart"/>
+            <Button Grid.Row="3" Grid.Column="6" Content="€ 5"/>
+            <Button Grid.Row="3" Grid.Column="7" Content="€ 10"/>
+            <Button Grid.Row="3" Grid.Column="8" Content="€ 20"/>
+            <Button Grid.Row="3" Grid.Column="9" Content="€ 50"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="Bedrag:"/>
+            <TextBox Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="2"/>
+            <Button Grid.Row="5" Grid.Column="8" Grid.ColumnSpan="2" Content="Opladen"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource BorderOnder}"/>
+            <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
+            <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging"/><LineBreak/><Run Text="Adres vereniging"/></TextBlock>
+            <Button Style="{StaticResource Afmelden}" Content="Afmelden" />
+        </Grid>
+    </Grid>
+</Window>

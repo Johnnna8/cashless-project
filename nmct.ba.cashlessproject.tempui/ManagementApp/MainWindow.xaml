@@ -1,0 +1,71 @@
+﻿<Window x:Class="nmct.ba.cashlessproject.tempui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Start" Height="520" Width="780">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TitelStart}" Text="Houck IT solutions"/>
+            <TextBlock Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4" Text="Management app voor verenigingen" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Text="Welkom! Meldt u aan."/>
+
+            <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="Gebruikersnaam:"/>
+            <TextBox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3"/>
+
+            <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="Wachtwoord:"/>
+            <TextBox Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3"/>
+
+            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Aanmelden" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource BorderOnder}"/>
+            <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
+        </Grid>
+    </Grid>
+</Window>
