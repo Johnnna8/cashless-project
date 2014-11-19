@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.model
 {
-    class Employee
+    public class Employee
     {
         private int _ID;
 
@@ -16,12 +16,20 @@ namespace nmct.ba.cashlessproject.model
             set { _ID = value; }
         }
 
-        private string _customerName;
+        private string _firstname;
 
-        public string CustomerName
+        public string Firstname
         {
-            get { return _customerName; }
-            set { _customerName = value; }
+            get { return _firstname; }
+            set { _firstname = value; }
+        }
+
+        private string _lastname;
+
+        public string Lastname
+        {
+            get { return _lastname; }
+            set { _lastname = value; }
         }
 
         private string _street;
@@ -64,9 +72,9 @@ namespace nmct.ba.cashlessproject.model
             set { _email = value; }
         }
 
-        private int _phone;
+        private string _phone;
 
-        public int Phone
+        public string Phone
         {
             get { return _phone; }
             set { _phone = value; }
