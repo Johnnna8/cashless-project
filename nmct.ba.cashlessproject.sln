@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.cashlessproject.api
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.cashlessproject.model", "nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj", "{FE043724-9EF5-497D-8DF3-2F4A70437B00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.cashlessproject.ui", "nmct.ba.cashlessproject.ui\nmct.ba.cashlessproject.ui.csproj", "{0BF8FA86-E379-4900-B750-AC6F8E07C988}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FE043724-9EF5-497D-8DF3-2F4A70437B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE043724-9EF5-497D-8DF3-2F4A70437B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE043724-9EF5-497D-8DF3-2F4A70437B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BF8FA86-E379-4900-B750-AC6F8E07C988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF8FA86-E379-4900-B750-AC6F8E07C988}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF8FA86-E379-4900-B750-AC6F8E07C988}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF8FA86-E379-4900-B750-AC6F8E07C988}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

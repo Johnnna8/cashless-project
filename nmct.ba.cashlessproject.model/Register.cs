@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.model
 {
-    class Register
+    public class Register
     {
         private int _ID;
 
@@ -32,7 +32,7 @@ namespace nmct.ba.cashlessproject.model
             set { _device = value; }
         }
 
-        private int _purchaseDate;
+        /*private int _purchaseDate;
 
         public int PurchaseDate
         {
@@ -46,6 +46,6 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return _expiresDate; }
             set { _expiresDate = value; }
-        }
+        }*/
     }
 }

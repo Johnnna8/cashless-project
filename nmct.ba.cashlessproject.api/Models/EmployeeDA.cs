@@ -13,16 +13,32 @@ namespace nmct.ba.cashlessproject.api.Models
     {
         public static List<Employee> GetEmployees()
         {
-            List<Employee> bankAccounts = new List<Employee>();
+            List<Employee> employees = new List<Employee>();
 
             DbDataReader reader = Database.GetData("ConnectionString", "SELECT * FROM Employee");
             while (reader.Read())
             {
-                bankAccounts.Add(Create(reader));
+                employees.Add(Create(reader));
             }
             reader.Close();
 
-            return bankAccounts;
+            return employees;
+        }
+
+        public static Employee GetEmployee(int id)
+        {
+            Employee employee = new Employee();
+
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", id);
+            DbDataReader reader = Database.GetData("ConnectionString", "SELECT * FROM Employee WHERE ID=@ID", par1);
+
+            while (reader.Read())
+            {
+                employee = Create(reader);
+            }
+            reader.Close();
+
+            return employee;
         }
 
         private static Employee Create(IDataRecord record)
@@ -76,7 +92,7 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static int DeleteEmployee(int id)
         {
-            string sql = "DELETE FROM employee WHERE ID=@ID";
+            string sql = "DELETE FROM Employee WHERE ID=@ID";
             DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", id);
             return Database.ModifyData("ConnectionString", sql, par1);
         }

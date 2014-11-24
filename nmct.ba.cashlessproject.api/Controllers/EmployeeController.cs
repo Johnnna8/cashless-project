@@ -14,14 +14,13 @@ namespace nmct.ba.cashlessproject.api.Controllers
         // GET: api/Employee
         public List<Employee>Get()
         {
-            List<Employee> employees = EmployeeDA.GetEmployees();
-            return employees;
+            return EmployeeDA.GetEmployees();
         }
 
         // GET: api/Employee/5
-        public string Get(int id)
+        public Employee Get(int id)
         {
-            return "value";
+            return EmployeeDA.GetEmployee(id);
         }
 
         // POST: api/Employee
@@ -73,7 +72,7 @@ namespace nmct.ba.cashlessproject.api.Controllers
         // DELETE: api/Employee/5
         public HttpResponseMessage Delete(int id)
         {
-            if (id == null) {
+            if (id == 0) {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
             else
