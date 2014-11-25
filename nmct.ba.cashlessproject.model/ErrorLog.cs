@@ -8,12 +8,12 @@ namespace nmct.ba.cashlessproject.model
 {
     class ErrorLog
     {
-        private int _registerDate;
+        private Register _register;
 
-        public int RegisterDate
+        public Register Register
         {
-            get { return _registerDate; }
-            set { _registerDate = value; }
+            get { return _register; }
+            set { _register = value; }
         }
 
         private int _timestamp;
