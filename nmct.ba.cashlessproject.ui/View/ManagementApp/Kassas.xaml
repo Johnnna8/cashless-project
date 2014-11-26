@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.View.ManagementApp.Kassas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="410" d:DesignWidth="780">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2" Text="Alle kassa's:"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="6"/>
+
+        <TextBlock Grid.Column="6" Grid.ColumnSpan="6" Text="Kassa x (toestel x) laatst bemand door:"/>
+        <ListBox Grid.Row="1" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="6"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="Naam kassierster:"/>
+        <TextBlock Grid.Row="4" Grid.Column="9" Text="x"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="6" Text="Bemand van - tot:"/>
+        <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="2" Text="x"/>
+    </Grid>
+</UserControl>

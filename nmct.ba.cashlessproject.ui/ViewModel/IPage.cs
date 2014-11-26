@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.ui.ViewModel
 {
-    interface IPage
+    public interface IPage
     {
         string Name { get; }
     }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace nmct.ba.cashlessproject.ui
+namespace nmct.ba.cashlessproject.ui.View.KlantenApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Registreer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Registreer : UserControl
     {
-        public MainWindow()
+        public Registreer()
         {
             InitializeComponent();
         }

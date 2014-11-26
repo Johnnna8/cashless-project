@@ -69,7 +69,7 @@
 
             <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Upload:"/>
             <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3"/>
-            <Image Grid.Row="3" Grid.Column="9" Source="Images/afbeelding.png" />
+            <Image Grid.Row="3" Grid.Column="9" />
 
             <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo"/>
             <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3"/>

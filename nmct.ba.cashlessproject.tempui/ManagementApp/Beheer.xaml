@@ -49,11 +49,11 @@
             </Grid.RowDefinitions>
             <Button Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Wachtwoord wijzigen"/>
             <Button Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Producten"/>
-            <Button Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Medewerkers"/>
+            <Button Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Klanten"/>
 
-            <Button Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Wachtwoord wijzigen"/>
-            <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Producten"/>
-            <Button Grid.Row="3" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Medewerkers"/>
+            <Button Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Medewerkers"/>
+            <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Kassa's"/>
+            <Button Grid.Row="3" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="3" Content="Statistieken"/>
 
         </Grid>
 
