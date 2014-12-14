@@ -20,7 +20,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel.ManagementApp
             pages.Add(new KassasVM());
             pages.Add(new StatistiekenVM());
 
-            CurrentPage = Pages[0];
+            CurrentPage = Pages[3];
         }
 
         private IPage currentPage;

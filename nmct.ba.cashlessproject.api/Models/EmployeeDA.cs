@@ -1,21 +1,34 @@
-﻿using nmct.ba.cashlessproject.api.Helper;
+﻿using nmct.ba.cashlessproject.api.helper;
+using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 
 namespace nmct.ba.cashlessproject.api.Models
 {
     public class EmployeeDA
     {
-        public static List<Employee> GetEmployees()
+        private static ConnectionStringSettings CreateConnectionString(IEnumerable<Claim> claims)
+        {
+            string dblogin = claims.FirstOrDefault(c => c.Type == "dblogin").Value;
+            string dbpass = claims.FirstOrDefault(c => c.Type == "dbpass").Value;
+            string dbname = claims.FirstOrDefault(c => c.Type == "dbname").Value;
+
+            return Database.CreateConnectionString("System.Data.SqlClient", @"JONA\DATAMANAGEMENT", Cryptography.Decrypt(dbname), Cryptography.Decrypt(dblogin), Cryptography.Decrypt(dbpass));
+        }
+
+        public static List<Employee> GetEmployees(IEnumerable<Claim> claims)
         {
             List<Employee> employees = new List<Employee>();
+            string sql = "SELECT * FROM Employee";
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
 
-            DbDataReader reader = Database.GetData("ConnectionString", "SELECT * FROM Employee");
             while (reader.Read())
             {
                 employees.Add(Create(reader));
@@ -25,14 +38,15 @@ namespace nmct.ba.cashlessproject.api.Models
             return employees;
         }
 
-        public static Employee GetEmployee(int id)
+        public static Employee GetEmployee(int id, IEnumerable<Claim> claims)
         {
             Employee employee = new Employee();
 
+            string sql = "SELECT * FROM Employee WHERE ID=@ID";
             DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", id);
-            DbDataReader reader = Database.GetData("ConnectionString", "SELECT * FROM Employee WHERE ID=@ID", par1);
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql, par1);
 
-            while (reader.Read())
+            while (reader.Read())     
             {
                 employee = Create(reader);
             }
@@ -57,46 +71,40 @@ namespace nmct.ba.cashlessproject.api.Models
             };
         }
 
-        public static int CreateEmployee(Employee em)
+        public static int InsertEmployee(Employee e, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Employee (Firstname, Lastname, Street, StreetNumber, Postcode, City, Email, Phone) VALUES (@Firstname, @Lastname, @Street, @StreetNumber, @Postcode, @City, @Email, @Phone)";
-
-            DbParameter par1 = Database.AddParameter("ConnectionString", "@Firstname", em.Firstname);
-            DbParameter par2 = Database.AddParameter("ConnectionString", "@Lastname", em.Lastname);
-            DbParameter par3 = Database.AddParameter("ConnectionString", "@Street", em.Street);
-            DbParameter par4 = Database.AddParameter("ConnectionString", "@StreetNumber", em.StreetNumber);
-            DbParameter par5 = Database.AddParameter("ConnectionString", "@Postcode", em.Postcode);
-            DbParameter par6 = Database.AddParameter("ConnectionString", "@City", em.City);
-            DbParameter par7 = Database.AddParameter("ConnectionString", "@Email", em.Email);
-            DbParameter par8 = Database.AddParameter("ConnectionString", "@Phone", em.Phone);
-
-            return Database.InsertData("ConnectionString", sql, par1, par2, par3, par4, par5, par6, par7, par8);
+            string sql = "INSERT INTO Employee VALUES(@Firstname,@Lastname,@Street,@StreetNumber,@Postcode,@City,@Email,@Phone)";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@Firstname", e.Firstname);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@Lastname", e.Lastname);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@Street", e.Street);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@StreetNumber", e.StreetNumber);
+            DbParameter par5 = Database.AddParameter("AdminDB", "@Postcode", e.Postcode);
+            DbParameter par6 = Database.AddParameter("AdminDB", "@City", e.City);
+            DbParameter par7 = Database.AddParameter("AdminDB", "@Email", e.Email);
+            DbParameter par8 = Database.AddParameter("AdminDB", "@Phone", e.Phone);
+            return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
         }
 
-        public static int UpdateEmployee(Employee em)
+        public static void UpdateEmployee(Employee e, IEnumerable<Claim> claims)
         {
-            string sql = "UPDATE Employee SET Firstname=@firstname, Lastname=@Lastname, Street=@Street, StreetNumber=@StreetNumber, Postcode=@Postcode, City=@City, Email=@Email, Phone=@Phone WHERE ID=@ID";
-
-            DbParameter par1 = Database.AddParameter("ConnectionString", "@Firstname", em.Firstname);
-            DbParameter par2 = Database.AddParameter("ConnectionString", "@Lastname", em.Lastname);
-            DbParameter par3 = Database.AddParameter("ConnectionString", "@Street", em.Street);
-            DbParameter par4 = Database.AddParameter("ConnectionString", "@StreetNumber", em.StreetNumber);
-            DbParameter par5 = Database.AddParameter("ConnectionString", "@Postcode", em.Postcode);
-            DbParameter par6 = Database.AddParameter("ConnectionString", "@City", em.City);
-            DbParameter par7 = Database.AddParameter("ConnectionString", "@Email", em.Email);
-            DbParameter par8 = Database.AddParameter("ConnectionString", "@Phone", em.Phone);
-            DbParameter par9 = Database.AddParameter("ConnectionString", "@ID", em.ID);
-
-            return Database.ModifyData("ConnectionString", sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
+            string sql = "UPDATE Employee SET Firstname=@Firstname, Lastname=@Lastname, Street=@Street, StreetNumber=@StreetNumber, Postcode=@Postcode, City=@City, Email=@Email, Phone=@Phone WHERE ID=@ID";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@Firstname", e.Firstname);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@Lastname", e.Lastname);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@Street", e.Street);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@StreetNumber", e.StreetNumber);
+            DbParameter par5 = Database.AddParameter("AdminDB", "@Postcode", e.Postcode);
+            DbParameter par6 = Database.AddParameter("AdminDB", "@City", e.City);
+            DbParameter par7 = Database.AddParameter("AdminDB", "@Email", e.Email);
+            DbParameter par8 = Database.AddParameter("AdminDB", "@Phone", e.Phone);
+            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
         }
 
-        public static int DeleteEmployee(int id)
+        public static void DeleteEmployee(int id, IEnumerable<Claim> claims)
         {
             string sql = "DELETE FROM Employee WHERE ID=@ID";
-            DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", id);
-            return Database.ModifyData("ConnectionString", sql, par1);
+            DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
+            DbConnection con = Database.GetConnection(CreateConnectionString(claims));
+            Database.ModifyData(con, sql, par1);
         }
-
-
     }
 }

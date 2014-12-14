@@ -5,81 +5,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
 {
     public class EmployeeController : ApiController
     {
+        [Authorize]
         // GET: api/Employee
-        public List<Employee>Get()
+        public List<Employee> Get()
         {
-            return EmployeeDA.GetEmployees();
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return EmployeeDA.GetEmployees(p.Claims);
         }
 
         // GET: api/Employee/5
         public Employee Get(int id)
         {
-            return EmployeeDA.GetEmployee(id);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return EmployeeDA.GetEmployee(id, p.Claims);
         }
 
-        // POST: api/Employee
-        public HttpResponseMessage Post(Employee em)
+        public HttpResponseMessage Post(Employee e)
         {
-            if (em == null ||
-                em.Firstname == null ||
-                em.Lastname == null ||
-                em.Street == null ||
-                em.StreetNumber == null ||
-                em.Postcode == null ||
-                em.City == null ||
-                em.Email == null ||
-                em.Phone == null
-                )
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                EmployeeDA.CreateEmployee(em);
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            int id = EmployeeDA.InsertEmployee(e, p.Claims);
+
+            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK);
+            message.Content = new StringContent(id.ToString());
+            return message;
         }
 
-        // PUT: api/Employee/5
-        public HttpResponseMessage Put(Employee em)
+        public HttpResponseMessage Put(Employee e)
         {
-            if (em == null ||
-                em.Firstname == null ||
-                em.Lastname == null ||
-                em.Street == null ||
-                em.StreetNumber == null ||
-                em.Postcode == null ||
-                em.City == null ||
-                em.Email == null ||
-                em.Phone == null
-                )
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                EmployeeDA.UpdateEmployee(em);
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            EmployeeDA.UpdateEmployee(e, p.Claims);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        // DELETE: api/Employee/5
         public HttpResponseMessage Delete(int id)
         {
-            if (id == 0) {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                EmployeeDA.DeleteEmployee(id);
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            EmployeeDA.DeleteEmployee(id, p.Claims);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

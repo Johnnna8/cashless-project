@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
@@ -14,13 +15,27 @@ namespace nmct.ba.cashlessproject.api.Controllers
         // GET: api/Register
         public List<Register> Get()
         {
-            return RegisterDA.GetRegisters();
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return RegisterDA.GetRegisters(p.Claims);
         }
 
         // GET: api/Register/5
         public Register Get(int id)
         {
-            return RegisterDA.GetRegister(id);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return RegisterDA.GetRegister(id, p.Claims);
+        }
+
+        public List<Employee> GetEmployees(int registerid)
+        {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return RegisterDA.GetEmployeesFromRegister(registerid, p.Claims);
+        }
+
+        public List<RegisterEmployee> GetEmployees(int registerid, int employeeid)
+        {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return RegisterDA.GetRegistersEmployees(registerid, employeeid, p.Claims);
         }
 
         // POST: api/Register

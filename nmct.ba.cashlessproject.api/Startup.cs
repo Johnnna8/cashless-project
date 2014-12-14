@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(nmct.ba.cashlessproject.api.Startup))]
-
+[assembly: OwinStartupAttribute(typeof(nmct.ba.cashlessproject.api.Startup))]
 namespace nmct.ba.cashlessproject.api
 {
     public partial class Startup

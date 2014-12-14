@@ -5,37 +5,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
 {
     public class CustomerController : ApiController
     {
+        [Authorize]
         // GET: api/Customer
         public List<Customer> Get()
         {
-            return CustomerDA.GetCustomers();
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return CustomerDA.GetCustomers(p.Claims);
         }
 
         // GET: api/Customer/5
         public Customer Get(int id)
         {
-            return CustomerDA.GetCustomer(id);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return CustomerDA.GetCustomer(id, p.Claims);
         }
 
-        // POST: api/Customer
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(Customer c)
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            int id = CustomerDA.InsertCustomer(c, p.Claims);
+
+            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK);
+            message.Content = new StringContent(id.ToString());
+            return message;
         }
 
-        // PUT: api/Customer/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(Customer c)
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            CustomerDA.UpdateCustomer(c, p.Claims);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        // DELETE: api/Customer/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            CustomerDA.DeleteCustomer(id, p.Claims);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

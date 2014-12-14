@@ -11,6 +11,9 @@ namespace nmct.ba.cashlessproject.ui.ViewModel.MedewerkersApp
 {
     class ApplicationVM : ObservableObject
     {
+
+        //met containers werken en deze visible en unvisible maken
+
         public ApplicationVM()
         {
             Pages.Add(new AanmeldenVM());

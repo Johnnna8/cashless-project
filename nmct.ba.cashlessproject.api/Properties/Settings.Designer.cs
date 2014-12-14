@@ -26,10 +26,10 @@ namespace nmct.ba.cashlessproject.api.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=JONA\\SQLEXPRESS;Initial Catalog=Klant;Integrated Security=True")]
-        public string ConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=JONA\\DATAMANAGEMENT;Initial Catalog=AdminDB;Integrated Security=True")]
+        public string AdminDB {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((string)(this["AdminDB"]));
             }
         }
     }

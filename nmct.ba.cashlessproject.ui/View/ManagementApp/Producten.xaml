@@ -2,9 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel.ManagementApp"
+             mc:Ignorable="d"
              d:DesignHeight="410" d:DesignWidth="780">
+    <UserControl.DataContext>
+        <vm:ProductenVM />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -31,17 +35,17 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="2"><Run Text="Alle "/><Run Text="producten"/><Run Text=":"/></TextBlock>
-        <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" x:Name="lstProducten" ItemsSource="{Binding Products}" DisplayMemberPath="ProductName" SelectedItem="{Binding SelectedProduct}"/>
 
         <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Nieuw" />
         <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Wijzigen" />
         <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" />
 
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.ProductName}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Prijs"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.Price}"/>
 
         <Button Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" />
         <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleren" />

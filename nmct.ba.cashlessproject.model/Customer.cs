@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+//using System.Windows.Media.Imaging;
 
 namespace nmct.ba.cashlessproject.model
 {
@@ -66,9 +66,9 @@ namespace nmct.ba.cashlessproject.model
             set { _city = value; }
         }
 
-        private BitmapImage _picture;
+        private byte[] _picture;
 
-        public BitmapImage Picture
+        public byte[] Picture
         {
             get { return _picture; }
             set { _picture = value; }

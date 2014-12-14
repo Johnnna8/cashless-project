@@ -5,37 +5,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
 {
+    [Authorize]
     public class ProductController : ApiController
     {
         // GET: api/Product
         public List<Product> Get()
         {
-            return ProductDA.GetProducts();
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ProductDA.GetProducts(p.Claims);
         }
 
         // GET: api/Product/5
         public Product Get(int id)
         {
-            return ProductDA.GetProduct(id);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ProductDA.GetProduct(id, p.Claims);
         }
 
-        // POST: api/Product
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(Product pr)
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            int id = ProductDA.InsertProduct(pr, p.Claims);
+
+            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK);
+            message.Content = new StringContent(id.ToString());
+            return message;
         }
 
-        // PUT: api/Product/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(Product pr)
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            ProductDA.UpdateProduct(pr, p.Claims);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        // DELETE: api/Product/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            ProductDA.DeleteProduct(id, p.Claims);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
