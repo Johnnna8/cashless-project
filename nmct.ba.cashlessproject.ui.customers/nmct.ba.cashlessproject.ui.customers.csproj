@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="beid35libCS">
+      <HintPath>..\..\..\..\Belgium Identity Card SDK\beidlib\dotNet\bin\beid35libCS.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight">
       <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -136,7 +139,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj">
+      <Project>{fe043724-9ef5-497d-8df3-2f4a70437b00}</Project>
+      <Name>nmct.ba.cashlessproject.model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="View\signIn.xaml">
       <Generator>MSBuild:Compile</Generator>

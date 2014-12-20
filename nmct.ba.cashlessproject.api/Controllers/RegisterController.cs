@@ -32,12 +32,6 @@ namespace nmct.ba.cashlessproject.api.Controllers
             return RegisterDA.GetEmployeesFromRegister(registerid, p.Claims);
         }
 
-        public List<RegisterEmployee> GetEmployees(int registerid, int employeeid)
-        {
-            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
-            return RegisterDA.GetRegistersEmployees(registerid, employeeid, p.Claims);
-        }
-
         // POST: api/Register
         public void Post([FromBody]string value)
         {

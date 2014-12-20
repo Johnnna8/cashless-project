@@ -1,0 +1,99 @@
+﻿@model IEnumerable<nmct.ba.cashlessproject.model.Organisation>
+
+@{
+    ViewBag.Title = "Beheer organisaties";
+}
+
+<h2>Beheer organisaties</h2>
+
+<p>
+    @Html.ActionLink("Voeg nieuwe organisatie toe", "Create")
+</p>
+<table class="table">
+    <tr>
+        <!--<th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DbName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DbLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DbPassword)
+        </th>-->
+        <th>
+            @Html.DisplayNameFor(model => model.OrganisationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <!--<th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>-->
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <!--<td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DbName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DbLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DbPassword)
+        </td>-->
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganisationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StreetNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <!--<td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>-->
+        <td>
+            @Html.ActionLink("Bewerk", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Detail", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Verwijder", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -27,6 +27,21 @@ namespace nmct.ba.cashlessproject.api.Controllers
             return CustomerDA.GetCustomer(id, p.Claims);
         }
 
+        public int customerExists(int NationalNumber)
+        {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            Customer customer = CustomerDA.GetCustomerByNationalNumber(NationalNumber, p.Claims);
+
+            if (customer == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
         public HttpResponseMessage Post(Customer c)
         {
             ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;

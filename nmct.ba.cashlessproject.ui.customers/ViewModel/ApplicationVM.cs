@@ -9,12 +9,12 @@ using System.Windows.Input;
 
 namespace nmct.ba.cashlessproject.ui.customers.ViewModel
 {
-    class ApplicationVM : ObservableObject
+    public class ApplicationVM : ObservableObject
     {
         public ApplicationVM()
         {
             Pages.Add(new SignInVM());
-            pages.Add(new RegisterVM());
+            Pages.Add(new RegisterVM());
             CurrentPage = Pages[0];
         }
 
@@ -45,7 +45,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
-        private void ChangePage(IPage page)
+        public void ChangePage(IPage page)
         {
             CurrentPage = page;
         }

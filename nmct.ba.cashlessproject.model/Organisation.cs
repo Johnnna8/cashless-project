@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ namespace nmct.ba.cashlessproject.model
     {
         private int _ID;
 
+        [Required]
         public int ID
         {
             get { return _ID; }
@@ -18,6 +21,7 @@ namespace nmct.ba.cashlessproject.model
 
         private string _login;
 
+        [Required]
         public string Login
         {
             get { return _login; }
@@ -26,6 +30,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _password;
 
+        [Required]
+        [DisplayName("Wachtwoord")]
         public string Password
         {
             get { return _password; }
@@ -34,6 +40,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _dbName;
 
+        [Required]
+        [DisplayName("Naam database")]
         public string DbName
         {
             get { return _dbName; }
@@ -42,6 +50,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _dbLogin;
 
+        [Required]
+        [DisplayName("Login database")]
         public string DbLogin
         {
             get { return _dbLogin; }
@@ -50,6 +60,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _dbPassword;
 
+        [Required]
+        [DisplayName("Wachtwoord database")]
         public string DbPassword
         {
             get { return _dbPassword; }
@@ -58,6 +70,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _organisationName;
 
+        [Required]
+        [DisplayName("Naam vereniging")]
         public string OrganisationName
         {
             get { return _organisationName; }
@@ -66,6 +80,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _street;
 
+        [Required]
+        [DisplayName("Straat")]
         public string Street
         {
             get { return _street; }
@@ -74,6 +90,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _streetNumber;
 
+        [Required]
+        [DisplayName("Straatnummer")]
         public string StreetNumber
         {
             get { return _streetNumber; }
@@ -82,6 +100,7 @@ namespace nmct.ba.cashlessproject.model
 
         private string _postcode;
 
+        [Required]
         public string Postcode
         {
             get { return _postcode; }
@@ -90,6 +109,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _city;
 
+        [Required]
+        [DisplayName("Gemeente")]
         public string City
         {
             get { return _city; }
@@ -98,6 +119,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _email;
 
+        [Required]
+        [DisplayName("Emailadres")]
         public string Email
         {
             get { return _email; }
@@ -106,6 +129,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _phone;
 
+        [Required]
+        [DisplayName("Telefoonnummer")]
         public string Phone
         {
             get { return _phone; }

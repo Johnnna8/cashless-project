@@ -1,0 +1,120 @@
+﻿@model nmct.ba.cashlessproject.model.Organisation
+
+@{
+    ViewBag.Title = "Verwijder";
+}
+
+<h2>Delete</h2>
+
+<h3>Weet je zeker dat je deze vereniging wilt verwijderen?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DbName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DbLogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbLogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DbPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrganisationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrganisationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="hidden" value="@Model.ID" name="ID" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Terug naar beheer", "Index")
+        </div>
+    }
+</div>

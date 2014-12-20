@@ -96,33 +96,5 @@ namespace nmct.ba.cashlessproject.api.Models
                 Phone = record["Phone"].ToString()
             };
         }
-
-        public static List<RegisterEmployee> GetRegistersEmployees(int registerid, int employeeid, IEnumerable<Claim> claims)
-        {
-            List<RegisterEmployee> registersEmployees = new List<RegisterEmployee>();
-            DbParameter par1 = Database.AddParameter("AdminDB", "@RegisterID", registerid);
-            DbParameter par2 = Database.AddParameter("AdminDB", "@EmployeeID", employeeid);
-            string sql = "SELECT re.[From], re.Until, re.RegisterID, re.EmployeeID FROM Employee AS e INNER JOIN RegisterEmployee AS re ON e.ID = re.EmployeeID WHERE re.RegisterID = @RegisterID AND re.EmployeeID = @EmployeeID";
-            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2);
-
-            while (reader.Read())
-            {
-                registersEmployees.Add(CreateRegisterEmployee(reader));
-            }
-            reader.Close();
-
-            return registersEmployees;
-        }
-
-        private static RegisterEmployee CreateRegisterEmployee(IDataRecord record)
-        {
-            return new RegisterEmployee()
-            {
-                RegisterID = Convert.ToInt32(record["RegisterID"]),
-                EmployeeID = Convert.ToInt32(record["EmployeeID"]),
-                From = Convert.ToInt32(record["From"]),
-                Until = Convert.ToInt32(record["Until"])
-            };
-        }
     }
 }

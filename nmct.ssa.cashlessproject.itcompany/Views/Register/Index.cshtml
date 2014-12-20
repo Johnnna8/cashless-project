@@ -1,0 +1,90 @@
+﻿@model IEnumerable<nmct.ba.cashlessproject.model.OrganisationRegister>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Overzicht kassa's</h2>
+
+<p>
+    @Html.ActionLink("Voeg nieuwe kassa toe", "Create")
+</p>
+
+<h3>Sorteer op kassa's</h3>
+
+@using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="dropdown">
+                    <select class="form-control" name="OrganisationName">
+                        <option value="allRegisters">Alle kassa's</option>
+                        <option value="availableRegisters">Beschikbare kassa's</option>
+                        @foreach (var organisation in ViewBag.Organisations)
+                        {
+                            <option value="@organisation.ID">@organisation.OrganisationName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Sorteer" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+<h3>Alle (beschikbare) kassa's of kassa's per vereniging</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Organisation.OrganisationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Register.RegisterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Register.Device)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Register.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Register.ExpiresDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Organisation.OrganisationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Register.RegisterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Register.Device)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Register.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Register.ExpiresDate)
+        </td>
+        <td>
+            @Html.ActionLink("Bewerk", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Verwijder", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -17,6 +17,7 @@ namespace nmct.ba.cashlessproject.api.Controllers
         public List<Product> Get()
         {
             ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+
             return ProductDA.GetProducts(p.Claims);
         }
 

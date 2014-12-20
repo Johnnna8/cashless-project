@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-//voor memorystream
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Security.Claims;
@@ -23,6 +21,20 @@ namespace nmct.ba.cashlessproject.api.Models
             string dbname = claims.FirstOrDefault(c => c.Type == "dbname").Value;
 
             return Database.CreateConnectionString("System.Data.SqlClient", @"JONA\DATAMANAGEMENT", Cryptography.Decrypt(dbname), Cryptography.Decrypt(dblogin), Cryptography.Decrypt(dbpass));
+        }
+
+        public static Customer GetCustomerByNationalNumber(int nationalNumber, IEnumerable<Claim> claims)
+        {
+            Customer customer = new Customer();
+
+            string sql = "SELECT * FROM Customer WHERE ID = @NationalNumber";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", nationalNumber);
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
+
+            customer = Create(reader);
+            reader.Close();
+
+            return customer;
         }
 
         public static List<Customer> GetCustomers(IEnumerable<Claim> claims)
@@ -45,7 +57,7 @@ namespace nmct.ba.cashlessproject.api.Models
             Customer customer = new Customer();
 
             string sql = "SELECT * FROM Customer WHERE ID=@ID";
-            DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", id);
+            DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
             DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql, par1);
 
             while (reader.Read())
@@ -103,7 +115,8 @@ namespace nmct.ba.cashlessproject.api.Models
             DbParameter par6 = Database.AddParameter("AdminDB", "@City", c.City);
             DbParameter par7 = Database.AddParameter("AdminDB", "@Picture", c.Picture);
             DbParameter par8 = Database.AddParameter("AdminDB", "@Balance", c.Balance);
-            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
+            DbParameter par9 = Database.AddParameter("AdminDB", "@ID", c.ID);
+            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
         }
 
         public static void DeleteCustomer(int id, IEnumerable<Claim> claims)

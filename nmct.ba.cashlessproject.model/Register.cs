@@ -31,29 +31,5 @@ namespace nmct.ba.cashlessproject.model
             get { return _device; }
             set { _device = value; }
         }
-
-        private List<RegisterEmployee> _registerEmployees;
-
-        public List<RegisterEmployee> RegisterEmployees
-        {
-            get { return _registerEmployees; }
-            set { _registerEmployees = value; }
-        }
-
-        /*private int _purchaseDate;
-
-        public int PurchaseDate
-        {
-            get { return _purchaseDate; }
-            set { _purchaseDate = value; }
-        }
-
-        private int _expiresDate;
-
-        public int ExpiresDate
-        {
-            get { return _expiresDate; }
-            set { _expiresDate = value; }
-        }*/
     }
 }
