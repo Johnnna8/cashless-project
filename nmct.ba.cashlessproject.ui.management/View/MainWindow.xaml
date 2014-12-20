@@ -1,0 +1,71 @@
+﻿<Window x:Class="nmct.ba.cashlessproject.ui.management.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:nmct.ba.cashlessproject.ui.management.View"
+        xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
+        x:Name="window"
+        Title="Management App" Height="520" Width="780">
+    <Window.DataContext>
+        <vm:ApplicationVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:EmployeeVM}">
+            <v:Employee/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomerVM}">
+            <v:Customer/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductVM}">
+            <v:Product/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RegisterVM}">
+            <v:Register/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StatisticsVM}">
+            <v:Statistics/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ChangePasswordVM}">
+            <v:ChangePassword/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource BorderBoven}"/>
+        <ItemsControl ItemsSource="{Binding Pages}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <ContentControl Content="{Binding CurrentPage}"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource BorderOnder}"/>
+            <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
+            <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging"/><LineBreak/><Run Text="Adres vereniging"/></TextBlock>
+            <Button Style="{StaticResource Afmelden}" Command="{Binding LogoutCommand}" CommandParameter="{Binding ElementName=window}" Content="Afmelden" />
+        </Grid>
+    </Grid>
+</Window>

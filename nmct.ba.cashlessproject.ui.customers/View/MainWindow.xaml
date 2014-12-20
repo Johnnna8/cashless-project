@@ -1,0 +1,46 @@
+﻿<Window x:Class="nmct.ba.cashlessproject.ui.customers.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:nmct.ba.cashlessproject.ui.customers.View"
+        xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.customers.ViewModel"
+        Title="Klanten App" Height="520" Width="780">
+    <Window.DataContext>
+        <vm:ApplicationVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:SignInVM}">
+            <v:signIn/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RegisterVM}">
+            <v:Register/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" Content="{Binding CurrentPage}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource BorderOnder}"/>
+            <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
+            <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging"/><LineBreak/><Run Text="Adres vereniging"/></TextBlock>
+            <Button Style="{StaticResource Afmelden}" Content="Afmelden" />
+        </Grid>
+
+    </Grid>
+</Window>

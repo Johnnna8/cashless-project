@@ -10,7 +10,6 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 {
     public class RegisterController : Controller
     {
-        // GET: Register
         public ActionResult Index(string sort)
         {
             List<OrganisationRegister> organisationsRegisters = new List<OrganisationRegister>();

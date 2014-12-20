@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.management.View.Customer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
+             xmlns:c="clr-namespace:nmct.ba.cashlessproject.ui.management.View.converters"
+             mc:Ignorable="d"
+             d:DesignHeight="410" d:DesignWidth="780">
+    <UserControl.DataContext>
+        <vm:CustomerVM />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <c:StringToImageConverter x:Key="StringToImageConverter"/>
+    </UserControl.Resources>
+    <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2" Text="Alle klanten:"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" ItemsSource="{Binding Customers}" DisplayMemberPath="Firstname" SelectedItem="{Binding SelectedCustomer}"/>
+
+        <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Nieuw" Command="{Binding NewCustomerCommand}"/>
+        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveCustomerCommand}" />
+        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteCustomerCommand}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Firstname}"/>
+        <TextBox Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Lastname}"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Street}"/>
+        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.StreetNumber}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
+        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Postcode}"/>
+        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.City}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Text="Upload:"/>
+        <Image Grid.Row="4" Grid.Column="9" />
+
+        <Button Grid.Row="4" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="3" Command="{Binding AddImageCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo"/>
+        <TextBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Balance}"/>
+    </Grid>
+</UserControl>

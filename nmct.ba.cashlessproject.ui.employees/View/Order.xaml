@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.employees.View.Order"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="410" d:DesignWidth="780">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Border Style="{StaticResource BorderBoven}"/>
+            <TextBlock Style="{StaticResource Titel}" Text="Kassierster x"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2" Text="Id klant:"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="2"/>
+
+            <TextBlock Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="2"/>
+
+            <TextBlock Grid.Column="6" Grid.ColumnSpan="2" Text="Saldo:"/>
+            <TextBox Grid.Column="7" Grid.ColumnSpan="2"/>
+
+            <TextBlock Grid.Column="9" Grid.ColumnSpan="3" Text="(wijzig door geld in te steken)"/>
+
+            <Border Style="{StaticResource BorderKassa}"/>
+
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Producten:" />
+            <ListBox Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="3" />
+
+            <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Aantal: x" />
+            <Button Grid.Row="2" Grid.Column="3" Content="7" />
+            <Button Grid.Row="2" Grid.Column="4" Content="8" />
+            <Button Grid.Row="2" Grid.Column="5" Content="9" />
+            <Button Grid.Row="3" Grid.Column="3" Content="4" />
+            <Button Grid.Row="3" Grid.Column="4" Content="5" />
+            <Button Grid.Row="3" Grid.Column="5" Content="6" />
+            <Button Grid.Row="4" Grid.Column="3" Content="1" />
+            <Button Grid.Row="4" Grid.Column="4" Content="2" />
+            <Button Grid.Row="4" Grid.Column="5" Content="3" />
+
+            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" />
+            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Annuleer" />
+
+            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="Bestelde producten:"/>
+            <ListBox Grid.Row="2" Grid.Column="6" Grid.RowSpan="4" Grid.ColumnSpan="3" />
+            <Button Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" />
+
+            <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="Totaal: x"/>
+            <TextBlock Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="Nieuw totaal: x"/>
+            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" />
+            <Button Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer (nieuwe klant)" />
+        </Grid>
+    </Grid>
+</UserControl>

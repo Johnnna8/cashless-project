@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.management.View.Employee"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
+             mc:Ignorable="d"
+             d:DesignHeight="410" d:DesignWidth="780">
+    <UserControl.DataContext>
+        <vm:EmployeeVM />
+    </UserControl.DataContext>
+    <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Alle medewerkers:"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" ItemsSource="{Binding Employees}" DisplayMemberPath="Firstname" SelectedItem="{Binding SelectedEmployee}"/>
+
+        <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Nieuw" Command="{Binding NewEmployeeCommand}"/>
+        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveEmployeeCommand}" />
+        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteEmployeeCommand}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Firstname}"/>
+        <TextBox Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Lastname}"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Street}"/>
+        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.StreetNumber}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
+        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Postcode}"/>
+        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.City}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Text="Emailadres:"/>
+        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Email}"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Telefoon"/>
+        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Phone}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.customers.View.signIn"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="410" d:DesignWidth="780">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource Titel}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" Text="Welkom! Scan uw identiteitskaart" HorizontalAlignment="Center"/>
+            <Button Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="4" Content="Identificeer" Command="{Binding IdentificeerCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>
