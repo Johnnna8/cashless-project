@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,19 +34,21 @@ namespace nmct.ba.cashlessproject.model
             set { _register = value; }
         }
 
-        private int _fromDate;
+        private DateTime _fromDate;
 
-        [DisplayName("Bemand van")]
-        public int FromDate
+        [DisplayName("In bezit van")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime FromDate
         {
             get { return _fromDate; }
             set { _fromDate = value; }
         }
 
-        private int _untilDate;
+        private DateTime _untilDate;
 
-        [DisplayName("Bemand tot")]
-        public int UntilDate
+        [DisplayName("In bezit tot")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime UntilDate
         {
             get { return _untilDate; }
             set { _untilDate = value; }

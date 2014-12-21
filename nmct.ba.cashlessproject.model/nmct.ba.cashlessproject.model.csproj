@@ -56,6 +56,12 @@
     <Compile Include="RegisterEmployee.cs" />
     <Compile Include="Sales.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nmct.ba.cashlessproject.helper\nmct.ba.cashlessproject.helper.csproj">
+      <Project>{54832c72-26c4-4b8f-918e-430b9e153e3d}</Project>
+      <Name>nmct.ba.cashlessproject.helper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

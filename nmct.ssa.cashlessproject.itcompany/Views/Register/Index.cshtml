@@ -20,9 +20,8 @@
         <div class="form-group">
             <div class="col-md-12">
                 <div class="dropdown">
-                    <select class="form-control" name="OrganisationName">
+                    <select class="form-control" name="sort">
                         <option value="allRegisters">Alle kassa's</option>
-                        <option value="availableRegisters">Beschikbare kassa's</option>
                         @foreach (var organisation in ViewBag.Organisations)
                         {
                             <option value="@organisation.ID">@organisation.OrganisationName</option>
@@ -48,6 +47,12 @@
             @Html.DisplayNameFor(model => model.Organisation.OrganisationName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UntilDate)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Register.RegisterName)
         </th>
         <th>
@@ -66,6 +71,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Organisation.OrganisationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UntilDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Register.RegisterName)
