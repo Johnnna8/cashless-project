@@ -21,8 +21,8 @@ namespace nmct.ba.cashlessproject.model
         private string _productName;
 
         [Required(ErrorMessage = "De productnaam is verplicht")]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{1,50}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "De productnaam moet tussen de 3 en 50 karakters bevatten ")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{3,50}$", ErrorMessage = "Productnaam tussen de 3 en 50 karakters, geen speciale tekens")]
+        //[StringLength(50, MinimumLength = 3, ErrorMessage = "De productnaam moet tussen de 3 en 50 karakters bevatten ")]
         public string ProductName
         {
             get { return _productName; }
@@ -32,7 +32,7 @@ namespace nmct.ba.cashlessproject.model
         private double _price;
 
         [Required(ErrorMessage = "De prijs is verplicht")]
-        [Range(typeof(Decimal), "0", "10000", ErrorMessage = "De prijs moet tussen 0 en 10000 liggen")]
+        [Range(0, 10000, ErrorMessage = "Prijs tussen 0 en 10000")]
         public double Price
         {
             get { return _price; }
@@ -56,8 +56,6 @@ namespace nmct.ba.cashlessproject.model
                 try
                 {
                     object value = this.GetType().GetProperty(columnName).GetValue(this);
-                    
-                    if (value != null)
                     Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = columnName });
                 }
                 catch (ValidationException ex)

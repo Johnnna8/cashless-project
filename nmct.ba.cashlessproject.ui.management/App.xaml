@@ -5,13 +5,13 @@
         <Style x:Key="Algemeen" TargetType="{x:Type Control}">
             <Setter Property="FontFamily" Value="Myriad Pro"></Setter>
             <Setter Property="FontSize" Value="12px"></Setter>
-            <Setter Property="Margin" Value="8px"></Setter>
+            <Setter Property="Margin" Value="8,20,8,20"></Setter>
         </Style>
 
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily" Value="Myriad Pro"></Setter>
             <Setter Property="FontSize" Value="12px"></Setter>
-            <Setter Property="Margin" Value="8px"></Setter>
+            <Setter Property="Margin" Value="8,20,8,20"></Setter>
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
@@ -35,6 +35,7 @@
         <Style TargetType="Button" BasedOn="{StaticResource Algemeen}">
             <Setter Property="BorderBrush" Value="#A9CF54"></Setter>
             <Setter Property="Background" Value="#fff"></Setter>
+            <Setter Property="Margin" Value="8"></Setter>
         </Style>
 
         <Style x:Key="Border" TargetType="{x:Type Border}">

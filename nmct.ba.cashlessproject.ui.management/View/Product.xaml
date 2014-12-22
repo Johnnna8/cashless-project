@@ -5,27 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
              mc:Ignorable="d"
-             d:DesignHeight="410" d:DesignWidth="780">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <UserControl.DataContext>
         <vm:ProductVM />
     </UserControl.DataContext>
     <UserControl.Resources>
         <ControlTemplate x:Key="ErrorTemplate">
             <StackPanel>
-                <Border BorderBrush="Red" BorderThickness="2">
+                <Border BorderBrush="Red">
                     <AdornedElementPlaceholder/>
                 </Border>
-                <TextBlock Foreground="Red" Text="{Binding [0].ErrorContent}"/>
+                <TextBlock Margin="8" Foreground="Red" Text="{Binding [0].ErrorContent}"/>
             </StackPanel>
         </ControlTemplate>
-        <Style x:Key="TextboxError" TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="Background" Value="Red"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -60,11 +52,9 @@
         <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" />
 
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Style="{StaticResource TextboxError}"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Prijs"/>
-        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.Price, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Style="{StaticResource TextboxError}"/>
-
-        <!--<TextBox Margin="16" Text="{Binding MyPerson.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Style="{StaticResource TextboxError}"/>-->
+        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Prijs"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.Price, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
     </Grid>
 </UserControl>

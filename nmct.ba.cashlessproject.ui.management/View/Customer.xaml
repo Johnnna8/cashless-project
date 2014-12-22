@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
              xmlns:c="clr-namespace:nmct.ba.cashlessproject.ui.management.View.converters"
              mc:Ignorable="d"
-             d:DesignHeight="410" d:DesignWidth="780">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <UserControl.DataContext>
         <vm:CustomerVM />
     </UserControl.DataContext>
@@ -29,7 +29,6 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>

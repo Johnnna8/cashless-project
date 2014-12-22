@@ -120,6 +120,7 @@ namespace nmct.ba.cashlessproject.model
         private string _email;
 
         [Required]
+        [EmailAddress]
         [DisplayName("Emailadres")]
         public string Email
         {

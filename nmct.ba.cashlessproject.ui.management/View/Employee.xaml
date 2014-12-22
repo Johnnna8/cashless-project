@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
              mc:Ignorable="d"
-             d:DesignHeight="410" d:DesignWidth="780">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <UserControl.DataContext>
         <vm:EmployeeVM />
     </UserControl.DataContext>
