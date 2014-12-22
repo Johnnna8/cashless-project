@@ -18,10 +18,19 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 
             ViewBag.Organisations = OrganisationDA.GetOrganisations();
 
+            //bij het opstarten en bij het klikken op alle kassa's --> alles weergeven
             if (sort == null || sort  == "allRegisters")
             {
                 return View(organisationsRegisters);
-            } else {
+
+            //bij het klikken op beschikbare kassa's --> enkel records weergeven zonder organisatie
+            } else if (sort == "availableRegisters") {
+
+                return View(organisationsRegisters.Where(or => or.Organisation.ID == 0));
+            
+            //standaard sorteren op de aangeklikte organisatie
+            } else
+            {
                 return View(organisationsRegisters.Where(or => or.Organisation.ID == Convert.ToInt32(sort)));
             }
         }
@@ -49,16 +58,16 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
                 && organisationRegister.Register.ExpiresDate != null)
             {
                 //als er een organisatie is toegekend, een record plaatsen in in de tussentabel
-                if (organisationRegister.Organisation.ID != 6)
+                if (organisationRegister.Organisation.ID == 0)
+                {
+                    organisationRegister.FromDate = new DateTime(1970, 1, 1, 12, 0, 0);
+                    organisationRegister.UntilDate = new DateTime(1970, 1, 1, 12, 0, 0);
+                }
+                else
                 {
                     //dag van vandaag en niet purchase date, kassa kan bv. gisteren aangekocht zijn en vandaag pas toegekend zijn
                     organisationRegister.FromDate = DateTime.Today;
                     organisationRegister.UntilDate = organisationRegister.Register.ExpiresDate;
-                }
-                else
-                {
-                    organisationRegister.FromDate = new DateTime(1970, 1, 1, 12, 0, 0);
-                    organisationRegister.UntilDate = new DateTime(1970, 1, 1, 12, 0, 0);
                 }
 
                 int registerID = RegisterDA.CreateRegister(organisationRegister.Register);
@@ -76,7 +85,8 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 
             OrganisationRegister organisationRegister = RegisterDA.GetRegisterByID(id.Value);
 
-            if (organisationRegister == null)
+            //hier controleren op ID en niet op null, door gebruik te maken van RIGHT JOIN is organisationRegister nooit null
+            if (organisationRegister.ID == 0)
                 return RedirectToAction("Index");
 
             ViewBag.Organisations = OrganisationDA.GetOrganisations();
@@ -86,26 +96,31 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 
         public ActionResult Edit(OrganisationRegister organisationRegister)
         {
-            //ok: als de vereniging hetzelfde blijft blijven de from en until onaangepast
-            //ok: als er geen vereging wordt toegekent staan de from en until op default
-            //niet ok: als je van vereniging veranderd blijven de from en until onaangepast --> from moet aangepast zijn op de dag van vandaag, kan wel manueel aangepast worden
+            //nog extra controle: geldig id
 
-            if (organisationRegister.Organisation.ID != 0 
-                && organisationRegister.Register.ID != 0
-                && !string.IsNullOrEmpty(organisationRegister.Register.RegisterName) 
-                && !string.IsNullOrEmpty(organisationRegister.Register.Device))
+            //bestaand record ophalen
+            OrganisationRegister orOud = RegisterDA.GetRegisterByID(organisationRegister.ID);
+
+            ////van niet beschikbaar naar beschikbaar (geen organisatie)
+            if (orOud.Organisation.ID == 0 && organisationRegister.Organisation.ID != 0)
             {
-
-                if (organisationRegister.Organisation.ID == 6)
-                {
-                    organisationRegister.FromDate = new DateTime(1970, 1, 1, 12, 0, 0);
-                    organisationRegister.UntilDate = new DateTime(1970, 1, 1, 12, 0, 0);
-                }
-
-                RegisterDA.EditRegister(organisationRegister.Register);
-                RegisterDA.DeleteRegisterOrganisation(organisationRegister.Register.ID);
-                RegisterDA.CreateRegisterOrganisation(organisationRegister, organisationRegister.Register.ID);
+                organisationRegister.FromDate = DateTime.Today;
+                organisationRegister.UntilDate = orOud.Register.ExpiresDate;
             }
+
+            //van beschikbaar naar niet beschikbaar (wel een organisatie)
+            else if (orOud.Organisation.ID != 0 && organisationRegister.Organisation.ID == 0)
+            {
+                organisationRegister.FromDate = new DateTime(1970, 1, 1, 12, 0, 0);
+                organisationRegister.UntilDate = new DateTime(1970, 1, 1, 12, 0, 0);
+            }
+            else
+            {
+                organisationRegister.FromDate = orOud.FromDate;
+                organisationRegister.UntilDate = orOud.UntilDate;
+            }
+
+            RegisterDA.UpdateRegisterOrganisation(organisationRegister);
 
             return RedirectToAction("Index");
         }

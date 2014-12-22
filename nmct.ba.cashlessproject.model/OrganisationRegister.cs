@@ -36,6 +36,7 @@ namespace nmct.ba.cashlessproject.model
 
         private DateTime _fromDate;
 
+        [ReadOnly(true)]
         [DisplayName("In bezit van")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FromDate
@@ -46,6 +47,7 @@ namespace nmct.ba.cashlessproject.model
 
         private DateTime _untilDate;
 
+        [ReadOnly(true)]
         [DisplayName("In bezit tot")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime UntilDate

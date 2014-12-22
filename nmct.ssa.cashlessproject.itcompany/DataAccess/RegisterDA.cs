@@ -17,10 +17,10 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
         {
             List<OrganisationRegister> organisationsRegisters = new List<OrganisationRegister>();
 
-            string sql = "SELECT o.OrganisationName, orgr.ID, orgr.OrganisationID, orgr.RegisterID, orgr.FromDate, orgr.UntilDate , r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
+            string sql = "SELECT o.OrganisationName, orgr.ID, orgr.OrganisationID, r.ID as RegisterID, orgr.FromDate, orgr.UntilDate , r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
             sql += "FROM Organisations AS o ";
-            sql += "INNER JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
-            sql += "INNER JOIN Register as r ON orgr.RegisterID = r.ID";
+            sql += "RIGHT JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
+            sql += "RIGHT JOIN Register as r ON orgr.RegisterID = r.ID";
 
             DbDataReader reader = Database.GetData(CONNECTIONSTRING, sql);
             while (reader.Read())
@@ -36,10 +36,10 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
         {
             OrganisationRegister organisationRegister = new OrganisationRegister();
 
-            string sql = "SELECT o.OrganisationName, orgr.ID, orgr.OrganisationID, orgr.RegisterID,  orgr.FromDate, orgr.UntilDate, r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
+            string sql = "SELECT o.OrganisationName, orgr.ID, orgr.OrganisationID, r.ID as RegisterID, orgr.FromDate, orgr.UntilDate , r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
             sql += "FROM Organisations AS o ";
-            sql += "INNER JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
-            sql += "INNER JOIN Register as r ON orgr.RegisterID = r.ID ";
+            sql += "RIGHT JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
+            sql += "RIGHT JOIN Register as r ON orgr.RegisterID = r.ID ";
             sql += "WHERE orgr.ID = @ID";
 
             DbParameter par1 = Database.AddParameter(CONNECTIONSTRING, "@ID", id);
@@ -90,13 +90,6 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
             return Database.InsertData(CONNECTIONSTRING, sql, par1, par2, par3, par4);
         }
 
-        public static void DeleteRegisterOrganisation(int registerID)
-        {
-            string sql = "DELETE FROM OrganisationRegister WHERE RegisterID=@RegisterID";
-            DbParameter par1 = Database.AddParameter(CONNECTIONSTRING, "@RegisterID", registerID);
-            Database.ModifyData(CONNECTIONSTRING, sql, par1);
-        }
-
         public static void CreateRegisterOrganisation(OrganisationRegister or, int registerID)
         {
             string sql = "INSERT INTO OrganisationRegister (OrganisationID, RegisterID, FromDate, UntilDate) ";
@@ -110,17 +103,16 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
             Database.InsertData(CONNECTIONSTRING, sql, par1, par2, par3, par4);
         }
 
-        public static void EditRegister(RegisterCompany r)
+        public static void UpdateRegisterOrganisation(OrganisationRegister or)
         {
-            string sql = "UPDATE Register SET RegisterName=@RegisterName, Device=@Device, PurchaseDate=@PurchaseDate, ExpiresDate=@ExpiresDate WHERE ID=@ID";
+            string sql = "UPDATE OrganisationRegister SET OrganisationID=@OrganisationID, FromDate=@FromDate, UntilDate=@UntilDate WHERE ID=@ID";
 
-            DbParameter par1 = Database.AddParameter(CONNECTIONSTRING, "@RegisterName", r.RegisterName);
-            DbParameter par2 = Database.AddParameter(CONNECTIONSTRING, "@Device", r.Device);
-            DbParameter par3 = Database.AddParameter(CONNECTIONSTRING, "@PurchaseDate", r.PurchaseDate.ToUnixTimestamp());
-            DbParameter par4 = Database.AddParameter(CONNECTIONSTRING, "@ExpiresDate", r.ExpiresDate.ToUnixTimestamp());
-            DbParameter par5 = Database.AddParameter(CONNECTIONSTRING, "@ID", r.ID);
+            DbParameter par1 = Database.AddParameter(CONNECTIONSTRING, "@OrganisationID", or.Organisation.ID);
+            DbParameter par2 = Database.AddParameter(CONNECTIONSTRING, "@FromDate", or.FromDate.ToUnixTimestamp());
+            DbParameter par3 = Database.AddParameter(CONNECTIONSTRING, "@UntilDate", or.UntilDate.ToUnixTimestamp());
+            DbParameter par4 = Database.AddParameter(CONNECTIONSTRING, "@ID", or.ID);
 
-            Database.ModifyData(CONNECTIONSTRING, sql, par1, par2, par3, par4, par5);
+            Database.ModifyData(CONNECTIONSTRING, sql, par1, par2, par3, par4);
         }
     }
 }

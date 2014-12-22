@@ -23,9 +23,18 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <select class="form-control" name="Organisation.ID">
-                        @foreach (var organisation in ViewBag.Organisations)
+                        @if (Model.Organisation.ID == 0)
                         {
-                            if (Model.Organisation.ID == @organisation.ID)
+                            <option value="0" selected>Geen vereniging</option>
+                        }
+                        else
+                        {
+                            <option value="0">Geen vereniging</option>
+                        }
+
+                        @foreach (var organisation in ViewBag.Organisations)
+                        {                  
+                            if (Model.Organisation.ID == organisation.ID)
                             {
                                 <option value="@organisation.ID" selected>@organisation.OrganisationName</option>
                             }
@@ -36,54 +45,6 @@
                         }
                     </select>
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Register.RegisterName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Register.RegisterName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Register.RegisterName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Register.Device, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Register.Device, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Register.Device, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Register.PurchaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Register.PurchaseDate, new { @class = "form-control datepicker" })
-                @Html.ValidationMessageFor(model => model.Register.PurchaseDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Register.ExpiresDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Register.ExpiresDate, new { @class = "form-control datepicker" })
-                @Html.ValidationMessageFor(model => model.Register.ExpiresDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker" })
-                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UntilDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.UntilDate, new { @class = "form-control datepicker" })
-                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
             </div>
         </div>
 

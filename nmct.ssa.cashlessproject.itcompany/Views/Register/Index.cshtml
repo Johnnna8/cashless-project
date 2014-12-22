@@ -22,6 +22,7 @@
                 <div class="dropdown">
                     <select class="form-control" name="sort">
                         <option value="allRegisters">Alle kassa's</option>
+                        <option value="availableRegisters">Beschikbare kassa's</option>
                         @foreach (var organisation in ViewBag.Organisations)
                         {
                             <option value="@organisation.ID">@organisation.OrganisationName</option>
@@ -67,17 +68,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Organisation.OrganisationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FromDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UntilDate)
-        </td>
+        @if (item.Organisation.OrganisationName == "")
+        {
+            <td>Geen</td>
+        }
+        else
+        {
+            <td>@Html.DisplayFor(modelItem => item.Organisation.OrganisationName)</td>
+        }
+
+        @if (item.FromDate.ToString() == "1/1/1970 12:00:00 PM")
+        {
+            <td>/</td>
+        }
+        else
+        {
+            <td>@Html.DisplayFor(modelItem => item.FromDate)</td>
+        }
+
+        @if (item.UntilDate.ToString() == "1/1/1970 12:00:00 PM")
+        {
+            <td>/</td>
+        }
+        else
+        {
+            <td>@Html.DisplayFor(modelItem => item.UntilDate)</td>
+        }
+
         <td>
             @Html.DisplayFor(modelItem => item.Register.RegisterName)
         </td>

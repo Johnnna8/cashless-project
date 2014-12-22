@@ -21,6 +21,7 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <select class="form-control" name="Organisation.ID">
+                        <option value="0">Geen vereniging</option>
                         @foreach (var organisation in ViewBag.Organisations)
                         {
                             <option value="@organisation.ID">@organisation.OrganisationName</option>

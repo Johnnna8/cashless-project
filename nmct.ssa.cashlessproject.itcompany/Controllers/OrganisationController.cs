@@ -1,6 +1,7 @@
 ﻿using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using nmct.ssa.cashlessproject.itcompany.DataAccess;
+using nmct.ssa.cashlessproject.itcompany.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,7 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
                 organisation.DbLogin = Cryptography.Encrypt(organisation.DbLogin);
                 organisation.DbPassword = Cryptography.Encrypt(organisation.DbPassword);
 
+                CreateDatabaseOrganisation.CreateDatabase(organisation);
                 OrganisationDA.NewOrganisation(organisation);
             }
 

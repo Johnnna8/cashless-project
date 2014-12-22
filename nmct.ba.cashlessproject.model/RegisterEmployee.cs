@@ -8,6 +8,14 @@ namespace nmct.ba.cashlessproject.model
 {
     public class RegisterEmployee
     {
+        private int _ID;
+
+        public int ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
+        }
+
         private Register _registerID;
 
         public Register RegisterID
