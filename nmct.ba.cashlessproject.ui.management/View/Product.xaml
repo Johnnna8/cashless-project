@@ -15,7 +15,7 @@
                 <Border BorderBrush="Red">
                     <AdornedElementPlaceholder/>
                 </Border>
-                <TextBlock Margin="8" Foreground="Red" Text="{Binding [0].ErrorContent}"/>
+                <TextBlock Margin="8" Text="{Binding [0].ErrorContent}"/>
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
@@ -48,13 +48,15 @@
         <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" x:Name="lstProducten" ItemsSource="{Binding Products}" DisplayMemberPath="ProductName" SelectedItem="{Binding SelectedProduct}"/>
 
         <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Nieuw" Command="{Binding NewProductCommand}"/>
-        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveProductCommand}" />
-        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" />
+        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveProductCommand}" IsEnabled="{Binding EnableDisableButtons}" />
+        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" IsEnabled="{Binding EnableDisableButtons}" />
 
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Prijs"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.Price, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="6" Text="{Binding Error}" Foreground="red" />
     </Grid>
 </UserControl>

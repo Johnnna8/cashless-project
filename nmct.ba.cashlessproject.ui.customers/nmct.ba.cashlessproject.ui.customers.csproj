@@ -54,7 +54,9 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
@@ -86,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="converters\StringToImageConverter.cs" />
     <Compile Include="ViewModel\SignInVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\IPage.cs" />
@@ -140,6 +143,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\nmct.ba.cashlessproject.helper\nmct.ba.cashlessproject.helper.csproj">
+      <Project>{54832c72-26c4-4b8f-918e-430b9e153e3d}</Project>
+      <Name>nmct.ba.cashlessproject.helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj">
       <Project>{fe043724-9ef5-497d-8df3-2f4a70437b00}</Project>
       <Name>nmct.ba.cashlessproject.model</Name>
@@ -162,6 +169,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\noimage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

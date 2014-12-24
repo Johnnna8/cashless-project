@@ -23,41 +23,27 @@ namespace nmct.ba.cashlessproject.api.Models
             return Database.CreateConnectionString("System.Data.SqlClient", @"JONA\DATAMANAGEMENT", Cryptography.Decrypt(dbname), Cryptography.Decrypt(dblogin), Cryptography.Decrypt(dbpass));
         }
 
-        public static Customer GetCustomerByNationalNumber(int nationalNumber, IEnumerable<Claim> claims)
+        //public static List<Customer> GetCustomers(IEnumerable<Claim> claims)
+        //{
+        //    List<Customer> customers = new List<Customer>();
+
+        //    string sql = "SELECT * FROM Customer";
+        //    DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
+        //    while (reader.Read())
+        //    {
+        //        customers.Add(Create(reader));
+        //    }
+        //    reader.Close();
+
+        //    return customers;
+        //}
+
+        public static Customer GetCustomerByNationalNumber(string nationalNumber, IEnumerable<Claim> claims)
         {
             Customer customer = new Customer();
 
-            string sql = "SELECT * FROM Customer WHERE ID = @NationalNumber";
-            DbParameter par1 = Database.AddParameter("ConnectionString", "@ID", nationalNumber);
-            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
-
-            customer = Create(reader);
-            reader.Close();
-
-            return customer;
-        }
-
-        public static List<Customer> GetCustomers(IEnumerable<Claim> claims)
-        {
-            List<Customer> customers = new List<Customer>();
-
-            string sql = "SELECT * FROM Customer";
-            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
-            while (reader.Read())
-            {
-                customers.Add(Create(reader));
-            }
-            reader.Close();
-
-            return customers;
-        }
-
-        public static Customer GetCustomer(int id, IEnumerable<Claim> claims)
-        {
-            Customer customer = new Customer();
-
-            string sql = "SELECT * FROM Customer WHERE ID=@ID";
-            DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
+            string sql = "SELECT * FROM Customer WHERE NationalNumber=@NationalNumber";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@NationalNumber", nationalNumber);
             DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql, par1);
 
             while (reader.Read())
@@ -79,10 +65,10 @@ namespace nmct.ba.cashlessproject.api.Models
             return new Customer()
             {
                 ID = Convert.ToInt32(record["ID"]),
+                NationalNumber = record["NationalNumber"].ToString(),
                 Firstname = record["Firstname"].ToString(),
                 Lastname = record["Lastname"].ToString(),
                 Street = record["Street"].ToString(),
-                StreetNumber = record["StreetNumber"].ToString(),
                 Postcode = record["Postcode"].ToString(),
                 City = record["City"].ToString(),
                 Picture = picture,
@@ -92,15 +78,16 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static int InsertCustomer(Customer c, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Customer VALUES(@Firstname,@Lastname,@Street,@StreetNumber,@Postcode,@City,@Picture,@Balance)";
-            DbParameter par1 = Database.AddParameter("AdminDB", "@Firstname", c.Firstname);
-            DbParameter par2 = Database.AddParameter("AdminDB", "@Lastname", c.Lastname);
-            DbParameter par3 = Database.AddParameter("AdminDB", "@Street", c.Street);
-            DbParameter par4 = Database.AddParameter("AdminDB", "@StreetNumber", c.StreetNumber);
+            string sql = "INSERT INTO Customer VALUES(@NationalNumber,@Firstname,@Lastname,@Street,@Postcode,@City,@Picture,@Balance)";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@NationalNumber", c.NationalNumber);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@Firstname", c.Firstname);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@Lastname", c.Lastname);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@Street", c.Street);
             DbParameter par5 = Database.AddParameter("AdminDB", "@Postcode", c.Postcode);
             DbParameter par6 = Database.AddParameter("AdminDB", "@City", c.City);
             DbParameter par7 = Database.AddParameter("AdminDB", "@Picture", c.Picture);
-            DbParameter par8 = Database.AddParameter("AdminDB", "@Balance", c.Balance);
+            DbParameter par8 = Database.AddParameter("AdminDB", "@Balance", 0);
+
             return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
         }
 
@@ -125,6 +112,15 @@ namespace nmct.ba.cashlessproject.api.Models
             DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
             DbConnection con = Database.GetConnection(CreateConnectionString(claims));
             Database.ModifyData(con, sql, par1);
+        }
+
+        public static Boolean checkCustomerExists(string nationalNumber, IEnumerable<Claim> claims)
+        {
+            string sql = "SELECT * FROM Customer WHERE NationalNumber=@NationalNumber";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@NationalNumber", nationalNumber);
+
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql, par1);
+            return reader.HasRows;
         }
     }
 }

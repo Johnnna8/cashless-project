@@ -27,7 +27,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource Titel}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" Text="Welkom! Scan uw identiteitskaart" HorizontalAlignment="Center"/>
-            <Button Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="4" Content="Identificeer" Command="{Binding IdentificeerCommand}"/>
+            <Button Grid.Row="3" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="4" Content="Identificeer" Command="{Binding IdentificeerCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

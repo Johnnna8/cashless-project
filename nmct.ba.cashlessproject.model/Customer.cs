@@ -18,6 +18,14 @@ namespace nmct.ba.cashlessproject.model
             set { _ID = value; }
         }
 
+        private string _nationalNumber;
+
+        public string NationalNumber
+        {
+            get { return _nationalNumber; }
+            set { _nationalNumber = value; }
+        }
+
         private string _firstname;
 
         public string Firstname

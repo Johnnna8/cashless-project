@@ -2,9 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:nmct.ba.cashlessproject.ui.customers.ViewModel"
+             xmlns:cv="clr-namespace:nmct.ba.cashlessproject.ui.customers.converters"
              mc:Ignorable="d" 
              d:DesignHeight="410" d:DesignWidth="780">
+    <UserControl.DataContext>
+        <c:RegisterVM />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <cv:StringToImageConverter x:Key="StringToImageConverter"/>
+    </UserControl.Resources>
     <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -30,29 +38,26 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.ColumnSpan="2" Text="Huidig saldo"/>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.ColumnSpan="4" Text="Kaart opladen" Style="{StaticResource Titel}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Text="Uw gegevens" />
 
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="Opladen (max 100 euro)"/>
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Voornaam" />
+        <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Text="{Binding Customer.Firstname}" IsEnabled="False" />
 
-        <Border Grid.Row="2" Grid.ColumnSpan="12" BorderThickness="0,1,0,0" BorderBrush="#e8e8e8"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Text="Familienaam" />
+        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Text="{Binding Customer.Lastname}" IsEnabled="False" />
 
-        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Cash (biljetten tot 50 euro)"/>
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Nieuw saldo:"/>
-        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Text="(Plaats biljetten in om saldo te verhogen)"/>
-        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Image Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Customer.Picture, Converter={StaticResource StringToImageConverter}}"/>
 
-        <Border Grid.Row="2" Grid.Column="5" Grid.RowSpan="5" BorderThickness="0,0,1,0" BorderBrush="#e8e8e8"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="6" Text="Uw saldo:" />
+        <TextBox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="Bankkaart"/>
-        <Button Grid.Row="3" Grid.Column="6" Content="€ 5"/>
-        <Button Grid.Row="3" Grid.Column="7" Content="€ 10"/>
-        <Button Grid.Row="3" Grid.Column="8" Content="€ 20"/>
-        <Button Grid.Row="3" Grid.Column="9" Content="€ 50"/>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="6" Text="Druk op de biljetten om saldo te verhogen" />
+        <Button Grid.Row="2" Grid.Column="6" Content="€ 5"/>
+        <Button Grid.Row="2" Grid.Column="7" Content="€ 10"/>
+        <Button Grid.Row="2" Grid.Column="8" Content="€ 20"/>
+        <Button Grid.Row="2" Grid.Column="9" Content="€ 50"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="Bedrag:"/>
-        <TextBox Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="2"/>
-        <Button Grid.Row="5" Grid.Column="8" Grid.ColumnSpan="2" Content="Opladen"/>
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="6" Text="Foutmelding" />
     </Grid>
 </UserControl>

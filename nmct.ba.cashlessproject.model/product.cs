@@ -22,7 +22,6 @@ namespace nmct.ba.cashlessproject.model
 
         [Required(ErrorMessage = "De productnaam is verplicht")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{3,50}$", ErrorMessage = "Productnaam tussen de 3 en 50 karakters, geen speciale tekens")]
-        //[StringLength(50, MinimumLength = 3, ErrorMessage = "De productnaam moet tussen de 3 en 50 karakters bevatten ")]
         public string ProductName
         {
             get { return _productName; }
@@ -32,7 +31,7 @@ namespace nmct.ba.cashlessproject.model
         private double _price;
 
         [Required(ErrorMessage = "De prijs is verplicht")]
-        [Range(0, 10000, ErrorMessage = "Prijs tussen 0 en 10000")]
+        [Range(0.01, 10000, ErrorMessage = "Prijs tussen 0.01 en 10000")]
         public double Price
         {
             get { return _price; }

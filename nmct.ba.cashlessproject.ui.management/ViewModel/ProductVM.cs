@@ -38,8 +38,22 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public Product SelectedProduct
         {
-            get { return _selectedProduct; }
-            set { _selectedProduct = value; OnPropertyChanged("SelectedProduct"); }
+            get {
+                return _selectedProduct;
+            }
+            set {
+                _selectedProduct = value;
+                OnPropertyChanged("SelectedProduct");
+
+                if (SelectedProduct != null)
+                {
+                    EnableDisableButtons = true;
+                }
+                else
+                {
+                    EnableDisableButtons = false;
+                }
+            }
         }
 
         private async void GetProducts()
@@ -63,17 +77,32 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public ICommand SaveProductCommand
         {
-            //get { return new RelayCommand(SaveProduct, SelectedProduct.IsValid); }
+
             get {
-                if (SelectedProduct != null)
-                    return new RelayCommand(SaveProduct, SelectedProduct.IsValid);
-                else return new RelayCommand(SaveProduct);
+                return new RelayCommand(SaveProduct);
             }
         }
 
         public ICommand DeleteProductCommand
         {
             get { return new RelayCommand(DeleteProduct); }
+        }
+
+
+        private Boolean _enableDisableButtons;
+
+        public Boolean EnableDisableButtons
+        {
+            get { return _enableDisableButtons; }
+            set { _enableDisableButtons = value; OnPropertyChanged("EnableDisableButtons"); }
+        }
+
+        private string _error;
+
+        public string Error
+        {
+            get { return _error; }
+            set { _error = value; OnPropertyChanged("Error"); }
         }
 
         private void NewProduct()
@@ -84,14 +113,18 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         }
 
         private async void SaveProduct()
-        {
-            string input = JsonConvert.SerializeObject(SelectedProduct);
-            
-            //opvangen dat je op opslaan klikt zonder een product te selecteren of op nieuw te klikken
-            if (SelectedProduct == null)
+        { 
+            if (SelectedProduct == null || !SelectedProduct.IsValid())
             {
+                Error = "Product niet toegevoegd of gewijzigd, houd rekening met de meldingen.";
                 return;
             }
+            else
+            {
+                Error = "";
+            }
+
+            string input = JsonConvert.SerializeObject(SelectedProduct);
 
             // check insert (no ID assigned) or update (already an ID assigned)
             if (SelectedProduct.ID == 0)
@@ -131,6 +164,10 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             if (SelectedProduct == null)
             {
                 return;
+            }
+            else
+            {
+                Error = "";
             }
 
             using (HttpClient client = new HttpClient())

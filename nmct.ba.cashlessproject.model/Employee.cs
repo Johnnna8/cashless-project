@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.model
 {
-    public class Employee
+    public class Employee : IDataErrorInfo
     {
         private int _ID;
 
@@ -18,6 +20,7 @@ namespace nmct.ba.cashlessproject.model
 
         private string _firstname;
 
+        [Required(ErrorMessage = "Voornaam is verplicht")]
         public string Firstname
         {
             get { return _firstname; }
@@ -78,6 +81,33 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return _phone; }
             set { _phone = value; }
+        }
+
+        public string Error
+        {
+            get { return null; }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columnName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = columnName });
+                }
+                catch (ValidationException ex)
+                {
+                    return ex.Message;
+                }
+                return String.Empty;
+            }
         }
     }
 }
