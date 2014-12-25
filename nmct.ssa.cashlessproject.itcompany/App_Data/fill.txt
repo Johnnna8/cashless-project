@@ -16,10 +16,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Customer](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[NationalNumber] [nvarchar](50) NOT NULL,
 	[Firstname] [nvarchar](30) NOT NULL,
 	[Lastname] [nvarchar](30) NOT NULL,
 	[Street] [nvarchar](50) NOT NULL,
-	[StreetNumber] [nvarchar](10) NOT NULL,
 	[Postcode] [nvarchar](6) NOT NULL,
 	[City] [nvarchar](40) NOT NULL,
 	[Picture] [image] NULL,

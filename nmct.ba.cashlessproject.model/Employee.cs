@@ -83,6 +83,11 @@ namespace nmct.ba.cashlessproject.model
             set { _phone = value; }
         }
 
+        public override string ToString()
+        {
+            return Firstname + " " + Lastname;
+        }
+
         public string Error
         {
             get { return null; }

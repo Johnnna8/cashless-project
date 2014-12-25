@@ -22,21 +22,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
         {
             if (ApplicationVM.customer != null)
             {
-                GetCustomer();
-            }
-        }
-
-        private async void GetCustomer()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/customer?cnationalnumber=" + ApplicationVM.customer.NationalNumber);
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = await response.Content.ReadAsStringAsync();
-                    Customer = JsonConvert.DeserializeObject<Customer>(json);
-                }
+                Customer = ApplicationVM.customer;
             }
         }
 

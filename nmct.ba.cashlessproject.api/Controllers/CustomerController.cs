@@ -10,9 +10,9 @@ using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
 {
+    [Authorize]
     public class CustomerController : ApiController
     {
-        [Authorize]
         // GET: api/Customer
         public List<Customer> Get()
         {

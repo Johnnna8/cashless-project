@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using be.belgium.eid;
+using GalaSoft.MvvmLight.Command;
 using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using System;
@@ -63,9 +64,22 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
+        public ICommand AfmeldenCommand
+        {
+            get { return new RelayCommand(Afmelden); }
+        }
+
         public void ChangePage(IPage page)
         {
             CurrentPage = page;
+        }
+
+        private void Afmelden()
+        {
+            customer = null;
+            currentPage = Pages[0];
+            OnPropertyChanged("CurrentPage");
+            BEID_ReaderSet.releaseSDK();
         }
 
         public static Customer customer = null;

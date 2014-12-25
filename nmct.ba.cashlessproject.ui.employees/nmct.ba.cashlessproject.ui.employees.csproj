@@ -51,6 +51,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions">
@@ -85,7 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\SignInVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
-    <Compile Include="ViewModel\BestellenVM.cs" />
+    <Compile Include="ViewModel\OrderVM.cs" />
     <Compile Include="ViewModel\IPage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ObservableObject.cs" />
@@ -145,6 +146,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj">
+      <Project>{fe043724-9ef5-497d-8df3-2f4a70437b00}</Project>
+      <Name>nmct.ba.cashlessproject.model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

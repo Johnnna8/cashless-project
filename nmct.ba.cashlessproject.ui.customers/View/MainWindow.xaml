@@ -9,7 +9,7 @@
     </Window.DataContext>
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:SignInVM}">
-            <v:signIn/>
+            <v:SignIn/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:RegisterVM}">
             <v:Register/>
@@ -42,7 +42,7 @@
             <Border Style="{StaticResource BorderOnder}"/>
             <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
             <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging"/><LineBreak/><Run Text="Adres vereniging"/></TextBlock>
-            <Button Style="{StaticResource Afmelden}" Content="Afmelden" />
+            <Button Style="{StaticResource Afmelden}" Command="{Binding AfmeldenCommand}" Content="Afmelden" />
         </Grid>
 
     </Grid>

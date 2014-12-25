@@ -90,7 +90,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
                 }
             }
 
-            catch (BEID_Exception ex)
+            catch (BEID_Exception)
             {
                 BEID_ReaderSet.releaseSDK();
                 return null;

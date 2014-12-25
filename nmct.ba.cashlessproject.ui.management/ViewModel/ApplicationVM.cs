@@ -59,7 +59,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             CurrentPage = page;
         }
 
-
         public ICommand LogoutCommand
         {
             get { return new RelayCommand<MainWindow>(Logout); }

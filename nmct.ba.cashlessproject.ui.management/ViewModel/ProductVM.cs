@@ -28,6 +28,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         }
 
         private ObservableCollection<Product> _products;
+
         public ObservableCollection<Product> Products
         {
             get { return _products; }

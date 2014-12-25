@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-//using System.Windows.Media.Imaging;
 
 namespace nmct.ba.cashlessproject.model
 {
@@ -88,6 +87,11 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return _balance; }
             set { _balance = value; }
+        }
+
+        public override string ToString()
+        {
+            return Firstname + " " + Lastname;
         }
     }
 }

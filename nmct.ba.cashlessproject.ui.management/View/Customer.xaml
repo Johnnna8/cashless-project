@@ -40,35 +40,33 @@
 
         <TextBlock Grid.ColumnSpan="2" Text="Alle klanten:"/>
         <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" ItemsSource="{Binding Customers}" DisplayMemberPath="Firstname" SelectedItem="{Binding SelectedCustomer}"/>
+        <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveCustomerCommand}" />
+        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteCustomerCommand}" />
 
-        <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Nieuw" Command="{Binding NewCustomerCommand}"/>
-        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveCustomerCommand}" />
-        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteCustomerCommand}" />
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Rijksregisternummer:"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.NationalNumber}" IsEnabled="False"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Firstname}"/>
-        <TextBox Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Lastname}"/>
+        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Firstname}" IsEnabled="False"/>
+        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Lastname}" IsEnabled="False"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Street}"/>
-        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.StreetNumber}"/>
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
+        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Street}" IsEnabled="False"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
-        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Postcode}"/>
-        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.City}"/>
-
-        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Text="Upload:"/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
+        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Postcode}" IsEnabled="False"/>
+        <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.City}" IsEnabled="False"/>
         <Image Grid.Row="4" Grid.Column="9" />
 
-        <Button Grid.Row="4" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="3" Command="{Binding AddImageCommand}">
+        <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo"/>
+        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Balance}"/>
+
+        <Button Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding AddImageCommand}">
             <Button.Template>
                 <ControlTemplate>
-                    <Image Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
+                    <Image Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-
-        <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo"/>
-        <TextBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Balance}"/>
     </Grid>
 </UserControl>

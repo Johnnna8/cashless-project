@@ -23,20 +23,20 @@ namespace nmct.ba.cashlessproject.api.Models
             return Database.CreateConnectionString("System.Data.SqlClient", @"JONA\DATAMANAGEMENT", Cryptography.Decrypt(dbname), Cryptography.Decrypt(dblogin), Cryptography.Decrypt(dbpass));
         }
 
-        //public static List<Customer> GetCustomers(IEnumerable<Claim> claims)
-        //{
-        //    List<Customer> customers = new List<Customer>();
+        public static List<Customer> GetCustomers(IEnumerable<Claim> claims)
+        {
+            List<Customer> customers = new List<Customer>();
 
-        //    string sql = "SELECT * FROM Customer";
-        //    DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
-        //    while (reader.Read())
-        //    {
-        //        customers.Add(Create(reader));
-        //    }
-        //    reader.Close();
+            string sql = "SELECT * FROM Customer";
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
+            while (reader.Read())
+            {
+                customers.Add(Create(reader));
+            }
+            reader.Close();
 
-        //    return customers;
-        //}
+            return customers;
+        }
 
         public static Customer GetCustomerByNationalNumber(string nationalNumber, IEnumerable<Claim> claims)
         {
@@ -93,17 +93,16 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static void UpdateCustomer(Customer c, IEnumerable<Claim> claims)
         {
-            string sql = "UPDATE Customer SET Firstname=@Firstname, Lastname=@Lastname, Street=@Street, StreetNumber=@StreetNumber, Postcode=@Postcode, City=@City, Picture=@Picture, Balance=@Balance WHERE ID=@ID";
+            string sql = "UPDATE Customer SET Firstname=@Firstname, Lastname=@Lastname, Street=@Street, Postcode=@Postcode, City=@City, Picture=@Picture, Balance=@Balance WHERE ID=@ID";
             DbParameter par1 = Database.AddParameter("AdminDB", "@Firstname", c.Firstname);
             DbParameter par2 = Database.AddParameter("AdminDB", "@Lastname", c.Lastname);
             DbParameter par3 = Database.AddParameter("AdminDB", "@Street", c.Street);
-            DbParameter par4 = Database.AddParameter("AdminDB", "@StreetNumber", c.StreetNumber);
-            DbParameter par5 = Database.AddParameter("AdminDB", "@Postcode", c.Postcode);
-            DbParameter par6 = Database.AddParameter("AdminDB", "@City", c.City);
-            DbParameter par7 = Database.AddParameter("AdminDB", "@Picture", c.Picture);
-            DbParameter par8 = Database.AddParameter("AdminDB", "@Balance", c.Balance);
-            DbParameter par9 = Database.AddParameter("AdminDB", "@ID", c.ID);
-            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@Postcode", c.Postcode);
+            DbParameter par5 = Database.AddParameter("AdminDB", "@City", c.City);
+            DbParameter par6 = Database.AddParameter("AdminDB", "@Picture", c.Picture);
+            DbParameter par7 = Database.AddParameter("AdminDB", "@Balance", c.Balance);
+            DbParameter par8 = Database.AddParameter("AdminDB", "@ID", c.ID);
+            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
         }
 
         public static void DeleteCustomer(int id, IEnumerable<Claim> claims)

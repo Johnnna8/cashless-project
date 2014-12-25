@@ -54,8 +54,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
                     Employees = JsonConvert.DeserializeObject<ObservableCollection<Employee>>(json);
                 }
             }
-
-            NewEmployee();
         }
 
         public ICommand NewEmployeeCommand

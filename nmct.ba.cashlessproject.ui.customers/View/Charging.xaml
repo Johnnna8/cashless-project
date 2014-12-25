@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="410" d:DesignWidth="780">
     <UserControl.DataContext>
-        <c:RegisterVM />
+        <c:ChargingVM />
     </UserControl.DataContext>
     <UserControl.Resources>
         <cv:StringToImageConverter x:Key="StringToImageConverter"/>
@@ -39,7 +39,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="4" Text="Kaart opladen" Style="{StaticResource Titel}" />
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Text="Uw gegevens" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Text="Uw gegevens:" />
 
         <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Voornaam" />
         <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Text="{Binding Customer.Firstname}" IsEnabled="False" />
@@ -50,14 +50,14 @@
         <Image Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Customer.Picture, Converter={StaticResource StringToImageConverter}}"/>
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="6" Text="Uw saldo:" />
-        <TextBox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2" Text="{Binding Customer.Balance}"/>
 
         <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="6" Text="Druk op de biljetten om saldo te verhogen" />
-        <Button Grid.Row="2" Grid.Column="6" Content="€ 5"/>
-        <Button Grid.Row="2" Grid.Column="7" Content="€ 10"/>
-        <Button Grid.Row="2" Grid.Column="8" Content="€ 20"/>
-        <Button Grid.Row="2" Grid.Column="9" Content="€ 50"/>
+        <Button Grid.Row="2" Grid.Column="6" Content="€ 5" Command="{Binding AddFiveCommand}"/>
+        <Button Grid.Row="2" Grid.Column="7" Content="€ 10" Command="{Binding AddTenCommand}" />
+        <Button Grid.Row="2" Grid.Column="8" Content="€ 20" Command="{Binding AddTwentyCommand}" />
+        <Button Grid.Row="2" Grid.Column="9" Content="€ 50" Command="{Binding AddFiftyCommand}" />
 
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="6" Text="Foutmelding" />
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="6" Text="{Binding Foutmelding}" />
     </Grid>
 </UserControl>

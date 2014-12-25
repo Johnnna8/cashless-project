@@ -58,11 +58,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             }
         }
 
-        public ICommand NewCustomerCommand
-        {
-            get { return new RelayCommand(NewCustomer); }
-        }
-
         public ICommand SaveCustomerCommand
         {
             get { return new RelayCommand(SaveCustomer); }
@@ -71,18 +66,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         public ICommand DeleteCustomerCommand
         {
             get { return new RelayCommand(DeleteCustomer); }
-        }
-
-        public ICommand AddImageCommand
-        {
-            get { return new RelayCommand(AddImage); }
-        }
-
-        private void NewCustomer()
-        {
-            Customer c = new Customer();
-            Customers.Add(c);
-            SelectedCustomer = c;
         }
 
         private async void SaveCustomer()
@@ -94,34 +77,13 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
             string input = JsonConvert.SerializeObject(SelectedCustomer);
 
-            // check insert (no ID assigned) or update (already an ID assigned)
-            if (SelectedCustomer.ID == 0)
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpClient client = new HttpClient())
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.PutAsync("http://localhost:55853/api/customer", new StringContent(input, Encoding.UTF8, "application/json"));
+                if (!response.IsSuccessStatusCode)
                 {
-                    client.SetBearerToken(ApplicationVM.token.AccessToken);
-                    HttpResponseMessage response = await client.PostAsync("http://localhost:55853/api/customer", new StringContent(input, Encoding.UTF8, "application/json"));
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string output = await response.Content.ReadAsStringAsync();
-                        SelectedCustomer.ID = Int32.Parse(output);
-                    }
-                    else
-                    {
-                        Console.WriteLine("error");
-                    }
-                }
-            }
-            else
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    client.SetBearerToken(ApplicationVM.token.AccessToken);
-                    HttpResponseMessage response = await client.PutAsync("http://localhost:55853/api/customer", new StringContent(input, Encoding.UTF8, "application/json"));
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        Console.WriteLine("error");
-                    }
+                    Console.WriteLine("error");
                 }
             }
         }
@@ -146,26 +108,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
                     Customers.Remove(SelectedCustomer);
                 }
             }
-        }
-
-        private void AddImage()
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == true)
-            {
-                SelectedCustomer.Picture = GetPhoto(ofd.FileName);
-                OnPropertyChanged("SelectedCustomer");
-            }
-        }
-
-        private byte[] GetPhoto(string path)
-        {
-            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            byte[] data = new byte[fs.Length];
-            fs.Read(data, 0, (int)fs.Length);
-            fs.Close();
-
-            return data;
         }
     }
 }
