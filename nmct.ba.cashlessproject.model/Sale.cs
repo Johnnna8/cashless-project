@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.model
 {
-    public class Sales
+    public class Sale
     {
         private int _ID;
 
@@ -26,7 +26,7 @@ namespace nmct.ba.cashlessproject.model
 
         private Customer _customer;
 
-        public Customer CustomerID
+        public Customer Customer
         {
             get { return _customer; }
             set { _customer = value; }

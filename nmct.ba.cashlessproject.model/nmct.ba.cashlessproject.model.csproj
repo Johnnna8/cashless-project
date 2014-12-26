@@ -54,7 +54,7 @@
     <Compile Include="Register.cs" />
     <Compile Include="RegisterCompany.cs" />
     <Compile Include="RegisterEmployee.cs" />
-    <Compile Include="Sales.cs" />
+    <Compile Include="Sale.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nmct.ba.cashlessproject.helper\nmct.ba.cashlessproject.helper.csproj">

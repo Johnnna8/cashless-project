@@ -63,32 +63,52 @@
             <Border Style="{StaticResource BorderKassa}"/>
 
             <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Producten:" />
-            <ListBox Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="3" x:Name="lstProducten" ItemsSource="{Binding Products}" DisplayMemberPath="ProductName" SelectedItem="{Binding SelectedProduct}"/>
+            <ListView Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ProductName}" Header="Product naam" Width="190"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Prijs per stuk" Width="115"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Grid.Row="6" Grid.ColumnSpan="3" Text="{Binding ErrorProducts}" />
 
             <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Aantal:" />
-            <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="50,8,8,8" Text="{Binding Aantal}" />
+            <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="50,8,8,8" Text="{Binding Amount}" />
             
-            <Button Grid.Row="4" Grid.Column="3" Content="1" Command="{Binding VerhoogAantalCommand}" CommandParameter="1" />
-            <Button Grid.Row="4" Grid.Column="4" Content="2" Command="{Binding TwoCommand}" />
-            <Button Grid.Row="4" Grid.Column="5" Content="3" Command="{Binding ThreeCommand}" />
-            <Button Grid.Row="3" Grid.Column="3" Content="4" Command="{Binding FourCommand}" />
-            <Button Grid.Row="3" Grid.Column="4" Content="5" Command="{Binding FiveCommand}" />
-            <Button Grid.Row="3" Grid.Column="5" Content="6" Command="{Binding SixCommand}" />
-            <Button Grid.Row="2" Grid.Column="3" Content="7" Command="{Binding SevenCommand}" />
-            <Button Grid.Row="2" Grid.Column="4" Content="8" Command="{Binding EightCommand}" />
-            <Button Grid.Row="2" Grid.Column="5" Content="9" Command="{Binding NineCommand}" />
+            <Button Grid.Row="4" Grid.Column="3" Content="1" Command="{Binding IncreaseAmountCommand}" CommandParameter="1" />
+            <Button Grid.Row="4" Grid.Column="4" Content="2" Command="{Binding IncreaseAmountCommand}" CommandParameter="2" />
+            <Button Grid.Row="4" Grid.Column="5" Content="3" Command="{Binding IncreaseAmountCommand}" CommandParameter="3" />
+            <Button Grid.Row="3" Grid.Column="3" Content="4" Command="{Binding IncreaseAmountCommand}" CommandParameter="4" />
+            <Button Grid.Row="3" Grid.Column="4" Content="5" Command="{Binding IncreaseAmountCommand}" CommandParameter="5" />
+            <Button Grid.Row="3" Grid.Column="5" Content="6" Command="{Binding IncreaseAmountCommand}" CommandParameter="6" />
+            <Button Grid.Row="2" Grid.Column="3" Content="7" Command="{Binding IncreaseAmountCommand}" CommandParameter="7" />
+            <Button Grid.Row="2" Grid.Column="4" Content="8" Command="{Binding IncreaseAmountCommand}" CommandParameter="8" />
+            <Button Grid.Row="2" Grid.Column="5" Content="9" Command="{Binding IncreaseAmountCommand}" CommandParameter="9" />
 
-            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Annuleer aantal" />
-            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" />
+            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Annuleer aantal" Command="{Binding ResetAmountCommand}" />
+            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" Command="{Binding AddProductCommand}" />
 
             <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="Bestelde producten:"/>
-            <ListBox Grid.Row="2" Grid.Column="6" Grid.RowSpan="4" Grid.ColumnSpan="3" />
-            <Button Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" />
 
-            <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="Totaal: x"/>
-            <TextBlock Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="Nieuw totaal: x"/>
-            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" />
-            <Button Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer (nieuwe klant)" />
+            <ListView Grid.Row="2" Grid.Column="6" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Sales}" SelectedItem="{Binding SelectedSale}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Product.ProductName}" Header="Product naam" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Amount}" Header="Aantal" Width="65"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Totale Prijs" Width="90"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" />
+
+            <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="Totaal:"/>
+            <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Margin="50,8,8,8" Text="{Binding TotalOrder}"/>
+            
+            <Button Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" Command="{Binding CheckOutCommand}" />
+            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer (nieuwe klant)" />
+            <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding ErrorSales}" />
         </Grid>
     </Grid>
 </UserControl>

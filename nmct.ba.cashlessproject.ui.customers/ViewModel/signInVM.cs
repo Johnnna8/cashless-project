@@ -122,7 +122,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
 
             BEID_EId data = card.getID();
             string  nationalNumber = data.getNationalNumber();
-            string firstname = data.getFirstName1();
+            string firstname = data.getFirstName1().Contains(' ') ? data.getFirstName1().Split(' ')[0] : data.getFirstName1();
             string lastname = data.getSurname();
             string street = data.getStreet();
             string postcode = data.getZipCode();

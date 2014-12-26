@@ -20,7 +20,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
 
         public ChargingVM()
         {
-            if (ApplicationVM.customer != null && ApplicationVM.token != null)
+            if (ApplicationVM.token != null && ApplicationVM.customer != null)
             {
                 GetCustomer();
             }
