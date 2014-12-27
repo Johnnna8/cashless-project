@@ -34,12 +34,34 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public ICommand LoginCommand
         {
-            get { return new RelayCommand<PasswordBox>(Login); }
+            get { return new RelayCommand(Login); }
         }
 
-        private void Login(PasswordBox pb)
+        //private void Login(PasswordBox pb)
+        //{
+        //    ApplicationVM.token = GetToken(pb);
+
+        //    if (!ApplicationVM.token.IsError)
+        //    {
+        //        //huidige window verbergen
+        //        App.Current.MainWindow.Hide();
+
+        //        MainWindow mw = new MainWindow();
+        //        mw.Show();
+
+        //        //login en password leegmaken, als er opnieuw ingelogd zou worden na het uitloggen
+        //        Username = null;
+        //        pb.Password = null;
+        //    }
+        //    else
+        //    {
+        //        Error = "Gebruikersnaam of paswoord kloppen niet";
+        //    }
+        //}
+
+        private void Login()
         {
-            ApplicationVM.token = GetToken(pb);
+            ApplicationVM.token = GetToken();
 
             if (!ApplicationVM.token.IsError)
             {
@@ -48,10 +70,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
                 MainWindow mw = new MainWindow();
                 mw.Show();
-
-                //login en password leegmaken, als er opnieuw ingelogd zou worden na het uitloggen
-                Username = null;
-                pb.Password = null;
             }
             else
             {
@@ -59,10 +77,12 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             }
         }
 
-        private TokenResponse GetToken(PasswordBox pb)
+        private TokenResponse GetToken()
         {
             OAuth2Client client = new OAuth2Client(new Uri("http://localhost:55853/token"));
-            return client.RequestResourceOwnerPasswordAsync(Username, pb.Password).Result;
+            return client.RequestResourceOwnerPasswordAsync(Username, Password).Result;
         }
+
+        public string Password { get; set; }
     }
 }

@@ -110,9 +110,10 @@
             <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Margin="50,8,8,8" Text="{Binding TotalOrder}"/>
 
             <Button Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" Command="{Binding CheckOutCommand}" IsEnabled="{Binding EnableDisableCheckOut}" />
-            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer (nieuwe klant)" Command="{Binding CancelCommand}" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer bestelling" Command="{Binding CancelOrderCommand}" IsEnabled="{Binding EnableDisableCheckOut}" />
+            <Button Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Content="Nieuwe klant" Command="{Binding CancelCustomerCommand}" IsEnabled="{Binding EnableDisableRegister}" />
 
-            <TextBlock Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding WarningBalance}" />
+            <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding WarningBalance}" />
         </Grid>
     </Grid>
 </UserControl>

@@ -232,9 +232,14 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             get { return new RelayCommand(checkOut); }
         }
 
-        public ICommand CancelCommand
+        public ICommand CancelOrderCommand
         {
-            get { return new RelayCommand(cancel); }
+            get { return new RelayCommand(cancelOrder); }
+        }
+
+        public ICommand CancelCustomerCommand
+        {
+            get { return new RelayCommand(cancelCustomer); }
         }
 
         #endregion
@@ -243,7 +248,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         private async void ScanCustomer()
         {
-            cancel();
+            cancelCustomer();
 
             BEID_EIDCard card = IDReader.getData();
 
@@ -278,13 +283,12 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             {
                 Amount = input;
             }
+
             //nieuw getal naast huidige getal plaatsen
             else
             {
                 newAmount = Amount + input;
-
                 if (Convert.ToInt32(newAmount) <= 99) Amount = newAmount;
-
             }
 
             OnPropertyChanged("Amount");
@@ -325,21 +329,6 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             checkCheckOut();
         }
 
-        private void checkCheckOut()
-        {
-            if (Customer.Balance - TotalOrder < 0 || Sales.Count == 0)
-            {
-                EnableDisableCheckOut = false;
-            }
-            else
-            {
-                EnableDisableCheckOut = true;
-            }
-
-            if (Customer.Balance - TotalOrder < 0) WarningBalance = "Geen genoeg geld om af te rekenen";
-            else WarningBalance = "";
-        }
-
         private void checkOut()
         {
             //voor elke sale, record in database plaatsen
@@ -352,23 +341,29 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             reduceBalanceCustomer();
 
             //resetten om nieuwe klant in te scannen
-            cancel();
+            cancelCustomer();
         }
 
-        private void cancel()
+        private void cancelOrder()
         {
-            EnableDisableRegister = false;
-
             resetAmount();
             TotalOrder = 0;
-            Customer = null;
             Sales = new ObservableCollection<Sale>();
+
+            if (Customer != null) checkCheckOut();
+        }
+
+        private void cancelCustomer()
+        {
+            EnableDisableRegister = false;
+            cancelOrder();
+            Customer = null;
             BEID_ReaderSet.releaseSDK();
         }
 
         #endregion
 
-        #region hulfuncties
+        #region hulpfuncties
         private Boolean addCustomer(BEID_EIDCard card)
         {
             try
@@ -476,6 +471,21 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                     Console.WriteLine("error");
                 }
             }
+        }
+
+        private void checkCheckOut()
+        {
+            if (Customer.Balance - TotalOrder < 0 || Sales.Count == 0)
+            {
+                EnableDisableCheckOut = false;
+            }
+            else
+            {
+                EnableDisableCheckOut = true;
+            }
+
+            if (Customer.Balance - TotalOrder < 0) WarningBalance = "Geen genoeg geld om af te rekenen";
+            else WarningBalance = "";
         }
 
         private async void reduceBalanceCustomer()
