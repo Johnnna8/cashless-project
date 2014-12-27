@@ -40,6 +40,8 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
         {
             OrganisationRegister organistationRegister = new OrganisationRegister();
 
+            //bij het toevoegen van een nieuw register
+            //bij gekocht op: dag van vandaag invullen en bij vervalt op: vijf jaar later
             RegisterCompany register = new RegisterCompany() { PurchaseDate = DateTime.Today, ExpiresDate = DateTime.Today.AddYears(5) };
             organistationRegister.Register = register;
 

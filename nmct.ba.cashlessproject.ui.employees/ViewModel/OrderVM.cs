@@ -1,5 +1,7 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using be.belgium.eid;
+using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using System;
 using System.Collections.Generic;
@@ -8,28 +10,27 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 {
     class OrderVM : ObservableObject, IPage
     {
+        #region ipage
+
         public string Name
         {
             get { return "Bestellen"; }
         }
 
+        #endregion
+
+        #region constructor
+
         public OrderVM()
         {
             Sales = new ObservableCollection<Sale>();
-
-            Customer = new Customer()
-            {
-                ID = 2,
-                Firstname = "Jonathan Dries",
-                Lastname = "Houck",
-                Balance = 50
-            };
 
             Employee = new Employee()
             {
@@ -49,9 +50,13 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
             if (ApplicationVM.token != null)
             {
-                GetProducts();
+                getProducts();
             }
         }
+
+        #endregion
+
+        #region properties
 
         private ObservableCollection<Sale> _sales;
 
@@ -74,7 +79,19 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
         public Product SelectedProduct
         {
             get { return _selectedProduct; }
-            set { _selectedProduct = value; OnPropertyChanged("SelectedProduct"); }
+            set {
+                _selectedProduct = value;
+                OnPropertyChanged("SelectedProduct");
+
+                if (SelectedProduct != null)
+                {
+                    EnableDisableAdd = true;
+                }
+                else
+                {
+                    EnableDisableAdd = false;
+                }
+            }
         }
 
         private Sale _selectedSale;
@@ -82,7 +99,19 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
         public Sale SelectedSale
         {
             get { return _selectedSale; }
-            set { _selectedSale = value; OnPropertyChanged("SelectedSale"); }
+            set {
+                _selectedSale = value;
+                OnPropertyChanged("SelectedSale");
+
+                if (SelectedSale != null)
+                {
+                    EnableDisableDelete = true;
+                }
+                else
+                {
+                    EnableDisableDelete = false;
+                }
+            }
         }
 
         private Customer _customer;
@@ -117,28 +146,65 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             set { _amount = value; OnPropertyChanged("Amount"); }
         }
 
-        private string _errorProducts;
-
-        public string ErrorProducts
-        {
-            get { return _errorProducts; }
-            set { _errorProducts = value; OnPropertyChanged("ErrorProducts"); }
-        }
-
-        private string _errorSales;
-
-        public string ErrorSales
-        {
-            get { return _errorSales; }
-            set { _errorSales = value; OnPropertyChanged("ErrorSales"); }
-        }
-
         private double _totalOrder;
 
         public double TotalOrder
         {
             get { return _totalOrder; }
             set { _totalOrder = value; OnPropertyChanged("TotalOrder"); }
+        }
+
+        private string _warningBalance;
+
+        public string WarningBalance
+        {
+            get { return _warningBalance; }
+            set { _warningBalance = value; OnPropertyChanged("WarningBalance"); }
+        }
+
+        #endregion
+
+        #region enable disable properties
+
+        private Boolean _enableDisableAdd;
+
+        public Boolean EnableDisableAdd
+        {
+            get { return _enableDisableAdd; }
+            set { _enableDisableAdd = value; OnPropertyChanged("EnableDisableAdd"); }
+        }
+
+        private Boolean _enableDisableDelete;
+
+        public Boolean EnableDisableDelete
+        {
+            get { return _enableDisableDelete; }
+            set { _enableDisableDelete = value; OnPropertyChanged("EnableDisableDelete"); }
+        }
+
+        private Boolean _enableDisableCheckOut;
+
+        public Boolean EnableDisableCheckOut
+        {
+            get { return _enableDisableCheckOut; }
+            set { _enableDisableCheckOut = value; OnPropertyChanged("EnableDisableCheckOut"); }
+        }
+
+        private Boolean _enableDisableRegister;
+
+        public Boolean EnableDisableRegister
+        {
+            get { return _enableDisableRegister; }
+            set { _enableDisableRegister = value; OnPropertyChanged("EnableDisableRegister"); }
+        }
+
+        #endregion
+
+        #region commands
+
+        public ICommand ScanCustomerCommand
+        {
+            get { return new RelayCommand(ScanCustomer); }
         }
 
         public ICommand IncreaseAmountCommand
@@ -166,6 +232,43 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             get { return new RelayCommand(checkOut); }
         }
 
+        public ICommand CancelCommand
+        {
+            get { return new RelayCommand(cancel); }
+        }
+
+        #endregion
+
+        #region functies commands
+
+        private async void ScanCustomer()
+        {
+            cancel();
+
+            BEID_EIDCard card = IDReader.getData();
+
+            if (card == null)
+            {
+                MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in");
+            }
+            else
+            {
+                if (!addCustomer(card)) return;
+
+                if (await checkCustomerExists())
+                {
+                    getCustomer();
+                    EnableDisableRegister = true;
+                }
+                else
+                {
+                    //foutmelding weergeven
+                    EnableDisableRegister = false;
+                    EnableDisableCheckOut = false;
+                }
+            }
+        }
+
         private void increaseAmount(string input)
         {
             string newAmount;
@@ -180,26 +283,22 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             {
                 newAmount = Amount + input;
 
-                if (Convert.ToInt32(newAmount) <= 99)
-                {
-                    Amount = newAmount;
-                }
+                if (Convert.ToInt32(newAmount) <= 99) Amount = newAmount;
+
             }
 
             OnPropertyChanged("Amount");
         }
 
+        private void resetAmount()
+        {
+            Amount = "1 (standaard)";
+        }
+
         private void addProduct()
         {
-            if (SelectedProduct == null)
-            {
-                ErrorProducts = "Gelieve een product te selecteren";
-                return;
-            }
-            else
-            {
-                ErrorProducts = "";
-            }
+            if (SelectedProduct == null) return;
+                EnableDisableCheckOut = true;
 
             Sale newSale = new Sale();
             newSale.Register = Register;
@@ -207,15 +306,101 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             newSale.Product = SelectedProduct;
             newSale.Amount = giveAmount();
             newSale.TotalPrice = SelectedProduct.Price * giveAmount();
-
             Sales.Add(newSale);
+
             TotalOrder += newSale.TotalPrice;
             resetAmount();
+
+            //controle of klant genoeg geld geeft om bestelling uit te voeren
+            checkCheckOut();
         }
 
-        private void resetAmount()
+        private void deleteProduct()
         {
-            Amount = "1 (standaard)";
+            if (SelectedSale == null) return;
+
+            TotalOrder -= SelectedSale.TotalPrice;
+            Sales.Remove(SelectedSale);
+
+            checkCheckOut();
+        }
+
+        private void checkCheckOut()
+        {
+            if (Customer.Balance - TotalOrder < 0 || Sales.Count == 0)
+            {
+                EnableDisableCheckOut = false;
+            }
+            else
+            {
+                EnableDisableCheckOut = true;
+            }
+
+            if (Customer.Balance - TotalOrder < 0) WarningBalance = "Geen genoeg geld om af te rekenen";
+            else WarningBalance = "";
+        }
+
+        private void checkOut()
+        {
+            //voor elke sale, record in database plaatsen
+            foreach (Sale sale in Sales)
+            {
+                addSale(sale);
+            }
+
+            //bedrag customer verlagen in database
+            reduceBalanceCustomer();
+
+            //resetten om nieuwe klant in te scannen
+            cancel();
+        }
+
+        private void cancel()
+        {
+            EnableDisableRegister = false;
+
+            resetAmount();
+            TotalOrder = 0;
+            Customer = null;
+            Sales = new ObservableCollection<Sale>();
+            BEID_ReaderSet.releaseSDK();
+        }
+
+        #endregion
+
+        #region hulfuncties
+        private Boolean addCustomer(BEID_EIDCard card)
+        {
+            try
+            {
+                byte[] bytesPicture = card.getPicture().getData().GetBytes();
+
+                BEID_EId data = card.getID();
+                string nationalNumber = data.getNationalNumber();
+                string firstname = data.getFirstName1().Contains(' ') ? data.getFirstName1().Split(' ')[0] : data.getFirstName1();
+                string lastname = data.getSurname();
+                string street = data.getStreet();
+                string postcode = data.getZipCode();
+                string city = data.getMunicipality();
+
+                Customer = new Customer()
+                {
+                    NationalNumber = nationalNumber,
+                    Firstname = firstname,
+                    Lastname = lastname,
+                    Street = street,
+                    Postcode = postcode,
+                    City = city,
+                    Picture = bytesPicture
+                };
+
+                return true;
+            }
+            catch (BEID_Exception)
+            {
+                BEID_ReaderSet.releaseSDK();
+                return false;
+            }
         }
 
         private int giveAmount()
@@ -224,32 +409,42 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             if (Amount == "1 (standaard)") return 1;
             return Convert.ToInt32(Amount);
         }
+        #endregion
 
-        private void deleteProduct()
+        #region database functies
+        private async void getCustomer()
         {
-            if (SelectedSale == null)
+            using (HttpClient client = new HttpClient())
             {
-                ErrorSales = "Gelieve een bestelt product te selecteren";
-            }
-            else
-            {
-                TotalOrder -= SelectedSale.TotalPrice;
-                Sales.Remove(SelectedSale);
-                ErrorSales = "";
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/customer?cnationalnumber=" + Customer.NationalNumber);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Customer = JsonConvert.DeserializeObject<Customer>(json);
+                }
             }
         }
 
-        private void checkOut()
+        private async Task<bool> checkCustomerExists()
         {
-            //voor elke sale, record in database plaatsen
-            foreach (Sale sale in Sales)
+            using (HttpClient client = new HttpClient())
             {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/customer?nationalnumber=" + Customer.NationalNumber);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Boolean>(json);
+                }
+                else
+                {
+                    return false;
+                }
             }
-
-            //bedrag customer verlagen in database
         }
 
-        private async void GetProducts()
+        private async void getProducts()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -262,5 +457,42 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                 }
             }
         }
+
+        private async void addSale(Sale sale)
+        {
+            string input = JsonConvert.SerializeObject(sale);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.PostAsync("http://localhost:55853/api/sale", new StringContent(input, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    string output = await response.Content.ReadAsStringAsync();
+                    sale.ID = Int32.Parse(output);
+                }
+                else
+                {
+                    Console.WriteLine("error");
+                }
+            }
+        }
+
+        private async void reduceBalanceCustomer()
+        {
+            Customer.Balance -= TotalOrder;
+            string input = JsonConvert.SerializeObject(Customer);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.PutAsync("http://localhost:55853/api/customer", new StringContent(input, Encoding.UTF8, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("error");
+                }
+            }
+        }
     }
+        #endregion
 }

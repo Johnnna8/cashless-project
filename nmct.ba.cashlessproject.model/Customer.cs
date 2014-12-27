@@ -49,13 +49,13 @@ namespace nmct.ba.cashlessproject.model
             set { _street = value; }
         }
 
-        private string _streetNumber;
+        //private string _streetNumber;
 
-        public string StreetNumber
-        {
-            get { return _streetNumber; }
-            set { _streetNumber = value; }
-        }
+        //public string StreetNumber
+        //{
+        //    get { return _streetNumber; }
+        //    set { _streetNumber = value; }
+        //}
 
         private string _postcode;
 

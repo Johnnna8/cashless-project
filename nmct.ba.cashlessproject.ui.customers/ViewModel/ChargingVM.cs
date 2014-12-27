@@ -34,12 +34,12 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             set { _customer = value; OnPropertyChanged("Customer"); }
         }
 
-        private string _foutmelding;
+        private string _error;
 
-        public string Foutmelding
+        public string Error
         {
-            get { return _foutmelding; }
-            set { _foutmelding = value; OnPropertyChanged("Foutmelding"); }
+            get { return _error; }
+            set { _error = value; OnPropertyChanged("Error"); }
         }
 
         public ICommand AddFiveCommand
@@ -90,9 +90,9 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
                 Customer.Balance += amount;
                 OnPropertyChanged("Customer");
                 AddAmountDatabase();
-                Foutmelding = "";
+                Error = "";
             } else {
-                Foutmelding = "U kunt maximaal 100 euro opladen";
+                Error = "U kunt maximaal 100 euro opladen";
             }
         }
 

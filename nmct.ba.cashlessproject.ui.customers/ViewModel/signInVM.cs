@@ -1,6 +1,7 @@
 ﻿using be.belgium.eid;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using nmct.ba.cashlessproject.ui.customers.View;
 using System;
@@ -44,7 +45,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
 
         private async void Identificeer()
         {
-            BEID_EIDCard card = getData();
+            BEID_EIDCard card = IDReader.getData();
 
             if (card == null)
             {
@@ -52,7 +53,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             }
             else
             {
-                addCustomer(card);
+                if (!addCustomer(card)) return;
 
                 ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
                 if (await checkCustomerExists())
@@ -63,37 +64,6 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
                 {
                     appvm.ChangePage(new RegisterVM());
                 }
-            }
-        }
-
-        public static BEID_EIDCard getData()
-        {
-            try
-            {
-                BEID_ReaderSet.initSDK();
-                BEID_ReaderContext Reader = BEID_ReaderSet.instance().getReader();
-
-                if (Reader.isCardPresent())
-                {
-                    BEID_EIDCard card = Reader.getEIDCard();
-
-                    if (card.isTestCard())
-                    {
-                        card.setAllowTestCard(true);
-                    }
-
-                    return card;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-            catch (BEID_Exception)
-            {
-                BEID_ReaderSet.releaseSDK();
-                return null;
             }
         }
 
@@ -116,29 +86,38 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             }
         }
 
-        private void addCustomer(BEID_EIDCard card)
+        private Boolean addCustomer(BEID_EIDCard card)
         {
-            byte[] bytesPicture = card.getPicture().getData().GetBytes();
-
-            BEID_EId data = card.getID();
-            string  nationalNumber = data.getNationalNumber();
-            string firstname = data.getFirstName1().Contains(' ') ? data.getFirstName1().Split(' ')[0] : data.getFirstName1();
-            string lastname = data.getSurname();
-            string street = data.getStreet();
-            string postcode = data.getZipCode();
-            string city = data.getMunicipality();
-
-            ApplicationVM.customer = new Customer()
+            try
             {
-                NationalNumber = nationalNumber,
-                Firstname = firstname,
-                Lastname = lastname,
-                Street = street,
-                Postcode = postcode,
-                City = city,
-                Picture = bytesPicture
-            };
+                byte[] bytesPicture = card.getPicture().getData().GetBytes();
 
+                BEID_EId data = card.getID();
+                string nationalNumber = data.getNationalNumber();
+                string firstname = data.getFirstName1().Contains(' ') ? data.getFirstName1().Split(' ')[0] : data.getFirstName1();
+                string lastname = data.getSurname();
+                string street = data.getStreet();
+                string postcode = data.getZipCode();
+                string city = data.getMunicipality();
+
+                ApplicationVM.customer = new Customer()
+                {
+                    NationalNumber = nationalNumber,
+                    Firstname = firstname,
+                    Lastname = lastname,
+                    Street = street,
+                    Postcode = postcode,
+                    City = city,
+                    Picture = bytesPicture
+                };
+
+                return true;
+            }
+            catch (BEID_Exception)
+            {
+                BEID_ReaderSet.releaseSDK();
+                return false;
+            }
         }
     }
 }

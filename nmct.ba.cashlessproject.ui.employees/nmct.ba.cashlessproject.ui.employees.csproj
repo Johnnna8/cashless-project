@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="beid35libCS">
+      <HintPath>..\..\..\..\Belgium Identity Card SDK\beidlib\dotNet\bin\beid35libCS.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight">
       <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -148,6 +151,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\nmct.ba.cashlessproject.helper\nmct.ba.cashlessproject.helper.csproj">
+      <Project>{54832c72-26c4-4b8f-918e-430b9e153e3d}</Project>
+      <Name>nmct.ba.cashlessproject.helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj">
       <Project>{fe043724-9ef5-497d-8df3-2f4a70437b00}</Project>
       <Name>nmct.ba.cashlessproject.model</Name>

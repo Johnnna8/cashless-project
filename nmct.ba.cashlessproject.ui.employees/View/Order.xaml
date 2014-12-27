@@ -19,9 +19,14 @@
         </Grid.RowDefinitions>
 
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
             <Border Style="{StaticResource BorderBoven}"/>
             <TextBlock Style="{StaticResource Titel}" Text="Kassierster"/>
             <TextBlock Style="{StaticResource Titel}" Text="{Binding Employee}" Margin="160,8,8,8"/>
+            <Button Grid.Column="1" Content="Scan klant" Command="{Binding ScanCustomerCommand}" />
         </Grid>
 
         <Grid Grid.Row="1">
@@ -58,12 +63,12 @@
             <TextBlock Grid.Column="6" Grid.ColumnSpan="2" Text="Saldo:"/>
             <TextBox Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding Customer.Balance}"/>
 
-            <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Wijzig Saldo" />
+            <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Wijzig Saldo" IsEnabled="{Binding EnableDisableRegister}" />
 
             <Border Style="{StaticResource BorderKassa}"/>
 
             <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Producten:" />
-            <ListView Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
+            <ListView Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" IsEnabled="{Binding EnableDisableRegister}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ProductName}" Header="Product naam" Width="190"/>
@@ -71,27 +76,25 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TextBlock Grid.Row="6" Grid.ColumnSpan="3" Text="{Binding ErrorProducts}" />
 
             <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Aantal:" />
             <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="50,8,8,8" Text="{Binding Amount}" />
             
-            <Button Grid.Row="4" Grid.Column="3" Content="1" Command="{Binding IncreaseAmountCommand}" CommandParameter="1" />
-            <Button Grid.Row="4" Grid.Column="4" Content="2" Command="{Binding IncreaseAmountCommand}" CommandParameter="2" />
-            <Button Grid.Row="4" Grid.Column="5" Content="3" Command="{Binding IncreaseAmountCommand}" CommandParameter="3" />
-            <Button Grid.Row="3" Grid.Column="3" Content="4" Command="{Binding IncreaseAmountCommand}" CommandParameter="4" />
-            <Button Grid.Row="3" Grid.Column="4" Content="5" Command="{Binding IncreaseAmountCommand}" CommandParameter="5" />
-            <Button Grid.Row="3" Grid.Column="5" Content="6" Command="{Binding IncreaseAmountCommand}" CommandParameter="6" />
-            <Button Grid.Row="2" Grid.Column="3" Content="7" Command="{Binding IncreaseAmountCommand}" CommandParameter="7" />
-            <Button Grid.Row="2" Grid.Column="4" Content="8" Command="{Binding IncreaseAmountCommand}" CommandParameter="8" />
-            <Button Grid.Row="2" Grid.Column="5" Content="9" Command="{Binding IncreaseAmountCommand}" CommandParameter="9" />
+            <Button Grid.Row="4" Grid.Column="3" Content="1" Command="{Binding IncreaseAmountCommand}" CommandParameter="1" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="4" Grid.Column="4" Content="2" Command="{Binding IncreaseAmountCommand}" CommandParameter="2" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="4" Grid.Column="5" Content="3" Command="{Binding IncreaseAmountCommand}" CommandParameter="3" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="3" Grid.Column="3" Content="4" Command="{Binding IncreaseAmountCommand}" CommandParameter="4" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="3" Grid.Column="4" Content="5" Command="{Binding IncreaseAmountCommand}" CommandParameter="5" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="3" Grid.Column="5" Content="6" Command="{Binding IncreaseAmountCommand}" CommandParameter="6" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="2" Grid.Column="3" Content="7" Command="{Binding IncreaseAmountCommand}" CommandParameter="7" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="2" Grid.Column="4" Content="8" Command="{Binding IncreaseAmountCommand}" CommandParameter="8" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="2" Grid.Column="5" Content="9" Command="{Binding IncreaseAmountCommand}" CommandParameter="9" IsEnabled="{Binding EnableDisableRegister}" />
 
-            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Annuleer aantal" Command="{Binding ResetAmountCommand}" />
-            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" Command="{Binding AddProductCommand}" />
+            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Annuleer aantal" Command="{Binding ResetAmountCommand}" IsEnabled="{Binding EnableDisableRegister}"/>
+            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" Command="{Binding AddProductCommand}" IsEnabled="{Binding EnableDisableAdd}" />
 
             <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="Bestelde producten:"/>
-
-            <ListView Grid.Row="2" Grid.Column="6" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Sales}" SelectedItem="{Binding SelectedSale}">
+            <ListView Grid.Row="2" Grid.Column="6" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Sales}" SelectedItem="{Binding SelectedSale}" IsEnabled="{Binding EnableDisableRegister}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Product.ProductName}" Header="Product naam" Width="150"/>
@@ -101,14 +104,15 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" />
+            <Button Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" IsEnabled="{Binding EnableDisableDelete}" />
 
             <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="Totaal:"/>
             <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Margin="50,8,8,8" Text="{Binding TotalOrder}"/>
-            
-            <Button Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" Command="{Binding CheckOutCommand}" />
-            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer (nieuwe klant)" />
-            <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding ErrorSales}" />
+
+            <Button Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" Command="{Binding CheckOutCommand}" IsEnabled="{Binding EnableDisableCheckOut}" />
+            <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer (nieuwe klant)" Command="{Binding CancelCommand}" IsEnabled="{Binding EnableDisableRegister}" />
+
+            <TextBlock Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding WarningBalance}" />
         </Grid>
     </Grid>
 </UserControl>
