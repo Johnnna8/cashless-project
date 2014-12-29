@@ -171,6 +171,14 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             set { _enableDisableDelete = value; OnPropertyChanged("EnableDisableDelete"); }
         }
 
+        private Boolean _enableDisableCancelOrder;
+
+        public Boolean EnableDisableCancelOrder
+        {
+            get { return _enableDisableCancelOrder; }
+            set { _enableDisableCancelOrder = value; OnPropertyChanged("EnableDisableCancelOrder"); }
+        }
+
         private Boolean _enableDisableCheckOut;
 
         public Boolean EnableDisableCheckOut
@@ -294,6 +302,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                 EnableDisableCheckOut = true;
 
             Sale newSale = new Sale();
+            newSale.Timestamp = DateTime.Now.ToUnixTimestamp();
             newSale.Register = Register;
             newSale.Customer = Customer;
             newSale.Product = SelectedProduct;
@@ -305,7 +314,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             resetAmount();
 
             //controle of klant genoeg geld geeft om bestelling uit te voeren
-            checkCheckOut();
+            checkCheckOutAndCancelOrder();
         }
 
         private void deleteProduct()
@@ -315,7 +324,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             TotalOrder -= SelectedSale.TotalPrice;
             Sales.Remove(SelectedSale);
 
-            checkCheckOut();
+            checkCheckOutAndCancelOrder();
         }
 
         private void checkOut()
@@ -326,11 +335,12 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                 addSale(sale);
             }
 
-            //bedrag customer verlagen in database
+            //bedrag customer verlagen in database en bedrag updaten
             reduceBalanceCustomer();
+            OnPropertyChanged("Customer");
 
             //resetten om nieuwe klant in te scannen
-            cancelCustomer();
+            cancelOrder();
         }
 
         private void cancelOrder()
@@ -339,12 +349,14 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             TotalOrder = 0;
             Sales = new ObservableCollection<Sale>();
 
-            if (Customer != null) checkCheckOut();
+            if (Customer != null) checkCheckOutAndCancelOrder();
         }
 
         private void cancelCustomer()
         {
             EnableDisableRegister = false;
+            EnableDisableAdd = false;
+
             cancelOrder();
             Customer = null;
             BEID_ReaderSet.releaseSDK();
@@ -393,6 +405,25 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             if (Amount == "1 (standaard)") return 1;
             return Convert.ToInt32(Amount);
         }
+
+        private void checkCheckOutAndCancelOrder()
+        {
+            if (Customer.Balance - TotalOrder < 0 || Sales.Count == 0)
+            {
+                EnableDisableCheckOut = false;
+            }
+            else
+            {
+                EnableDisableCheckOut = true;
+            }
+
+            if (Customer.Balance - TotalOrder < 0) WarningBalance = "Geen genoeg geld om af te rekenen";
+            else WarningBalance = "";
+
+            if (Sales.Count == 0) EnableDisableCancelOrder = false;
+            else EnableDisableCancelOrder = true;
+        }
+
         #endregion
 
         #region database functies
@@ -460,21 +491,6 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                     Console.WriteLine("error");
                 }
             }
-        }
-
-        private void checkCheckOut()
-        {
-            if (Customer.Balance - TotalOrder < 0 || Sales.Count == 0)
-            {
-                EnableDisableCheckOut = false;
-            }
-            else
-            {
-                EnableDisableCheckOut = true;
-            }
-
-            if (Customer.Balance - TotalOrder < 0) WarningBalance = "Geen genoeg geld om af te rekenen";
-            else WarningBalance = "";
         }
 
         private async void reduceBalanceCustomer()

@@ -24,15 +24,17 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static int AddSale(Sale s, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Sale(CustomerID,RegisterID,ProductID,Amount,TotalPrice) ";
-            sql += "VALUES(@CustomerID,@RegisterID,@ProductID,@Amount,@TotalPrice)";
-            DbParameter par1 = Database.AddParameter("AdminDB", "@CustomerID", s.Customer.ID);
-            DbParameter par2 = Database.AddParameter("AdminDB", "@RegisterID", s.Register.ID);
-            DbParameter par3 = Database.AddParameter("AdminDB", "@ProductID", s.Product.ID);
-            DbParameter par4 = Database.AddParameter("AdminDB", "@Amount", s.Amount);
-            DbParameter par5 = Database.AddParameter("AdminDB", "@TotalPrice", s.TotalPrice);
+            string sql = "INSERT INTO Sale(Timestamp, CustomerID,RegisterID,ProductID,Amount,TotalPrice) ";
+            sql += "VALUES(@Timestamp,@CustomerID,@RegisterID,@ProductID,@Amount,@TotalPrice)";
 
-            return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5);
+            DbParameter par1 = Database.AddParameter("AdminDB", "@Timestamp", s.Timestamp);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@CustomerID", s.Customer.ID);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@RegisterID", s.Register.ID);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@ProductID", s.Product.ID);
+            DbParameter par5 = Database.AddParameter("AdminDB", "@Amount", s.Amount);
+            DbParameter par6 = Database.AddParameter("AdminDB", "@TotalPrice", s.TotalPrice);
+
+            return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6);
         }
     }
 }

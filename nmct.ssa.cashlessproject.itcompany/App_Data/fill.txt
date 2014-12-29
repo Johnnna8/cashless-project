@@ -123,7 +123,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Sale](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Timestamp] [timestamp] NOT NULL,
+	[Timestamp] [int] NOT NULL,
 	[CustomerID] [int] NOT NULL,
 	[RegisterID] [int] NOT NULL,
 	[ProductID] [int] NOT NULL,

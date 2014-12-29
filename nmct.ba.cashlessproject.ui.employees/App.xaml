@@ -20,8 +20,12 @@
         <Style TargetType="TextBox" BasedOn="{StaticResource Algemeen}">
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
-
+      
         <Style TargetType="ListBox" BasedOn="{StaticResource Algemeen}">
+            <Setter Property="BorderBrush" Value="#A9CF54"></Setter>
+        </Style>
+
+        <Style TargetType="ListView" BasedOn="{StaticResource Algemeen}">
             <Setter Property="BorderBrush" Value="#A9CF54"></Setter>
         </Style>
 
