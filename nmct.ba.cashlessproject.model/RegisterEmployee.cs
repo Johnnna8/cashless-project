@@ -16,36 +16,36 @@ namespace nmct.ba.cashlessproject.model
             set { _ID = value; }
         }
 
-        private Register _registerID;
+        private Register _register;
 
-        public Register RegisterID
+        public Register Register
         {
-            get { return _registerID; }
-            set { _registerID = value; }
+            get { return _register; }
+            set { _register = value; }
         }
 
-        private Employee _employeeID;
+        private Employee _employee;
 
-        public Employee EmployeeID
+        public Employee Employee
         {
-            get { return _employeeID; }
-            set { _employeeID = value; }
+            get { return _employee; }
+            set { _employee = value; }
         }
 
-        private int _from;
+        private int _fromTime;
 
-        public int From
+        public int FromTime
         {
-            get { return _from; }
-            set { _from = value; }
+            get { return _fromTime; }
+            set { _fromTime = value; }
         }
 
-        private int _until;
+        private int _untilTime;
 
-        public int Until
+        public int UntilTime
         {
-            get { return _until; }
-            set { _until = value; }
+            get { return _untilTime; }
+            set { _untilTime = value; }
         }
     }
 }

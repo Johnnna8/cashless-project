@@ -38,12 +38,12 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             set { _customer = value; OnPropertyChanged("Customer"); }
         }
 
-        public ICommand IdentificeerCommand
+        public ICommand ScanCustomerCommand
         {
-            get { return new RelayCommand(Identificeer); }
+            get { return new RelayCommand(ScanCustomer); }
         }
 
-        private async void Identificeer()
+        private async void ScanCustomer()
         {
             BEID_EIDCard card = IDReader.getData();
 

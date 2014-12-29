@@ -55,18 +55,21 @@
         <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Firstname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
         <TextBox Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Lastname}"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Street}"/>
-        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.StreetNumber}"/>
+        <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Pincode"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Pincode}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
-        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Postcode}"/>
-        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.City}"/>
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
+        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Street}"/>
+        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.StreetNumber}"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Text="Emailadres:"/>
-        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Email}"/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
+        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Postcode}"/>
+        <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.City}"/>
 
-        <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Telefoon"/>
-        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Phone}"/>
+        <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Emailadres:"/>
+        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Email}"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Text="Telefoon"/>
+        <TextBox Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Phone}"/>
     </Grid>
 </UserControl>

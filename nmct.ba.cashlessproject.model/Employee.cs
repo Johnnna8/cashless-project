@@ -18,6 +18,14 @@ namespace nmct.ba.cashlessproject.model
             set { _ID = value; }
         }
 
+        private string _Pincode;
+
+        public string Pincode
+        {
+            get { return _Pincode; }
+            set { _Pincode = value; }
+        }
+
         private string _firstname;
 
         [Required(ErrorMessage = "Voornaam is verplicht")]

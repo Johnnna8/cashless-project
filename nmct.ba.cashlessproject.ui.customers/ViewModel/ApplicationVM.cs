@@ -64,9 +64,9 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
-        public ICommand AfmeldenCommand
+        public ICommand LogoutCommand
         {
-            get { return new RelayCommand(Afmelden); }
+            get { return new RelayCommand(Logout); }
         }
 
         public void ChangePage(IPage page)
@@ -74,7 +74,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             CurrentPage = page;
         }
 
-        private void Afmelden()
+        private void Logout()
         {
             customer = null;
             currentPage = Pages[0];

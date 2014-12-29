@@ -3,52 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:e="clr-namespace:nmct.ba.cashlessproject.ui.employees.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="410" d:DesignWidth="780">
+    <UserControl.DataContext>
+        <e:SignInVM />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource TitelStart}" Grid.Column="2" Grid.ColumnSpan="7" Text="Welkom! Gelieve uw naam te selecteren en u pincode in te voeren"/>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
+        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" VerticalContentAlignment="Center" ItemsSource="{Binding Employees}" SelectedValue="{Binding Employees[0]}" SelectedItem="{Binding SelectedEmployee}"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False" Text="{Binding Pincode}"/>
 
-            <TextBlock Style="{StaticResource TitelStartGroot}" Text="Houck IT solutions"/>
-            <TextBlock Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4" Text="Management app voor vereniging x" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Row="3" Grid.ColumnSpan="6" Text="Welkom! Scan uw QR-code of vul uw identificatienummer in"/>
+        <Button Grid.Row="5" Grid.Column="3" Content="1" Command="{Binding InputPincodeCommand}" CommandParameter="1" />
+        <Button Grid.Row="5" Grid.Column="4" Content="2" Command="{Binding InputPincodeCommand}" CommandParameter="2" />
+        <Button Grid.Row="5" Grid.Column="5" Content="3" Command="{Binding InputPincodeCommand}" CommandParameter="3" />
+        <Button Grid.Row="4" Grid.Column="3" Content="4" Command="{Binding InputPincodeCommand}" CommandParameter="4" />
+        <Button Grid.Row="4" Grid.Column="4" Content="5" Command="{Binding InputPincodeCommand}" CommandParameter="5" />
+        <Button Grid.Row="4" Grid.Column="5" Content="6" Command="{Binding InputPincodeCommand}" CommandParameter="6" />
+        <Button Grid.Row="3" Grid.Column="3" Content="7" Command="{Binding InputPincodeCommand}" CommandParameter="7" />
+        <Button Grid.Row="3" Grid.Column="4" Content="8" Command="{Binding InputPincodeCommand}" CommandParameter="8" />
+        <Button Grid.Row="3" Grid.Column="5" Content="9" Command="{Binding InputPincodeCommand}" CommandParameter="9" />
+        <Button Grid.Row="6" Grid.Column="3" Content="0" Command="{Binding InputPincodeCommand}" CommandParameter="0" />
+        <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Content="Wis" Command="{Binding ClearPincodeCommand}" />
 
-            <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="Identificatienummer:"/>
-            <TextBox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3"/>
-
-            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Identificeer" />
-        </Grid>
+        <Button Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" Content="Identificeer" Command="{Binding IdentifyEmployeeCommand}"/>
+        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding Error}" />
     </Grid>
 </UserControl>

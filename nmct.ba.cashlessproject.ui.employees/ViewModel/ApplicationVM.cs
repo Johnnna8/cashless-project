@@ -1,9 +1,14 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using be.belgium.eid;
+using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
+using nmct.ba.cashlessproject.helper;
+using nmct.ba.cashlessproject.model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -27,10 +32,11 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
         public ApplicationVM()
         {
             getToken();
+            getRegister();
 
             Pages.Add(new SignInVM());
             pages.Add(new OrderVM());
-            CurrentPage = Pages[1];
+            CurrentPage = Pages[0];
         }
 
         private IPage currentPage;
@@ -60,9 +66,64 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
-        private void ChangePage(IPage page)
+        public ICommand LogoutCommand
+        {
+            get { return new RelayCommand(Logout); }
+        }
+
+        private void Logout()
+        {
+            ApplicationVM.register = null;
+            ApplicationVM.employee = null;
+
+            changeUntilTime();
+            ApplicationVM.registerEmployee = null;
+
+            currentPage = Pages[0];
+            OnPropertyChanged("CurrentPage");
+
+            BEID_ReaderSet.releaseSDK();
+        }
+
+        private async void changeUntilTime()
+        {
+            ApplicationVM.registerEmployee.UntilTime = DateTime.Now.ToUnixTimestamp();
+            string input = JsonConvert.SerializeObject(registerEmployee);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.PutAsync("http://localhost:55853/api/registeremployee", new StringContent(input, Encoding.UTF8, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("error");
+                }
+            }
+        }
+
+        public void ChangePage(IPage page)
         {
             CurrentPage = page;
+        }
+
+        public static RegisterEmployee registerEmployee = null;
+        public static Register register = null;
+        public static Employee employee = null;
+
+        private async void getRegister()
+        {
+            int registerID = Convert.ToInt32(ConfigurationManager.AppSettings["RegisterID"]);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/register?id=" + registerID);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    register = JsonConvert.DeserializeObject<Register>(json);
+                }
+            }
         }
     }
 }

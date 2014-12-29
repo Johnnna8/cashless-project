@@ -60,6 +60,7 @@ namespace nmct.ba.cashlessproject.api.Models
             return new Employee()
             {
                 ID = Convert.ToInt32(record["ID"]),
+                Pincode = Convert.ToString(record["Pincode"]),
                 Firstname = record["Firstname"].ToString(),
                 Lastname = record["Lastname"].ToString(),
                 Street = record["Street"].ToString(),
@@ -73,30 +74,32 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static int InsertEmployee(Employee e, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Employee VALUES(@Firstname,@Lastname,@Street,@StreetNumber,@Postcode,@City,@Email,@Phone)";
-            DbParameter par1 = Database.AddParameter("AdminDB", "@Firstname", e.Firstname);
-            DbParameter par2 = Database.AddParameter("AdminDB", "@Lastname", e.Lastname);
-            DbParameter par3 = Database.AddParameter("AdminDB", "@Street", e.Street);
-            DbParameter par4 = Database.AddParameter("AdminDB", "@StreetNumber", e.StreetNumber);
-            DbParameter par5 = Database.AddParameter("AdminDB", "@Postcode", e.Postcode);
-            DbParameter par6 = Database.AddParameter("AdminDB", "@City", e.City);
-            DbParameter par7 = Database.AddParameter("AdminDB", "@Email", e.Email);
-            DbParameter par8 = Database.AddParameter("AdminDB", "@Phone", e.Phone);
-            return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
+            string sql = "INSERT INTO Employee VALUES(@Pincode,@Firstname,@Lastname,@Street,@StreetNumber,@Postcode,@City,@Email,@Phone)";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@Pincode", e.Pincode);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@Firstname", e.Firstname);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@Lastname", e.Lastname);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@Street", e.Street);
+            DbParameter par5 = Database.AddParameter("AdminDB", "@StreetNumber", e.StreetNumber);
+            DbParameter par6 = Database.AddParameter("AdminDB", "@Postcode", e.Postcode);
+            DbParameter par7 = Database.AddParameter("AdminDB", "@City", e.City);
+            DbParameter par8 = Database.AddParameter("AdminDB", "@Email", e.Email);
+            DbParameter par9 = Database.AddParameter("AdminDB", "@Phone", e.Phone);
+            return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
         }
 
         public static void UpdateEmployee(Employee e, IEnumerable<Claim> claims)
         {
-            string sql = "UPDATE Employee SET Firstname=@Firstname, Lastname=@Lastname, Street=@Street, StreetNumber=@StreetNumber, Postcode=@Postcode, City=@City, Email=@Email, Phone=@Phone WHERE ID=@ID";
-            DbParameter par1 = Database.AddParameter("AdminDB", "@Firstname", e.Firstname);
-            DbParameter par2 = Database.AddParameter("AdminDB", "@Lastname", e.Lastname);
-            DbParameter par3 = Database.AddParameter("AdminDB", "@Street", e.Street);
-            DbParameter par4 = Database.AddParameter("AdminDB", "@StreetNumber", e.StreetNumber);
-            DbParameter par5 = Database.AddParameter("AdminDB", "@Postcode", e.Postcode);
-            DbParameter par6 = Database.AddParameter("AdminDB", "@City", e.City);
-            DbParameter par7 = Database.AddParameter("AdminDB", "@Email", e.Email);
-            DbParameter par8 = Database.AddParameter("AdminDB", "@Phone", e.Phone);
-            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
+            string sql = "UPDATE Employee SET Pincode=@Pincode, Firstname=@Firstname, Lastname=@Lastname, Street=@Street, StreetNumber=@StreetNumber, Postcode=@Postcode, City=@City, Email=@Email, Phone=@Phone WHERE ID=@ID";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@Pincode", e.Pincode);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@Firstname", e.Firstname);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@Lastname", e.Lastname);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@Street", e.Street);
+            DbParameter par5 = Database.AddParameter("AdminDB", "@StreetNumber", e.StreetNumber);
+            DbParameter par6 = Database.AddParameter("AdminDB", "@Postcode", e.Postcode);
+            DbParameter par7 = Database.AddParameter("AdminDB", "@City", e.City);
+            DbParameter par8 = Database.AddParameter("AdminDB", "@Email", e.Email);
+            DbParameter par9 = Database.AddParameter("AdminDB", "@Phone", e.Phone);
+            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
         }
 
         public static void DeleteEmployee(int id, IEnumerable<Claim> claims)

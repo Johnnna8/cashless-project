@@ -20,25 +20,22 @@ namespace nmct.ba.cashlessproject.api.Controllers
             return RegisterEmployeeDA.GetEmployeesPerRegister(registerid, p.Claims);
         }
 
-        // GET: api/RegisterEmployee/5
-        public string Get(int id)
+        public HttpResponseMessage Post(RegisterEmployee re)
         {
-            return "value";
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            int id = RegisterEmployeeDA.InsertRegisterEmployee(re, p.Claims);
+
+            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK);
+            message.Content = new StringContent(id.ToString());
+            return message;
         }
 
-        // POST: api/RegisterEmployee
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Put(RegisterEmployee re)
         {
-        }
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            RegisterEmployeeDA.UpdateRegisterEmployee(re, p.Claims);
 
-        // PUT: api/RegisterEmployee/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/RegisterEmployee/5
-        public void Delete(int id)
-        {
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

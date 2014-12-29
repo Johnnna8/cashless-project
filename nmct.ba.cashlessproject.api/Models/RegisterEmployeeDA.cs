@@ -44,7 +44,7 @@ namespace nmct.ba.cashlessproject.api.Models
         {
             return new RegisterEmployee()
             {
-                EmployeeID = new Employee() {
+                Employee = new Employee() {
                     ID = Convert.ToInt32(record["ID"]),
                     Firstname = record["Firstname"].ToString(),
                     Lastname = record["Lastname"].ToString(),
@@ -55,9 +55,27 @@ namespace nmct.ba.cashlessproject.api.Models
                     Email = record["Email"].ToString(),
                     Phone = record["Phone"].ToString()
                 },
-                From = Convert.ToInt32(record["From"]),
-                Until = Convert.ToInt32(record["Until"])
+                FromTime = Convert.ToInt32(record["From"]),
+                UntilTime = Convert.ToInt32(record["Until"])
             };
+        }
+
+        public static int InsertRegisterEmployee(RegisterEmployee re, IEnumerable<Claim> claims)
+        {
+            string sql = "INSERT INTO RegisterEmployee VALUES(@RegisterID, @EmployeeID, @FromTime, @UntilTime)";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@RegisterID", re.Register.ID);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@EmployeeID", re.Employee.ID);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@FromTime", re.FromTime);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@UntilTime", re.UntilTime);
+            return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4);
+        }
+
+        public static void UpdateRegisterEmployee(RegisterEmployee p, IEnumerable<Claim> claims)
+        {
+            string sql = "UPDATE RegisterEmployee SET UntilTime=@UntilTime WHERE ID=@ID";
+            DbParameter par1 = Database.AddParameter("AdminDB", "@UntilTime", p.UntilTime);
+            DbParameter par2 = Database.AddParameter("AdminDB", "@ID", p.ID);
+            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2);
         }
     }
 }

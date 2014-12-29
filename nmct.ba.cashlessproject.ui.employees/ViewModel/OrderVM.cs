@@ -30,23 +30,12 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         public OrderVM()
         {
-            Sales = new ObservableCollection<Sale>();
-
-            Employee = new Employee()
-            {
-                ID = 1,
-                Firstname = "Jos",
-                Lastname = "Houck"
-            };
-
-            Register = new Register()
-            {
-                ID = 1,
-                RegisterName = "testje",
-                Device = "IBM"
-            };
-
             Amount = "1 (standaard)";
+
+            Register = ApplicationVM.register;
+            Employee = ApplicationVM.employee;
+
+            Sales = new ObservableCollection<Sale>();
 
             if (ApplicationVM.token != null)
             {
@@ -267,7 +256,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                 }
                 else
                 {
-                    //foutmelding weergeven
+                    MessageBox.Show("De klant is nog niet geregistreert.", "Klant niet gevonden");
                     EnableDisableRegister = false;
                     EnableDisableCheckOut = false;
                 }

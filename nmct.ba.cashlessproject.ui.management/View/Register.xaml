@@ -38,12 +38,12 @@
         <ListBox Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="6" ItemsSource="{Binding Registers}" DisplayMemberPath="RegisterName" SelectedItem="{Binding SelectedRegister}"/>
 
         <TextBlock Grid.Column="6" Grid.ColumnSpan="6" Text="Kassa x (toestel x) laatst bemand door:"/>
-        <ListBox Grid.Row="1" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="6" ItemsSource="{Binding RegisterEmployee}" DisplayMemberPath="EmployeeID.Firstname" SelectedItem="{Binding SelectedEmployee}"/>
+        <ListBox Grid.Row="1" Grid.Column="6" Grid.RowSpan="3" Grid.ColumnSpan="6" ItemsSource="{Binding RegisterEmployee}" DisplayMemberPath="Employee.Firstname" SelectedItem="{Binding SelectedEmployee}"/>
 
         <TextBlock Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="Bemand van:"/>
-        <TextBlock Grid.Row="4" Grid.Column="9" Text="{Binding SelectedEmployee.From}"/>
+        <TextBlock Grid.Row="4" Grid.Column="9" Text="{Binding SelectedEmployee.FromTime}"/>
 
         <TextBlock Grid.Row="5" Grid.Column="6" Text="Tot:"/>
-        <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="2" Text="{Binding SelectedEmployee.Until}"/>
+        <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="2" Text="{Binding SelectedEmployee.UntilTime}"/>
     </Grid>
 </UserControl>
