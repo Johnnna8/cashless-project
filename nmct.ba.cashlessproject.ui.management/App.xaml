@@ -24,6 +24,14 @@
             <Setter Property="BorderBrush" Value="#A9CF54"></Setter>
         </Style>
 
+        <Style TargetType="ListView" BasedOn="{StaticResource Algemeen}">
+            <Setter Property="BorderBrush" Value="#A9CF54"></Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Margin" Value="8px"></Setter>
+        </Style>
+
         <Style TargetType="{x:Type Image}">
             <Setter Property="Margin" Value="8px"></Setter>
         </Style>

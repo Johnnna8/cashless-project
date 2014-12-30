@@ -30,12 +30,18 @@ namespace nmct.ba.cashlessproject.model
 
         private double _price;
 
-        [Required(ErrorMessage = "De prijs is verplicht")]
-        [Range(0.01, 10000, ErrorMessage = "Prijs tussen 0.01 en 10000")]
+        //[Required(ErrorMessage = "Prijs is verplicht")]
+        //[RegularExpression(@"^\d+.\d{0,2}$", ErrorMessage = "Prijs maximaal 2 cijfers na de komma")]
+        //[Range(0, 9999.99, ErrorMessage="Prijs maximaal 9999.99 euro")]
         public double Price
         {
             get { return _price; }
             set { _price = value; }
+        }
+
+        public override string ToString()
+        {
+            return ProductName + " (" + Price + ")";
         }
 
         public string Error

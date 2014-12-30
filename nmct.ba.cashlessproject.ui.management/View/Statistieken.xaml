@@ -2,9 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:m="clr-namespace:nmct.ba.cashlessproject.ui.management.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="410" d:DesignWidth="780">
+    <UserControl.DataContext>
+        <m:StatisticsVM />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -32,19 +36,31 @@
 
         <TextBlock Grid.ColumnSpan="2" Text="Kies een periode:"/>
         <TextBlock Grid.Row="1" Text="Van:"/>
-        <DatePicker Grid.Row="1" Grid.Column="3"  Grid.ColumnSpan="3"/>
+        <DatePicker Grid.Row="1" Grid.Column="3"  Grid.ColumnSpan="3" SelectedDate="{Binding FromDate}"/>
         <TextBlock Grid.Row="2" Text="Tot:"/>
-        <DatePicker Grid.Row="2" Grid.Column="3"  Grid.ColumnSpan="3"/>
+        <DatePicker Grid.Row="2" Grid.Column="3"  Grid.ColumnSpan="3" SelectedDate="{Binding UntilDate}"/>
 
-        <TextBlock Grid.Column="6" Grid.ColumnSpan="6" Text="Totale verkoop: x (x afrekeningen)"/>
-        <Button Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="6" Content="Per kassa" />
-        <Button Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" Content="Per product" />
+        <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="6" Text="Totale verkoop:"/>
+        <TextBlock Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="6" Text="{Binding TotalSales}"/>
 
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="6"><Run Text="Totale verkoop per product of"/><LineBreak/><Run Text="per kassa: x"/></TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="3" Text="x"/>
-        <ListBox Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="6" Text="Totale verkoop per product" />
+        <ListView Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerProduct}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Product.ProductName}" Header="Product naam" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Totale verkoop" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-        <TextBlock Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="6"><Run Text="Totale verkoop product x of"/><LineBreak/><Run Text="kassa x"/><Run Text=":"/></TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="9" Text="x"/>
+        <TextBlock Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="6" Text="Totale verkoop per kassa" />
+        <ListView Grid.Row="4" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerRegister}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Register.RegisterName}" Header="Naam " Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Totale verkoop" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

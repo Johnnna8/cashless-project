@@ -51,13 +51,11 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
             if (!ApplicationVM.token.IsError)
             {
-                //huidige window verbergen
-                App.Current.MainWindow.Hide();
-
+                //huidig window sluiten en het management systeem openen
                 MainWindow mw = new MainWindow();
                 mw.Show();
-
-                Username = null;
+                App.Current.MainWindow.Close();
+                App.Current.MainWindow = mw;
             }
             else
             {

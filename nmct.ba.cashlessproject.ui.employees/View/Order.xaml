@@ -87,9 +87,10 @@
             <Button Grid.Row="2" Grid.Column="3" Content="7" Command="{Binding IncreaseAmountCommand}" CommandParameter="7" IsEnabled="{Binding EnableDisableRegister}" />
             <Button Grid.Row="2" Grid.Column="4" Content="8" Command="{Binding IncreaseAmountCommand}" CommandParameter="8" IsEnabled="{Binding EnableDisableRegister}" />
             <Button Grid.Row="2" Grid.Column="5" Content="9" Command="{Binding IncreaseAmountCommand}" CommandParameter="9" IsEnabled="{Binding EnableDisableRegister}" />
+            <Button Grid.Row="5" Grid.Column="3" Content="0" Command="{Binding IncreaseAmountCommand}" CommandParameter="0" IsEnabled="{Binding EnableDisableZero}" />
 
-            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Annuleer aantal" Command="{Binding ResetAmountCommand}" IsEnabled="{Binding EnableDisableRegister}"/>
-            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" Command="{Binding AddProductCommand}" IsEnabled="{Binding EnableDisableAdd}" />
+            <Button Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2" Content="Annuleer aantal" Command="{Binding ResetAmountCommand}" IsEnabled="{Binding EnableDisableRegister}"/>
+            <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Content="Toevoegen" Command="{Binding AddProductCommand}" IsEnabled="{Binding EnableDisableAdd}" />
 
             <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="Bestelde producten:"/>
             <ListView Grid.Row="2" Grid.Column="6" Grid.RowSpan="4" Grid.ColumnSpan="3" ItemsSource="{Binding Sales}" SelectedItem="{Binding SelectedSale}" IsEnabled="{Binding EnableDisableRegister}">

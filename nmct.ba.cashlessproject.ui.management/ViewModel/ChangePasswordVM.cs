@@ -21,14 +21,14 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         public string CurrentPassword
         {
             get { return _currentPassword; }
-            set { _currentPassword = value; OnPropertyChanged("Username"); }
+            set { _currentPassword = value; OnPropertyChanged("CurrentPassword"); }
         }
 
         private string _newPassword;
         public string NewPassword
         {
             get { return _newPassword; }
-            set { _newPassword = value; OnPropertyChanged("Password"); }
+            set { _newPassword = value; OnPropertyChanged("NewPassword"); }
         }
 
         private string _newPasswordAgain;
@@ -36,7 +36,15 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         public string NewPasswordAgain
         {
             get { return _newPasswordAgain; }
-            set { _newPasswordAgain = value; }
+            set { _newPasswordAgain = value; OnPropertyChanged("NewPasswordAgain"); }
+        }
+
+        private string _error;
+
+        public string Error
+        {
+            get { return _error; }
+            set { _error = value; OnPropertyChanged("Error"); }
         }
 
         public ICommand ChangePasswordCommand
@@ -50,6 +58,12 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             if (await passwordCorrect())
             {
                 updatePassword();
+
+                Error = "Wachtwoord gewijzigd";
+            }
+            else
+            {
+                Error = "Gelieve een correct huidig wachtwoord in te geven.";
             }
         }
 

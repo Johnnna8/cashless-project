@@ -155,6 +155,22 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         #region enable disable properties
 
+        private Boolean _enableDisableRegister;
+
+        public Boolean EnableDisableRegister
+        {
+            get { return _enableDisableRegister; }
+            set { _enableDisableRegister = value; OnPropertyChanged("EnableDisableRegister"); }
+        }
+
+        private Boolean _enableDisableZero;
+
+        public Boolean EnableDisableZero
+        {
+            get { return _enableDisableZero; }
+            set { _enableDisableZero = value; OnPropertyChanged("EnableDisableZero"); }
+        }
+
         private Boolean _enableDisableAdd;
 
         public Boolean EnableDisableAdd
@@ -185,14 +201,6 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
         {
             get { return _enableDisableCheckOut; }
             set { _enableDisableCheckOut = value; OnPropertyChanged("EnableDisableCheckOut"); }
-        }
-
-        private Boolean _enableDisableRegister;
-
-        public Boolean EnableDisableRegister
-        {
-            get { return _enableDisableRegister; }
-            set { _enableDisableRegister = value; OnPropertyChanged("EnableDisableRegister"); }
         }
 
         #endregion
@@ -251,7 +259,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
             if (card == null)
             {
-                MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in");
+                MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in", "Niet correct aangesloten");
             }
             else
             {
@@ -266,6 +274,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                 {
                     MessageBox.Show("De klant is nog niet geregistreert.", "Klant niet gevonden");
                     EnableDisableRegister = false;
+                    EnableDisableZero = false;
                     EnableDisableCheckOut = false;
                 }
             }
@@ -278,12 +287,18 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             //wanneer je een getal toetst en het aantal is standaard 1 --> dit wegnemen en getoetst getal plaatsen
             if (Amount == "1 (standaard)")
             {
+                //onmogelijk om eerst het getal 0 in te tikken
+                EnableDisableZero = true;
+
                 Amount = input;
             }
 
             //nieuw getal naast huidige getal plaatsen
             else
             {
+                //wanneer het aantal niet op standaard 1 staat, disabelen nadat je een toets indrukt
+                EnableDisableZero = false;
+
                 newAmount = Amount + input;
                 if (Convert.ToInt32(newAmount) <= 99) Amount = newAmount;
             }
@@ -345,6 +360,8 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         private void cancelOrder()
         {
+            EnableDisableZero = false;
+
             resetAmount();
             TotalOrder = 0;
             Sales = new ObservableCollection<Sale>();
@@ -355,6 +372,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
         private void cancelCustomer()
         {
             EnableDisableRegister = false;
+            EnableDisableZero = false;
             EnableDisableAdd = false;
 
             cancelOrder();

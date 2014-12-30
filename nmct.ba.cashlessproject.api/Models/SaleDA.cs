@@ -4,6 +4,7 @@ using nmct.ba.cashlessproject.model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Security.Claims;
@@ -35,6 +36,49 @@ namespace nmct.ba.cashlessproject.api.Models
             DbParameter par6 = Database.AddParameter("AdminDB", "@TotalPrice", s.TotalPrice);
 
             return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6);
+        }
+
+        public static List<Sale> GetSales(IEnumerable<Claim> claims) {
+            
+            List<Sale> sales = new List<Sale>();
+
+            string sql = "SELECT p.ProductName, p.Price, s.ID, s.ProductID, s.RegisterID, s.Timestamp, s.Amount, s.TotalPrice, r.RegisterName, r.Device ";
+            sql += "FROM Product as p ";
+            sql += "INNER JOIN Sale as s ON p.ID = s.ProductID ";
+            sql += "INNER JOIN Register as r ON s.RegisterID = r.ID";
+
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
+
+            while (reader.Read())
+            {
+                sales.Add(Create(reader));
+            }
+            reader.Close();
+
+            return sales;
+        }
+
+        private static Sale Create(IDataRecord record)
+        {
+            return new Sale()
+            {
+                Product = new Product() {
+                    ID = Convert.ToInt32(record["ProductID"]),
+                    ProductName = record["ProductName"].ToString(),
+                    Price = Convert.ToDouble(record["Price"]),
+                },
+
+                ID = Convert.ToInt32(record["ID"]),
+                Timestamp = Convert.ToInt32(record["Timestamp"]),
+                Amount = Convert.ToInt32(record["Amount"]),
+                TotalPrice = Convert.ToDouble(record["TotalPrice"]),
+
+                Register = new Register() {
+                    ID = Convert.ToInt32(record["RegisterID"]),
+                    RegisterName = record["RegisterName"].ToString(),
+                    Device = record["Device"].ToString()
+                }
+            };
         }
     }
 }

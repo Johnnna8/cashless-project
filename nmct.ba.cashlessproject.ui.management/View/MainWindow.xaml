@@ -65,7 +65,7 @@
             <Border Style="{StaticResource BorderOnder}"/>
             <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
             <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging"/><LineBreak/><Run Text="Adres vereniging"/></TextBlock>
-            <Button Style="{StaticResource Afmelden}" Command="{Binding LogoutCommand}" CommandParameter="{Binding ElementName=window}" Content="Afmelden" />
+            <Button Style="{StaticResource Afmelden}" Command="{Binding LogoutCommand}" Content="Afmelden" />
         </Grid>
     </Grid>
 </Window>

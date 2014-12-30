@@ -36,7 +36,7 @@
         <TextBlock Grid.Column="3" Grid.Row="3" Text="Password:"/>
         <!-- replace with password box and "break" the MVVM pattern: http://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm-->
         <PasswordBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Margin="8,20,8,20" VerticalContentAlignment="Center" Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged"/>
-        <Button Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="6" Content="Aanmelden" Command="{Binding LoginCommand}" />
+        <Button Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="6" Content="Aanmelden" Command="{Binding LoginCommand}"/>
         <TextBlock Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="6" Foreground="Red" Text="{Binding Error}"/>
     </Grid>
 </Window>

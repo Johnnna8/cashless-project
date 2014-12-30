@@ -78,10 +78,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public ICommand SaveProductCommand
         {
-
-            get {
-                return new RelayCommand(SaveProduct);
-            }
+            get { return new RelayCommand(SaveProduct); }
         }
 
         public ICommand DeleteProductCommand

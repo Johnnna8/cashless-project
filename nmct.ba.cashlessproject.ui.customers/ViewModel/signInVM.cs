@@ -49,7 +49,7 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
 
             if (card == null)
             {
-                MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in");
+                MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in", "Niet correct aangesloten");
             }
             else
             {

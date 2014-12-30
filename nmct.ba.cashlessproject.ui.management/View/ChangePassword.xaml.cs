@@ -24,5 +24,23 @@ namespace nmct.ba.cashlessproject.ui.management.View
         {
             InitializeComponent();
         }
+
+        private void txtCurrentPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                ((dynamic)this.DataContext).CurrentPassword = ((PasswordBox)sender).Password;
+            }
+        }
+
+        private void txtNewPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)this.DataContext).NewPassword = ((PasswordBox)sender).Password;
+        }
+
+        private void txtNewPasswordAgain_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)this.DataContext).NewPasswordAgain = ((PasswordBox)sender).Password;
+        }
     }
 }

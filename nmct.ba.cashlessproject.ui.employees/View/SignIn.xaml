@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource TitelStart}" Grid.Column="2" Grid.ColumnSpan="7" Text="Welkom! Gelieve uw naam te selecteren en u pincode in te voeren"/>
 
-        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" VerticalContentAlignment="Center" ItemsSource="{Binding Employees}" SelectedValue="{Binding Employees[0]}" SelectedItem="{Binding SelectedEmployee}"/>
+        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" VerticalContentAlignment="Center" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" SelectedValue="{Binding Employees[0]}"/>
         <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False" Text="{Binding Pincode}"/>
 
         <Button Grid.Row="5" Grid.Column="3" Content="1" Command="{Binding InputPincodeCommand}" CommandParameter="1" />

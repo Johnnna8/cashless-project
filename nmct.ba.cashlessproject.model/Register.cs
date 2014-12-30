@@ -31,5 +31,10 @@ namespace nmct.ba.cashlessproject.model
             get { return _device; }
             set { _device = value; }
         }
+
+        public override string ToString()
+        {
+            return RegisterName + " (" + Device + ")";
+        }
     }
 }

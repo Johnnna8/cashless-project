@@ -59,8 +59,8 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
             return new OrganisationRegister()
             {
                 ID = Convert.ToInt32(record["ID"]),
-                FromDate = DateTime.UtcNow.ToDateTime(Convert.ToInt32((record["FromDate"]))),
-                UntilDate = DateTime.UtcNow.ToDateTime(Convert.ToInt32((record["UntilDate"]))),
+                FromDate = DateTime.Now.ToDateTime(Convert.ToInt32((record["FromDate"]))),
+                UntilDate = DateTime.Now.ToDateTime(Convert.ToInt32((record["UntilDate"]))),
                 Organisation = new Organisation()
                 {
                     ID = Convert.ToInt32(record["OrganisationID"]),
@@ -71,8 +71,8 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
                     ID = Convert.ToInt32(record["RegisterID"]),
                     RegisterName = record["RegisterName"].ToString(),
                     Device = record["Device"].ToString(),
-                    PurchaseDate = DateTime.UtcNow.ToDateTime(Convert.ToInt32((record["PurchaseDate"]))),
-                    ExpiresDate = DateTime.UtcNow.ToDateTime(Convert.ToInt32((record["ExpiresDate"])))
+                    PurchaseDate = DateTime.Now.ToDateTime(Convert.ToInt32((record["PurchaseDate"]))),
+                    ExpiresDate = DateTime.Now.ToDateTime(Convert.ToInt32((record["ExpiresDate"])))
                 }
             };
         }

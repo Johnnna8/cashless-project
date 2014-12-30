@@ -61,18 +61,19 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public ICommand LogoutCommand
         {
-            get { return new RelayCommand<MainWindow>(Logout); }
+            get { return new RelayCommand(Logout); }
         }
 
-        private void Logout(MainWindow mw)
+        private void Logout()
         {
 
             if (!ApplicationVM.token.IsError)
             {
-                mw.Hide();
-
-                //login tonen
-                App.Current.MainWindow.Show();
+                //huidige windows sluiten en loginpagina openen
+                Login login = new Login();
+                login.Show();
+                App.Current.MainWindow.Close();
+                App.Current.MainWindow = login;
 
                 token = null;
             }
