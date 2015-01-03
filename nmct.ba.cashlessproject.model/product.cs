@@ -20,8 +20,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _productName;
 
-        [Required(ErrorMessage = "De productnaam is verplicht")]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{3,50}$", ErrorMessage = "Productnaam tussen de 3 en 50 karakters, geen speciale tekens")]
+        [Required(ErrorMessage = "Productnaam is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Productnaam tussen de 2 en 50 karakters")]
         public string ProductName
         {
             get { return _productName; }
@@ -30,9 +30,8 @@ namespace nmct.ba.cashlessproject.model
 
         private double _price;
 
-        //[Required(ErrorMessage = "Prijs is verplicht")]
-        //[RegularExpression(@"^\d+.\d{0,2}$", ErrorMessage = "Prijs maximaal 2 cijfers na de komma")]
-        //[Range(0, 9999.99, ErrorMessage="Prijs maximaal 9999.99 euro")]
+        [Required(ErrorMessage = "Prijs is verplicht")]
+        [Range(0.01, 10000, ErrorMessage="Prijs tussen 0.01 en 10000")]
         public double Price
         {
             get { return _price; }

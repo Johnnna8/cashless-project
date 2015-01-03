@@ -27,7 +27,7 @@ namespace nmct.ba.cashlessproject.api.Models
         {
             List<RegisterEmployee> registerEmployee = new List<RegisterEmployee>();
 
-            string sql = "SELECT e.*, [from], Until FROM Register AS r INNER JOIN RegisterEmployee AS re ON r.ID = re.RegisterID INNER JOIN Employee as e ON re.EmployeeID = e.ID WHERE r.ID = @ID";
+            string sql = "SELECT e.*, FromTime, UntilTime FROM Register AS r INNER JOIN RegisterEmployee AS re ON r.ID = re.RegisterID INNER JOIN Employee as e ON re.EmployeeID = e.ID WHERE r.ID = @ID";
             DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
             DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql, par1);
 
@@ -55,9 +55,9 @@ namespace nmct.ba.cashlessproject.api.Models
                     Email = record["Email"].ToString(),
                     Phone = record["Phone"].ToString()
                 },
-                FromTime = Convert.ToInt32(record["From"]),
-                UntilTime = Convert.ToInt32(record["Until"])
-            };
+                FromTime = DateTime.Now.ToDateTime(Convert.ToInt32(record["FromTime"])),
+                UntilTime = DateTime.Now.ToDateTime(Convert.ToInt32(record["UntilTime"]))
+            }; 
         }
 
         public static int InsertRegisterEmployee(RegisterEmployee re, IEnumerable<Claim> claims)

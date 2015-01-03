@@ -21,7 +21,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _login;
 
-        [Required]
+        [Required(ErrorMessage = "Login is verplicht")]
+        [MinLength(2, ErrorMessage = "Login minimaal 2 karakters")]
+        [MaxLength(50, ErrorMessage = "Login maximaal 50 karakters")]
         public string Login
         {
             get { return _login; }
@@ -30,7 +32,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _password;
 
-        [Required]
+        [Required(ErrorMessage = "Wachtwoord is verplicht")]
+        [MinLength(2, ErrorMessage = "Wachtwoord minimaal 2 karakters")]
+        [MaxLength(50, ErrorMessage = "Wachtwoord maximaal 50 karakters")]
         [DisplayName("Wachtwoord")]
         public string Password
         {
@@ -40,7 +44,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _dbName;
 
-        [Required]
+        [Required(ErrorMessage = "Naam database is verplicht")]
+        [MinLength(2, ErrorMessage = "Naam database minimaal 2 karakters")]
+        [MaxLength(50, ErrorMessage = "Naam database maximaal 50 karakters")]
         [DisplayName("Naam database")]
         public string DbName
         {
@@ -50,7 +56,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _dbLogin;
 
-        [Required]
+        [Required(ErrorMessage = "Login database is verplicht")]
+        [MinLength(2, ErrorMessage = "Login database minimaal 2 karakters")]
+        [MaxLength(50, ErrorMessage = "Login database maximaal 50 karakters")]
         [DisplayName("Login database")]
         public string DbLogin
         {
@@ -60,7 +68,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _dbPassword;
 
-        [Required]
+        [Required(ErrorMessage = "Wachtwoord database is verplicht")]
+        [MinLength(2, ErrorMessage = "Wachtwoord database minimaal 2 karakters")]
+        [MaxLength(50, ErrorMessage = "Wachtwoord database maximaal 50 karakters")]
         [DisplayName("Wachtwoord database")]
         public string DbPassword
         {
@@ -70,7 +80,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _organisationName;
 
-        [Required]
+        [Required(ErrorMessage = "Naam vereniging is verplicht")]
+        [MinLength(2, ErrorMessage="Naam vereniging minimaal 2 karakters")]
+        [MaxLength(50, ErrorMessage = "Naam vereniging maximaal 50 karakters")]
         [DisplayName("Naam vereniging")]
         public string OrganisationName
         {
@@ -80,7 +92,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _street;
 
-        [Required]
+        [Required(ErrorMessage = "Straat is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Straat tussen de 2 en 50 karakters, geen cijfers of speciale tekens")]
         [DisplayName("Straat")]
         public string Street
         {
@@ -90,7 +103,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _streetNumber;
 
-        [Required]
+        [Required(ErrorMessage = "Straatnummer is verplicht")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,10}$", ErrorMessage = "Straat tussen de 1 en 10 karakters, geen speciale tekens")]
         [DisplayName("Straatnummer")]
         public string StreetNumber
         {
@@ -100,7 +114,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _postcode;
 
-        [Required]
+        [Required(ErrorMessage = "Postcode is verplicht")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{4,10}$", ErrorMessage = "Postcode tussen de 4 en 10 karakters, geen speciale tekens")]
         public string Postcode
         {
             get { return _postcode; }
@@ -109,7 +124,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _city;
 
-        [Required]
+        [Required(ErrorMessage = "Gemeente is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,40}$", ErrorMessage = "Gemeente tussen de 2 en 40 karakters, geen cijfers en speciale tekens")]
         [DisplayName("Gemeente")]
         public string City
         {
@@ -119,8 +135,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _email;
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Emailadres is verplicht")]
+        [EmailAddress(ErrorMessage = "Geef een correct emailadres op")]
         [DisplayName("Emailadres")]
         public string Email
         {
@@ -130,7 +146,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _phone;
 
-        [Required]
+        [Required(ErrorMessage = "Telefoonnummer is verplicht")]
+        [RegularExpression(@"^[0-9]{3,50}$", ErrorMessage = "Telefoonnummer tussen de 3 en 50 karakters, enkel cijfers")]
         [DisplayName("Telefoonnummer")]
         public string Phone
         {

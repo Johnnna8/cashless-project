@@ -70,7 +70,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ProductName}" Header="Product naam" Width="190"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Prijs per stuk" Width="115"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price, StringFormat=C, ConverterCulture=nl-BE}" Header="Prijs per stuk" Width="115"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -98,7 +98,7 @@
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Product.ProductName}" Header="Product naam" Width="150"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Amount}" Header="Aantal" Width="65"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Totale Prijs" Width="90"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice, StringFormat=C, ConverterCulture=nl-BE}" Header="Totale Prijs" Width="90"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -106,7 +106,7 @@
             <Button Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" IsEnabled="{Binding EnableDisableDelete}" />
 
             <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="Totaal:"/>
-            <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Margin="50,8,8,8" Text="{Binding TotalOrder}"/>
+            <TextBlock Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Margin="50,8,8,8" Text="{Binding TotalOrder, ValidatesOnDataErrors=True, StringFormat=C, ConverterCulture=nl-BE}"/>
 
             <Button Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Content="Afrekenen" Command="{Binding CheckOutCommand}" IsEnabled="{Binding EnableDisableCheckOut}" />
             <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer bestelling" Command="{Binding CancelOrderCommand}" IsEnabled="{Binding EnableDisableCancelOrder}" />

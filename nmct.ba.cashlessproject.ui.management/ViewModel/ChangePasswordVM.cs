@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace nmct.ba.cashlessproject.ui.management.ViewModel
 {
@@ -39,12 +41,12 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             set { _newPasswordAgain = value; OnPropertyChanged("NewPasswordAgain"); }
         }
 
-        private string _error;
+        private string _errorSuccesfull;
 
-        public string Error
+        public string ErrorSuccesfull
         {
-            get { return _error; }
-            set { _error = value; OnPropertyChanged("Error"); }
+            get { return _errorSuccesfull; }
+            set { _errorSuccesfull = value; OnPropertyChanged("ErrorSuccesfull"); }
         }
 
         public ICommand ChangePasswordCommand
@@ -54,16 +56,21 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         private async void ChangePassword()
         {
+            if (CurrentPassword == null || NewPassword == null || NewPasswordAgain == null)
+            {
+                ErrorSuccesfull = "Gelieve alle velden in te vullen";
+            } else if (NewPassword != NewPasswordAgain) {
+                ErrorSuccesfull = "De twee velden voor het nieuwe wachtwoord zijn niet gelijk aan elkaar";
+
             //als het huidige wachtwoord correct is, wachtwoord wijzigen
-            if (await passwordCorrect())
+            } else if (await passwordCorrect())
             {
                 updatePassword();
-
-                Error = "Wachtwoord gewijzigd";
+                ErrorSuccesfull = "Wachtwoord gewijzigd";
             }
             else
             {
-                Error = "Gelieve een correct huidig wachtwoord in te geven.";
+                ErrorSuccesfull = "Gelieve een correct huidig wachtwoord in te geven.";
             }
         }
 

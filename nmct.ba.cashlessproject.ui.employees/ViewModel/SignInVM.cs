@@ -121,8 +121,8 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             RegisterEmployee registerEmployee = new RegisterEmployee();
             registerEmployee.Register = ApplicationVM.register;
             registerEmployee.Employee = SelectedEmployee;
-            registerEmployee.FromTime = DateTime.Now.ToUnixTimestamp();
-            registerEmployee.UntilTime = DateTime.Now.ToUnixTimestamp();
+            registerEmployee.FromTime = DateTime.Now;
+            registerEmployee.UntilTime = DateTime.Now;
 
             registerEmployee.ID = await addRegisterEmployee(registerEmployee);
             ApplicationVM.registerEmployee = registerEmployee;

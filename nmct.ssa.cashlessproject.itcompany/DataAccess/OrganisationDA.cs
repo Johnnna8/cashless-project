@@ -38,7 +38,6 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
             while (reader.Read())
             {
                 o = Create(reader);
-
             }
             reader.Close();
 

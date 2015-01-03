@@ -44,6 +44,14 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             set { _selectedCustomer = value; OnPropertyChanged("SelectedCustomer"); }
         }
 
+        private string _error;
+
+        public string Error
+        {
+            get { return _error; }
+            set { _error = value; OnPropertyChanged("Error"); }
+        }
+
         private async void GetCustomers()
         {
             using (HttpClient client = new HttpClient())
@@ -70,9 +78,15 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         private async void SaveCustomer()
         {
-            if (SelectedCustomer == null)
+
+            if (SelectedCustomer == null || !SelectedCustomer.IsValid())
             {
+                Error = "Klant niet toegevoegd of gewijzigd, houd rekening met de meldingen.";
                 return;
+            }
+            else
+            {
+                Error = "";
             }
 
             string input = JsonConvert.SerializeObject(SelectedCustomer);

@@ -12,10 +12,12 @@
     <UserControl.Resources>
         <ControlTemplate x:Key="ErrorTemplate">
             <StackPanel>
-                <Border BorderBrush="Red">
-                    <AdornedElementPlaceholder/>
-                </Border>
-                <TextBlock Margin="8" Foreground="Red" Text="{Binding [0].ErrorContent}"/>
+                <StackPanel>
+                    <Border>
+                        <AdornedElementPlaceholder/>
+                    </Border>
+                    <TextBlock Margin="8" Text="{Binding [0].ErrorContent}"/>
+                </StackPanel>
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
@@ -42,34 +44,37 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Alle medewerkers:"/>
-        <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" ItemsSource="{Binding Employees}" DisplayMemberPath="Firstname" SelectedItem="{Binding SelectedEmployee}"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="3" ItemsSource="{Binding Employees}" DisplayMemberPath="Firstname" SelectedItem="{Binding SelectedEmployee}"/>
 
         <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Nieuw" Command="{Binding NewEmployeeCommand}"/>
-        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveEmployeeCommand}" />
-        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteEmployeeCommand}" />
+        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveEmployeeCommand}" IsEnabled="{Binding EnableDisableButtons}" />
+        <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteEmployeeCommand}" IsEnabled="{Binding EnableDisableButtons}" />
 
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Firstname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-        <TextBox Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Lastname}"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="30" Text="{Binding SelectedEmployee.Firstname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="1" Grid.Column="9" Grid.ColumnSpan="3" MaxLength="30" Text="{Binding SelectedEmployee.Lastname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Pincode"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Pincode}"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="4" Text="{Binding SelectedEmployee.Pincode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
-        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Street}"/>
-        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.StreetNumber}"/>
+        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="50" Text="{Binding SelectedEmployee.Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" MaxLength="10" Text="{Binding SelectedEmployee.StreetNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
-        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Postcode}"/>
-        <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.City}"/>
+        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="10" Text="{Binding SelectedEmployee.Postcode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" MaxLength="40" Text="{Binding SelectedEmployee.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Emailadres:"/>
-        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Email}"/>
+        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="50" Text="{Binding SelectedEmployee.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Text="Telefoon"/>
-        <TextBox Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedEmployee.Phone}"/>
+        <TextBox Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="50" Text="{Binding SelectedEmployee.Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+
+        <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="6" Text="{Binding Error}" Foreground="red" />
     </Grid>
 </UserControl>

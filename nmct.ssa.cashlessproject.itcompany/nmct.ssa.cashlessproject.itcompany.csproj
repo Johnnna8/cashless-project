@@ -169,16 +169,23 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="DataAccess\Database.cs" />
+    <Compile Include="DataAccess\ErrorLogDA.cs" />
     <Compile Include="DataAccess\OrganisationDA.cs" />
     <Compile Include="DataAccess\RegisterDA.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201501030118241_Init database.cs" />
+    <Compile Include="Migrations\201501030118241_Init database.Designer.cs">
+      <DependentUpon>201501030118241_Init database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreateDatabaseOrganisation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -220,7 +227,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -263,8 +272,8 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Register\Create.cshtml" />
     <Content Include="Views\Register\Edit.cshtml" />
+    <Content Include="Views\ErrorLog\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -284,6 +293,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201501030118241_Init database.resx">
+      <DependentUpon>201501030118241_Init database.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

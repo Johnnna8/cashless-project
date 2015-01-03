@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace nmct.ssa.cashlessproject.itcompany.Controllers
 {
+    [Authorize]
     public class RegisterController : Controller
     {
         public ActionResult Index(string sort)
@@ -96,9 +97,12 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
             return View(organisationRegister);
         }
 
+        [HttpPost]
         public ActionResult Edit(OrganisationRegister organisationRegister)
         {
             //nog extra controle: geldig id
+            if (organisationRegister.ID == 0)
+                return RedirectToAction("Index");
 
             //bestaand record ophalen
             OrganisationRegister orOud = RegisterDA.GetRegisterByID(organisationRegister.ID);

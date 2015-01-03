@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[Customer](
 	[Firstname] [nvarchar](30) NOT NULL,
 	[Lastname] [nvarchar](30) NOT NULL,
 	[Street] [nvarchar](50) NOT NULL,
-	[Postcode] [nvarchar](6) NOT NULL,
+	[Postcode] [nvarchar](10) NOT NULL,
 	[City] [nvarchar](40) NOT NULL,
 	[Picture] [image] NULL,
 	[Balance] [numeric](18, 0) NOT NULL,

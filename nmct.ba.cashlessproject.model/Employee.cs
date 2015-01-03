@@ -20,6 +20,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _Pincode;
 
+        [Required(ErrorMessage = "Pincode is verplicht")]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Pincode bevat 4 cijfers")]
         public string Pincode
         {
             get { return _Pincode; }
@@ -28,7 +30,9 @@ namespace nmct.ba.cashlessproject.model
 
         private string _firstname;
 
+
         [Required(ErrorMessage = "Voornaam is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Voornaam tussen de 2 en 30 karakters")]
         public string Firstname
         {
             get { return _firstname; }
@@ -37,6 +41,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _lastname;
 
+        [Required(ErrorMessage = "Familienaam is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Familienaam tussen de 2 en 30 karakters")]
         public string Lastname
         {
             get { return _lastname; }
@@ -45,6 +51,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _street;
 
+        [Required(ErrorMessage = "Straat is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Straat tussen de 2 en 50 karakters")]
         public string Street
         {
             get { return _street; }
@@ -53,6 +61,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _streetNumber;
 
+        [Required(ErrorMessage = "Straatnummer is verplicht")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,10}$", ErrorMessage = "Straat tussen de 1 en 10 karakters")]
         public string StreetNumber
         {
             get { return _streetNumber; }
@@ -61,6 +71,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _postcode;
 
+        [Required(ErrorMessage = "Postcode is verplicht")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{4,10}$", ErrorMessage = "Postcode tussen de 4 en 10 karakters")]
         public string Postcode
         {
             get { return _postcode; }
@@ -69,6 +81,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _city;
 
+        [Required(ErrorMessage = "Gemeente is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,40}$", ErrorMessage = "Gemeente tussen de 2 en 40 karakters")]
         public string City
         {
             get { return _city; }
@@ -77,6 +91,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _email;
 
+        [Required(ErrorMessage = "Emailadres is verplicht")]
+        [EmailAddress(ErrorMessage="Geef een correct emailadres op")]
         public string Email
         {
             get { return _email; }
@@ -85,6 +101,8 @@ namespace nmct.ba.cashlessproject.model
 
         private string _phone;
 
+        [Required(ErrorMessage = "Telefoonnummer is verplicht")]
+        [RegularExpression(@"^[0-9]{3,50}$", ErrorMessage = "Telefoonnummer tussen de 3 en 50 karakters")]
         public string Phone
         {
             get { return _phone; }

@@ -12,6 +12,14 @@
     </UserControl.DataContext>
     <UserControl.Resources>
         <c:StringToImageConverter x:Key="StringToImageConverter"/>
+        <ControlTemplate x:Key="ErrorTemplate">
+            <StackPanel>
+                <Border>
+                    <AdornedElementPlaceholder/>
+                </Border>
+                <TextBlock Margin="8" Text="{Binding [0].ErrorContent}"/>
+            </StackPanel>
+        </ControlTemplate>
     </UserControl.Resources>
     <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
@@ -36,6 +44,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="2" Text="Alle klanten:"/>
@@ -47,26 +56,22 @@
         <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.NationalNumber}" IsEnabled="False"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Firstname}" IsEnabled="False"/>
-        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Lastname}" IsEnabled="False"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Firstname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Lastname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
-        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Street}" IsEnabled="False"/>
+        <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
-        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Postcode}" IsEnabled="False"/>
-        <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.City}" IsEnabled="False"/>
+        <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Postcode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
         <Image Grid.Row="4" Grid.Column="9" />
 
         <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo"/>
-        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Balance}"/>
+        <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Balance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=C, ConverterCulture=nl-BE}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
-        <Button Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding AddImageCommand}">
-            <Button.Template>
-                <ControlTemplate>
-                    <Image Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <Image Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}}"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="6" Text="{Binding Error}" Foreground="red" />
     </Grid>
 </UserControl>

@@ -50,7 +50,7 @@
         <Image Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Customer.Picture, Converter={StaticResource StringToImageConverter}}"/>
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="6" Text="Uw saldo:" />
-        <TextBox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2" Text="{Binding Customer.Balance}"/>
+        <TextBox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2" Text="{Binding Customer.Balance, StringFormat=C, ConverterCulture=nl-BE}"/>
 
         <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="6" Text="Druk op de biljetten om saldo te verhogen" />
         <Button Grid.Row="2" Grid.Column="6" Content="€ 5" Command="{Binding AddFiveCommand}"/>

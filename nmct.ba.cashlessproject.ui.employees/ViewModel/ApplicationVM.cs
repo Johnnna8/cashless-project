@@ -87,7 +87,7 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         private async void changeUntilTime()
         {
-            ApplicationVM.registerEmployee.UntilTime = DateTime.Now.ToUnixTimestamp();
+            ApplicationVM.registerEmployee.UntilTime = DateTime.Now;
             string input = JsonConvert.SerializeObject(registerEmployee);
 
             using (HttpClient client = new HttpClient())

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace nmct.ssa.cashlessproject.itcompany.Controllers
 {
+    [Authorize]
     public class OrganisationController : Controller
     {
         [HttpGet]
@@ -31,10 +32,10 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
                 return RedirectToAction("Index");
 
             organisation.Login = Cryptography.Decrypt(organisation.Login);
-            organisation.Password = Cryptography.Decrypt(organisation.Password);
+            //organisation.Password = Cryptography.Decrypt(organisation.Password);
             organisation.DbName = Cryptography.Decrypt(organisation.DbName);
             organisation.DbLogin = Cryptography.Decrypt(organisation.DbLogin);
-            organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
+            //organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
 
             return View(organisation);
         }
@@ -75,12 +76,6 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
             if (organisation == null)
                 return RedirectToAction("Index");
 
-            organisation.Login = Cryptography.Decrypt(organisation.Login);
-            organisation.Password = Cryptography.Decrypt(organisation.Password);
-            organisation.DbName = Cryptography.Decrypt(organisation.DbName);
-            organisation.DbLogin = Cryptography.Decrypt(organisation.DbLogin);
-            organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
-
             return View(organisation);
         }
 
@@ -89,12 +84,6 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
         {
             if (ModelState.IsValid)
             {
-                organisation.Login = Cryptography.Encrypt(organisation.Login);
-                organisation.Password = Cryptography.Encrypt(organisation.Password);
-                organisation.DbName = Cryptography.Encrypt(organisation.DbName);
-                organisation.DbLogin = Cryptography.Encrypt(organisation.DbLogin);
-                organisation.DbPassword = Cryptography.Encrypt(organisation.DbPassword);
-
                 OrganisationDA.EditOrganisation(organisation);
                 return View("Details", organisation);
             }
@@ -114,10 +103,10 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
                 return RedirectToAction("Index");
 
             organisation.Login = Cryptography.Decrypt(organisation.Login);
-            organisation.Password = Cryptography.Decrypt(organisation.Password);
+            //organisation.Password = Cryptography.Decrypt(organisation.Password);
             organisation.DbName = Cryptography.Decrypt(organisation.DbName);
             organisation.DbLogin = Cryptography.Decrypt(organisation.DbLogin);
-            organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
+            //organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
 
             return View(organisation);
         }

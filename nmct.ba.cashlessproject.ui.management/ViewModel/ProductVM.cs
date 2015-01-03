@@ -21,6 +21,8 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public ProductVM()
         {
+            Products = new ObservableCollection<Product>();
+
             if (ApplicationVM.token != null)
             {
                 GetProducts();
@@ -53,20 +55,6 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
                 else
                 {
                     EnableDisableButtons = false;
-                }
-            }
-        }
-
-        private async void GetProducts()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/product");
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = await response.Content.ReadAsStringAsync();
-                    Products = JsonConvert.DeserializeObject<ObservableCollection<Product>>(json);
                 }
             }
         }
@@ -108,6 +96,20 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             Product p = new Product();
             Products.Add(p);
             SelectedProduct = p;
+        }
+
+        private async void GetProducts()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/product");
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Products = JsonConvert.DeserializeObject<ObservableCollection<Product>>(json);
+                }
+            }
         }
 
         private async void SaveProduct()

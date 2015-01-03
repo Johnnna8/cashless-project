@@ -35,5 +35,7 @@ namespace nmct.ssa.cashlessproject.itcompany.Models
         public System.Data.Entity.DbSet<nmct.ba.cashlessproject.model.Organisation> Organisations { get; set; }
 
         public System.Data.Entity.DbSet<nmct.ba.cashlessproject.model.OrganisationRegister> OrganisationRegisters { get; set; }
+
+        public System.Data.Entity.DbSet<nmct.ba.cashlessproject.model.ErrorLog> ErrorLogs { get; set; }
     }
 }

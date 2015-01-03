@@ -21,6 +21,8 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public EmployeeVM()
         {
+            Employees = new ObservableCollection<Employee>();
+
             if (ApplicationVM.token != null)
             {
                 GetEmployees();
@@ -39,21 +41,35 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         public Employee SelectedEmployee
         {
             get { return _selectedEmployee; }
-            set { _selectedEmployee = value; OnPropertyChanged("SelectedEmployee"); }
-        }
+            set {
+                _selectedEmployee = value;
+                OnPropertyChanged("SelectedEmployee");
 
-        private async void GetEmployees()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/employee");
-                if (response.IsSuccessStatusCode)
+                if (SelectedEmployee != null)
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-                    Employees = JsonConvert.DeserializeObject<ObservableCollection<Employee>>(json);
+                    EnableDisableButtons = true;
+                }
+                else
+                {
+                    EnableDisableButtons = false;
                 }
             }
+        }
+
+        private Boolean _enableDisableButtons;
+
+        public Boolean EnableDisableButtons
+        {
+            get { return _enableDisableButtons; }
+            set { _enableDisableButtons = value; OnPropertyChanged("EnableDisableButtons"); }
+        }
+
+        private string _error;
+
+        public string Error
+        {
+            get { return _error; }
+            set { _error = value; OnPropertyChanged("Error"); }
         }
 
         public ICommand NewEmployeeCommand
@@ -78,14 +94,34 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             SelectedEmployee = e;
         }
 
+        private async void GetEmployees()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/employee");
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Employees = JsonConvert.DeserializeObject<ObservableCollection<Employee>>(json);
+                }
+            }
+        }
+
         private async void SaveEmployee()
         {
-            string input = JsonConvert.SerializeObject(SelectedEmployee);
 
-            if (SelectedEmployee == null)
+            if (SelectedEmployee == null || !SelectedEmployee.IsValid())
             {
+                Error = "Medewerker niet toegevoegd of gewijzigd, hou rekening met de meldingen.";
                 return;
             }
+            else
+            {
+                Error = "";
+            }
+
+            string input = JsonConvert.SerializeObject(SelectedEmployee);
 
             // check insert (no ID assigned) or update (already an ID assigned)
             if (SelectedEmployee.ID == 0)

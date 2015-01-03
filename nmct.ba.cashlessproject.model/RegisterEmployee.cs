@@ -32,17 +32,17 @@ namespace nmct.ba.cashlessproject.model
             set { _employee = value; }
         }
 
-        private int _fromTime;
+        private DateTime _fromTime;
 
-        public int FromTime
+        public DateTime FromTime
         {
             get { return _fromTime; }
             set { _fromTime = value; }
         }
 
-        private int _untilTime;
+        private DateTime _untilTime;
 
-        public int UntilTime
+        public DateTime UntilTime
         {
             get { return _untilTime; }
             set { _untilTime = value; }

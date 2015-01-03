@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <ControlTemplate x:Key="ErrorTemplate">
             <StackPanel>
-                <Border BorderBrush="Red">
+                <Border>
                     <AdornedElementPlaceholder/>
                 </Border>
                 <TextBlock Margin="8" Text="{Binding [0].ErrorContent}"/>
@@ -42,6 +42,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="2"><Run Text="Alle "/><Run Text="producten"/><Run Text=":"/></TextBlock>
@@ -52,10 +53,10 @@
         <Button Grid.Column="9" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteProductCommand}" IsEnabled="{Binding EnableDisableButtons}" />
 
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Naam:"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="50" Text="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="Prijs"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedProduct.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+        <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="6" Text="{Binding SelectedProduct.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=C, ConverterCulture=nl-BE}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
         
         <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="6" Text="{Binding Error}" Foreground="red" />
     </Grid>

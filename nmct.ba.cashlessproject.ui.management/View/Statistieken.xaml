@@ -32,6 +32,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="2" Text="Kies een periode:"/>
@@ -44,21 +45,21 @@
         <TextBlock Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="6" Text="{Binding TotalSales}"/>
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="6" Text="Totale verkoop per product" />
-        <ListView Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerProduct}">
+        <ListView Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerProduct}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Product.ProductName}" Header="Product naam" Width="200"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Totale verkoop" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice, StringFormat=C, ConverterCulture=nl-BE}" Header="Totale verkoop" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
         <TextBlock Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="6" Text="Totale verkoop per kassa" />
-        <ListView Grid.Row="4" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerRegister}">
+        <ListView Grid.Row="4" Grid.RowSpan="4" Grid.Column="6" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerRegister}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Register.RegisterName}" Header="Naam " Width="200"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Totale verkoop" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice, StringFormat=C, ConverterCulture=nl-BE}" Header="Totale verkoop" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
