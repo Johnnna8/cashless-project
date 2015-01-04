@@ -19,6 +19,8 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public RegisterVM()
         {
+            Registers = new ObservableCollection<Register>();
+
             if (ApplicationVM.token != null)
             {
                 GetRegisters();

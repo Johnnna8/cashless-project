@@ -89,6 +89,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converters\StringToImageConverter.cs" />
+    <Compile Include="ViewModel\IDReader.cs" />
     <Compile Include="ViewModel\SignInVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\IPage.cs" />

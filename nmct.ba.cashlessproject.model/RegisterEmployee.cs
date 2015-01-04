@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,12 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return _untilTime; }
             set { _untilTime = value; }
+        }
+
+        public override string ToString()
+        {
+            CultureInfo nlBE = new CultureInfo("nl-BE");
+            return Employee.Firstname + " " + Employee.Lastname + ": van " + FromTime.ToString(nlBE) + " tot " + UntilTime.ToString(nlBE);
         }
     }
 }

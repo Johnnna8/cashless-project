@@ -32,24 +32,25 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource TitelStart}" Grid.Column="2" Grid.ColumnSpan="7" Text="Welkom! Gelieve uw naam te selecteren en u pincode in te voeren"/>
+        <TextBlock Style="{StaticResource TitelStart}" HorizontalAlignment="Center" Grid.ColumnSpan="9" Text="Welkom! Gelieve uw naam te selecteren en u pincode in te voeren"/>
 
-        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" VerticalContentAlignment="Center" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" SelectedValue="{Binding Employees[0]}"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False" Text="{Binding Pincode}"/>
-
-        <Button Grid.Row="5" Grid.Column="3" Content="1" Command="{Binding InputPincodeCommand}" CommandParameter="1" />
-        <Button Grid.Row="5" Grid.Column="4" Content="2" Command="{Binding InputPincodeCommand}" CommandParameter="2" />
-        <Button Grid.Row="5" Grid.Column="5" Content="3" Command="{Binding InputPincodeCommand}" CommandParameter="3" />
-        <Button Grid.Row="4" Grid.Column="3" Content="4" Command="{Binding InputPincodeCommand}" CommandParameter="4" />
-        <Button Grid.Row="4" Grid.Column="4" Content="5" Command="{Binding InputPincodeCommand}" CommandParameter="5" />
-        <Button Grid.Row="4" Grid.Column="5" Content="6" Command="{Binding InputPincodeCommand}" CommandParameter="6" />
-        <Button Grid.Row="3" Grid.Column="3" Content="7" Command="{Binding InputPincodeCommand}" CommandParameter="7" />
-        <Button Grid.Row="3" Grid.Column="4" Content="8" Command="{Binding InputPincodeCommand}" CommandParameter="8" />
-        <Button Grid.Row="3" Grid.Column="5" Content="9" Command="{Binding InputPincodeCommand}" CommandParameter="9" />
-        <Button Grid.Row="6" Grid.Column="3" Content="0" Command="{Binding InputPincodeCommand}" CommandParameter="0" />
-        <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Content="Wis" Command="{Binding ClearPincodeCommand}" />
-
+        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"  ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" SelectedValue="{Binding Employees[0]}"/>
+        <PasswordBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False" Name="txtPincode" PasswordChanged="txtPincode_PasswordChanged" />
+        
+        <!--mvvm patroon doorbreken door gebruik van passwordbox-->
+        <Button Grid.Row="5" Grid.Column="3" Content="1" Name="btn1" Click="btn1_Click" />
+        <Button Grid.Row="5" Grid.Column="4" Content="2" Name="btn2" Click="btn2_Click" />
+        <Button Grid.Row="5" Grid.Column="5" Content="3" Name="btn3" Click="btn3_Click" />
+        <Button Grid.Row="4" Grid.Column="3" Content="4" Name="btn4" Click="btn4_Click" />
+        <Button Grid.Row="4" Grid.Column="4" Content="5" Name="btn5" Click="btn5_Click" />
+        <Button Grid.Row="4" Grid.Column="5" Content="6" Name="btn6" Click="btn6_Click" />
+        <Button Grid.Row="3" Grid.Column="3" Content="7" Name="btn7" Click="btn7_Click" />
+        <Button Grid.Row="3" Grid.Column="4" Content="8" Name="btn8" Click="btn8_Click" />
+        <Button Grid.Row="3" Grid.Column="5" Content="9" Name="btn9" Click="btn9_Click" />
+        <Button Grid.Row="6" Grid.Column="3" Content="0" Name="btn0" Click="btn0_Click" />
+        <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Content="Wis" Name="btnClear" Click="btnClear_Click" />
+        
         <Button Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" Content="Identificeer" Command="{Binding IdentifyEmployeeCommand}"/>
-        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding Error}" />
+        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Foreground="red" Text="{Binding Error}" />
     </Grid>
 </UserControl>

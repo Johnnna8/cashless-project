@@ -58,6 +58,6 @@
         <Button Grid.Row="2" Grid.Column="8" Content="€ 20" Command="{Binding AddTwentyCommand}" />
         <Button Grid.Row="2" Grid.Column="9" Content="€ 50" Command="{Binding AddFiftyCommand}" />
 
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="6" Text="{Binding Error}" />
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="6" Foreground="Red" Text="{Binding Error}" />
     </Grid>
 </UserControl>

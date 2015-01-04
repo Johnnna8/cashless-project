@@ -38,6 +38,14 @@ namespace nmct.ba.cashlessproject.model
             set { _price = value; }
         }
 
+        private Boolean _available;
+
+        public Boolean Available
+        {
+            get { return _available; }
+            set { _available = value; }
+        }
+
         public override string ToString()
         {
             return ProductName + " (" + Price + ")";

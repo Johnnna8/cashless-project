@@ -45,11 +45,11 @@ namespace nmct.ba.cashlessproject.api.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        public HttpResponseMessage Delete(int id)
-        {
-            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
-            ProductDA.DeleteProduct(id, p.Claims);
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
+        //public HttpResponseMessage Delete(int id)
+        //{
+        //    ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+        //    ProductDA.DeleteProduct(id, p.Claims);
+        //    return new HttpResponseMessage(HttpStatusCode.OK);
+        //}
     }
 }

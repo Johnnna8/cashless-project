@@ -1,7 +1,6 @@
 ﻿using be.belgium.eid;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
-using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using nmct.ba.cashlessproject.ui.customers.View;
 using System;
@@ -53,7 +52,11 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             }
             else
             {
-                if (!addCustomer(card)) return;
+                if (!addCustomer(card))
+                {
+                    MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in", "Niet correct aangesloten");
+                    return;
+                }
 
                 ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
                 if (await checkCustomerExists())
@@ -113,8 +116,9 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
 
                 return true;
             }
-            catch (BEID_Exception)
+            catch (BEID_Exception ex)
             {
+                IDReader.logError(ex);
                 BEID_ReaderSet.releaseSDK();
                 return false;
             }

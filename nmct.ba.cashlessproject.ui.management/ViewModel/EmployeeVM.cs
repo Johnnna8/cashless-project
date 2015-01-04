@@ -121,6 +121,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
                 Error = "";
             }
 
+            SelectedEmployee.Available = true;
             string input = JsonConvert.SerializeObject(SelectedEmployee);
 
             // check insert (no ID assigned) or update (already an ID assigned)
@@ -162,19 +163,36 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
                 return;
             }
 
+            SelectedEmployee.Available = false;
+            string input = JsonConvert.SerializeObject(SelectedEmployee);
+
             using (HttpClient client = new HttpClient())
             {
                 client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage response = await client.DeleteAsync("http://localhost:55853/api/employee/" + SelectedEmployee.ID);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("error");
-                }
-                else
+                HttpResponseMessage response = await client.PutAsync("http://localhost:55853/api/employee", new StringContent(input, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
                 {
                     Employees.Remove(SelectedEmployee);
                 }
+                else
+                {
+                    Console.WriteLine("error");
+                }
             }
+
+            //using (HttpClient client = new HttpClient())
+            //{
+            //    client.SetBearerToken(ApplicationVM.token.AccessToken);
+            //    HttpResponseMessage response = await client.DeleteAsync("http://localhost:55853/api/employee/" + SelectedEmployee.ID);
+            //    if (!response.IsSuccessStatusCode)
+            //    {
+            //        Console.WriteLine("error");
+            //    }
+            //    else
+            //    {
+            //        Employees.Remove(SelectedEmployee);
+            //    }
+            //}
         }
     }
 }

@@ -68,10 +68,10 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             get { return new RelayCommand<string>(inputPincode); }
         }
 
-        public ICommand ClearPincodeCommand
-        {
-            get { return new RelayCommand(clearPincode); }
-        }
+        //public ICommand ClearPincodeCommand
+        //{
+        //    get { return new RelayCommand(clearPincode); }
+        //}
 
         public ICommand IdentifyEmployeeCommand
         {
@@ -91,17 +91,21 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             }
         }
 
-        private void clearPincode()
-        {
-            if (Pincode != null)
-            {
-                Pincode = null;
-            }
-        }
+        //private void clearPincode()
+        //{
+        //    if (Pincode != null)
+        //    {
+        //        Pincode = null;
+        //    }
+        //}
 
         private void IdentifyEmployee()
         {
-            if (SelectedEmployee.Pincode == Pincode)
+            if (SelectedEmployee == null)
+            {
+                Error = "Gelieve je naam te selecteren";
+            }
+            else if (SelectedEmployee.Pincode == Pincode)
             {
                 Error = "";
                 ApplicationVM.employee = SelectedEmployee;

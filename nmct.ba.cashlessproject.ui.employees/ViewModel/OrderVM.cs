@@ -263,7 +263,11 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             }
             else
             {
-                if (!addCustomer(card)) return;
+                if (!addCustomer(card))
+                {
+                    MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in", "Niet correct aangesloten");
+                    return;
+                }
 
                 if (await checkCustomerExists())
                 {
@@ -410,8 +414,9 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
                 return true;
             }
-            catch (BEID_Exception)
+            catch (BEID_Exception ex)
             {
+                IDReader.logError(ex);
                 BEID_ReaderSet.releaseSDK();
                 return false;
             }

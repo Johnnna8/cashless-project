@@ -49,8 +49,7 @@
 
         <TextBlock Grid.ColumnSpan="2" Text="Alle klanten:"/>
         <ListBox Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" ItemsSource="{Binding Customers}" DisplayMemberPath="Firstname" SelectedItem="{Binding SelectedCustomer}"/>
-        <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveCustomerCommand}" />
-        <Button Grid.Column="6" Grid.ColumnSpan="3" Content="Verwijderen" Command="{Binding DeleteCustomerCommand}" />
+        <Button Grid.Column="3" Grid.ColumnSpan="3" Content="Opslaan" Command="{Binding SaveCustomerCommand}" IsEnabled="{Binding EnableDisableButtons}" />
 
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Rijksregisternummer:"/>
         <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.NationalNumber}" IsEnabled="False"/>

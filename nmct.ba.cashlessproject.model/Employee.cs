@@ -18,6 +18,14 @@ namespace nmct.ba.cashlessproject.model
             set { _ID = value; }
         }
 
+        private Boolean _available;
+
+        public Boolean Available
+        {
+            get { return _available; }
+            set { _available = value; }
+        }
+
         private string _Pincode;
 
         [Required(ErrorMessage = "Pincode is verplicht")]

@@ -23,6 +23,8 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
         public CustomerVM()
         {
+            Customers = new ObservableCollection<Customer>();
+
             if (ApplicationVM.token != null)
             {
                 GetCustomers();
@@ -41,7 +43,27 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         public Customer SelectedCustomer
         {
             get { return _selectedCustomer; }
-            set { _selectedCustomer = value; OnPropertyChanged("SelectedCustomer"); }
+            set { 
+                _selectedCustomer = value;
+                OnPropertyChanged("SelectedCustomer");
+
+                if (SelectedCustomer != null)
+                {
+                    EnableDisableButtons = true;
+                }
+                else
+                {
+                    EnableDisableButtons = false;
+                }
+            }
+        }
+
+        private Boolean _enableDisableButtons;
+
+        public Boolean EnableDisableButtons
+        {
+            get { return _enableDisableButtons; }
+            set { _enableDisableButtons = value; OnPropertyChanged("EnableDisableButtons"); }
         }
 
         private string _error;
@@ -71,10 +93,10 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             get { return new RelayCommand(SaveCustomer); }
         }
 
-        public ICommand DeleteCustomerCommand
-        {
-            get { return new RelayCommand(DeleteCustomer); }
-        }
+        //public ICommand DeleteCustomerCommand
+        //{
+        //    get { return new RelayCommand(DeleteCustomer); }
+        //}
 
         private async void SaveCustomer()
         {
@@ -102,26 +124,26 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             }
         }
 
-        private async void DeleteCustomer()
-        {
-            if (SelectedCustomer == null)
-            {
-                return;
-            }
+        //private async void DeleteCustomer()
+        //{
+        //    if (SelectedCustomer == null)
+        //    {
+        //        return;
+        //    }
 
-            using (HttpClient client = new HttpClient())
-            {
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage response = await client.DeleteAsync("http://localhost:55853/api/customer/" + SelectedCustomer.ID);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("error");
-                }
-                else
-                {
-                    Customers.Remove(SelectedCustomer);
-                }
-            }
-        }
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.SetBearerToken(ApplicationVM.token.AccessToken);
+        //        HttpResponseMessage response = await client.DeleteAsync("http://localhost:55853/api/customer/" + SelectedCustomer.ID);
+        //        if (!response.IsSuccessStatusCode)
+        //        {
+        //            Console.WriteLine("error");
+        //        }
+        //        else
+        //        {
+        //            Customers.Remove(SelectedCustomer);
+        //        }
+        //    }
+        //}
     }
 }

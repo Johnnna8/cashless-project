@@ -124,6 +124,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
                 Error = "";
             }
 
+            SelectedProduct.Available = true;
             string input = JsonConvert.SerializeObject(SelectedProduct);
 
             // check insert (no ID assigned) or update (already an ID assigned)
@@ -165,24 +166,37 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             {
                 return;
             }
-            else
-            {
-                Error = "";
-            }
+
+            SelectedProduct.Available = false;
+            string input = JsonConvert.SerializeObject(SelectedProduct);
 
             using (HttpClient client = new HttpClient())
             {
                 client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage response = await client.DeleteAsync("http://localhost:55853/api/product/" + SelectedProduct.ID);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("error");
-                }
-                else
+                HttpResponseMessage response = await client.PutAsync("http://localhost:55853/api/product", new StringContent(input, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
                 {
                     Products.Remove(SelectedProduct);
                 }
+                else
+                {
+                    Console.WriteLine("error");
+                }
             }
+
+            //using (HttpClient client = new HttpClient())
+            //{
+            //    client.SetBearerToken(ApplicationVM.token.AccessToken);
+            //    HttpResponseMessage response = await client.DeleteAsync("http://localhost:55853/api/product/" + SelectedProduct.ID);
+            //    if (!response.IsSuccessStatusCode)
+            //    {
+            //        Console.WriteLine("error");
+            //    }
+            //    else
+            //    {
+            //        Products.Remove(SelectedProduct);
+            //    }
+            //}
         }
     }
 }

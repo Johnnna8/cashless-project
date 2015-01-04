@@ -26,7 +26,7 @@ namespace nmct.ba.cashlessproject.api.Models
         public static List<Product> GetProducts(IEnumerable<Claim> claims)
         {
             List<Product> products = new List<Product>();
-            string sql = "SELECT * FROM Product";
+            string sql = "SELECT * FROM Product WHERE available = 1";
             DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
 
             while (reader.Read())
@@ -66,7 +66,7 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static int InsertProduct(Product p, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Product VALUES(@ProductName, @Price)";
+            string sql = "INSERT INTO Product(ProductName, Price) VALUES(@ProductName, @Price)";
             DbParameter par1 = Database.AddParameter("AdminDB", "@ProductName", p.ProductName);
             DbParameter par2 = Database.AddParameter("AdminDB", "@Price", p.Price);
             return Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2);
@@ -74,19 +74,20 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static void UpdateProduct(Product p, IEnumerable<Claim> claims)
         {
-            string sql = "UPDATE Product SET ProductName=@ProductName, Price=@Price WHERE ID=@ID";
+            string sql = "UPDATE Product SET Available=@Available, ProductName=@ProductName, Price=@Price WHERE ID=@ID";
             DbParameter par1 = Database.AddParameter("AdminDB", "@ProductName", p.ProductName);
             DbParameter par2 = Database.AddParameter("AdminDB", "@Price", p.Price);
-            DbParameter par3 = Database.AddParameter("AdminDB", "@ID", p.ID);
-            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3);
+            DbParameter par3 = Database.AddParameter("AdminDB", "@Available", p.Available);
+            DbParameter par4 = Database.AddParameter("AdminDB", "@ID", p.ID);
+            Database.ModifyData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4);
         }
 
-        public static void DeleteProduct(int id, IEnumerable<Claim> claims)
-        {
-            string sql = "DELETE FROM Product WHERE ID=@ID";
-            DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
-            DbConnection con = Database.GetConnection(CreateConnectionString(claims));
-            Database.ModifyData(con, sql, par1);
-        }
+        //public static void DeleteProduct(int id, IEnumerable<Claim> claims)
+        //{
+        //    string sql = "DELETE FROM Product WHERE ID=@ID";
+        //    DbParameter par1 = Database.AddParameter("AdminDB", "@ID", id);
+        //    DbConnection con = Database.GetConnection(CreateConnectionString(claims));
+        //    Database.ModifyData(con, sql, par1);
+        //}
     }
 }

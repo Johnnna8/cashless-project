@@ -42,7 +42,7 @@
         <DatePicker Grid.Row="2" Grid.Column="3"  Grid.ColumnSpan="3" SelectedDate="{Binding UntilDate}"/>
 
         <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="6" Text="Totale verkoop:"/>
-        <TextBlock Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="6" Text="{Binding TotalSales}"/>
+        <TextBlock Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="6" Text="{Binding TotalSales, StringFormat=C, ConverterCulture=nl-BE}"/>
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="6" Text="Totale verkoop per product" />
         <ListView Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="6" ItemsSource="{Binding SalesPerProduct}">

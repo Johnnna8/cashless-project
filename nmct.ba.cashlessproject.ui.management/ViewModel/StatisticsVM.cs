@@ -149,6 +149,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
             //per productnaam een nieuwe sale aanmaken die je selecteert: deze bevat 2 namen
             //- de som van alle verkopen ophalen die bij een bepaalde productnaam horen
             //- die bepaalde productnaam ophalen
+            //bij deze code hulp gehad van klasgenoot
 
             SalesPerProduct = new ObservableCollection<Sale>(Sales
             .Where(s => s.Timestamp >= FromDate.ToUnixTimestamp() && s.Timestamp <= UntilDate.ToUnixTimestamp())

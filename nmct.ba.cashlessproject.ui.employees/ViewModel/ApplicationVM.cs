@@ -73,7 +73,6 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         private void Logout()
         {
-            ApplicationVM.register = null;
             ApplicationVM.employee = null;
 
             changeUntilTime();

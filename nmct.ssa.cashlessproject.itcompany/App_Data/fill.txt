@@ -37,7 +37,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Employee](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Pincode] [char](4) NOT NULL,
+	[Available] [bit] NOT NULL,
+	[Pincode] [nvarchar](255) NOT NULL,
 	[Firstname] [nvarchar](30) NOT NULL,
 	[Lastname] [nvarchar](30) NOT NULL,
 	[Street] [nvarchar](50) NOT NULL,
@@ -59,7 +60,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Errorlog](
 	[RegisterID] [int] NOT NULL,
-	[Timestamp] [timestamp] NOT NULL,
+	[Timestamp] [int] NOT NULL,
 	[Message] [nvarchar](50) NOT NULL,
 	[Stacktrace] [ntext] NOT NULL,
  CONSTRAINT [PK_Errorlog] PRIMARY KEY CLUSTERED 
@@ -76,6 +77,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Product](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Available] [bit] NOT NULL,
 	[ProductName] [nvarchar](50) NOT NULL,
 	[Price] [numeric](5, 2) NOT NULL,
  CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
@@ -135,6 +137,10 @@ CREATE TABLE [dbo].[Sale](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+ALTER TABLE [dbo].[Employee] ADD  CONSTRAINT [DF_Employee_Available]  DEFAULT ((1)) FOR [Available]
+GO
+ALTER TABLE [dbo].[Product] ADD  CONSTRAINT [DF_Product_Available]  DEFAULT ((1)) FOR [Available]
 GO
 ALTER TABLE [dbo].[Errorlog]  WITH CHECK ADD  CONSTRAINT [FK_Errorlog_Register] FOREIGN KEY([RegisterID])
 REFERENCES [dbo].[Register] ([ID])

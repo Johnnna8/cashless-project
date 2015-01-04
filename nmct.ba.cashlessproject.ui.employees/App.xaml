@@ -31,6 +31,7 @@
 
         <Style TargetType="{x:Type ComboBox}">
             <Setter Property="Margin" Value="8px"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
 
         <Style TargetType="{x:Type Image}">
@@ -39,6 +40,11 @@
 
         <Style TargetType="{x:Type DatePicker}">
             <Setter Property="Margin" Value="8px"></Setter>
+        </Style>
+      
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="Margin" Value="8"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
 
         <Style TargetType="Button" BasedOn="{StaticResource Algemeen}">
