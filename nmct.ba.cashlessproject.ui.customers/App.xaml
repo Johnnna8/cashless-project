@@ -95,6 +95,10 @@
         <Setter Property="Grid.ColumnSpan" Value="12"></Setter>
     </Style>
 
+    <Style x:Key="Melding" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="Red"></Setter>
+    </Style>
+
     <!--Footer-->
     <Style x:Key="BorderOnder" TargetType="{x:Type Border}" BasedOn="{StaticResource Border}">
         <Setter Property="BorderThickness" Value="0,1,0,0"></Setter>
@@ -105,8 +109,9 @@
     </Style>
 
     <Style x:Key="GegevensVereniging" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="Grid.Column" Value="3"></Setter>
-        <Setter Property="Grid.ColumnSpan" Value="3"></Setter>
+        <Setter Property="Grid.Column" Value="2"></Setter>
+        <Setter Property="Grid.ColumnSpan" Value="2"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
     </Style>
 
         <Style x:Key="Afmelden" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">

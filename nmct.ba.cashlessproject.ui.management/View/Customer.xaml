@@ -71,6 +71,6 @@
 
         <Image Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}}"/>
 
-        <TextBlock Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="6" Text="{Binding Error}" Foreground="red" />
+        <TextBlock Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="6" Style="{StaticResource Melding}" Text="{Binding Error}" Foreground="red" />
     </Grid>
 </UserControl>

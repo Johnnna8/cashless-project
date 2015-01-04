@@ -31,12 +31,17 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         public ApplicationVM()
         {
-            getToken();
-            getRegister();
-
             Pages.Add(new SignInVM());
             pages.Add(new OrderVM());
             CurrentPage = Pages[0];
+
+            getToken();
+
+            if (token != null)
+            {
+                getRegister();
+                GetOrganisation();
+            }
         }
 
         private IPage currentPage;
@@ -59,6 +64,14 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             {
                 pages = value; OnPropertyChanged("Pages");
             }
+        }
+
+        private Organisation _organisation;
+
+        public Organisation Organisation
+        {
+            get { return _organisation; }
+            set { _organisation = value; OnPropertyChanged("Organisation"); }
         }
 
         public ICommand ChangePageCommand
@@ -121,6 +134,20 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     register = JsonConvert.DeserializeObject<Register>(json);
+                }
+            }
+        }
+
+        private async void GetOrganisation()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/organisation");
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Organisation = JsonConvert.DeserializeObject<Organisation>(json);
                 }
             }
         }

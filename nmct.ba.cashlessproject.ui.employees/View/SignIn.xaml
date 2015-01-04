@@ -32,9 +32,9 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource TitelStart}" HorizontalAlignment="Center" Grid.ColumnSpan="9" Text="Welkom! Gelieve uw naam te selecteren en u pincode in te voeren"/>
+        <TextBlock Style="{StaticResource TitelStart}" HorizontalAlignment="Center" Grid.ColumnSpan="9" Text="Welkom! Gelieve uw naam te selecteren en uw pincode in te voeren"/>
 
-        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"  ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" SelectedValue="{Binding Employees[0]}"/>
+        <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"  ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}"/>
         <PasswordBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False" Name="txtPincode" PasswordChanged="txtPincode_PasswordChanged" />
         
         <!--mvvm patroon doorbreken door gebruik van passwordbox-->
@@ -51,6 +51,6 @@
         <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Content="Wis" Name="btnClear" Click="btnClear_Click" />
         
         <Button Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" Content="Identificeer" Command="{Binding IdentifyEmployeeCommand}"/>
-        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Foreground="red" Text="{Binding Error}" />
+        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Style="{StaticResource Melding}" Text="{Binding Error}" />
     </Grid>
 </UserControl>

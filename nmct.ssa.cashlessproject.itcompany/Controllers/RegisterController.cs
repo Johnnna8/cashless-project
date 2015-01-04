@@ -12,6 +12,7 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
     [Authorize]
     public class RegisterController : Controller
     {
+        //geen httpget of httppost bijzetten --> eerste keer laden: get, inladen met dropdownlist --> post
         public ActionResult Index(string sort)
         {
             List<OrganisationRegister> organisationsRegisters = new List<OrganisationRegister>();

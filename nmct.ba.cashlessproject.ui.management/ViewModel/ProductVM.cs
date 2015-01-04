@@ -116,7 +116,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
         { 
             if (SelectedProduct == null || !SelectedProduct.IsValid())
             {
-                Error = "Product niet toegevoegd of gewijzigd, houd rekening met de meldingen.";
+                Error = "Product niet toegevoegd of gewijzigd, hou rekening met de meldingen.";
                 return;
             }
             else

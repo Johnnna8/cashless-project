@@ -103,7 +103,7 @@ namespace nmct.ba.cashlessproject.ui.management.ViewModel
 
             if (SelectedCustomer == null || !SelectedCustomer.IsValid())
             {
-                Error = "Klant niet toegevoegd of gewijzigd, houd rekening met de meldingen.";
+                Error = "Klant niet gewijzigd, hou rekening met de meldingen.";
                 return;
             }
             else

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<nmct.ba.cashlessproject.model.OrganisationRegister>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Beheer kassa's";
 }
 
-<h2>Overzicht kassa's</h2>
+<h2>Beheer kassa's</h2>
 
 <p>
     @Html.ActionLink("Voeg nieuwe kassa toe", "Create")
@@ -111,9 +111,7 @@
             @Html.DisplayFor(modelItem => item.Register.ExpiresDate)
         </td>
         <td>
-            @Html.ActionLink("Bewerk", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Verwijder", "Delete", new { id=item.ID })
+            @Html.ActionLink("Wijzig vereniging", "Edit", new { id=item.ID })
         </td>
     </tr>
 }

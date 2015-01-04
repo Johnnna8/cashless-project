@@ -61,7 +61,7 @@
             <TextBox Grid.Column="4" Grid.ColumnSpan="2" Text="{Binding Customer.Lastname}" IsEnabled="False"/>
 
             <TextBlock Grid.Column="6" Grid.ColumnSpan="2" Text="Saldo:"/>
-            <TextBox Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding Customer.Balance}"/>
+            <TextBox Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding Customer.Balance}" IsEnabled="False"/>
 
             <Border Style="{StaticResource BorderKassa}"/>
 
@@ -70,7 +70,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ProductName}" Header="Product naam" Width="180"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price, StringFormat=C, ConverterCulture=nl-BE}" Header="Prijs per stuk" Width="115"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price, StringFormat=C, ConverterCulture=nl-BE}" Header="Prijs per stuk" Width="110"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -112,7 +112,7 @@
             <Button Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Annuleer bestelling" Command="{Binding CancelOrderCommand}" IsEnabled="{Binding EnableDisableCancelOrder}" />
             <Button Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Content="Annueleer klant" Command="{Binding CancelCustomerCommand}" IsEnabled="{Binding EnableDisableRegister}" />
 
-            <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding WarningBalance}" />
+            <TextBlock Grid.Row="5" Grid.Column="9" Grid.ColumnSpan="3" Style="{StaticResource Melding}" Text="{Binding WarningBalance}" />
         </Grid>
     </Grid>
 </UserControl>

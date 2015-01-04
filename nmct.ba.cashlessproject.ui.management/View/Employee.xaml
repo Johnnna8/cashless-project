@@ -75,6 +75,6 @@
         <TextBlock Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Text="Telefoon"/>
         <TextBox Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" MaxLength="50" Text="{Binding SelectedEmployee.Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
-        <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="6" Text="{Binding Error}" Foreground="red" />
+        <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="6" Style="{StaticResource Melding}" Text="{Binding Error}"/>
     </Grid>
 </UserControl>

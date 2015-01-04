@@ -38,7 +38,7 @@ namespace nmct.ba.cashlessproject.ui.employees.View
         private void addNumber(string n)
         {
             string pincode = txtPincode.Password;
-            if (pincode.Length < 4) txtPincode.Password += "5";
+            if (pincode.Length < 4) txtPincode.Password += n;
         }
 
         #region clicks

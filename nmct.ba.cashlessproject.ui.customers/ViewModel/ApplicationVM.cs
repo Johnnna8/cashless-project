@@ -1,5 +1,6 @@
 ﻿using be.belgium.eid;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using nmct.ba.cashlessproject.helper;
 using nmct.ba.cashlessproject.model;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -35,6 +37,11 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             CurrentPage = Pages[0];
 
             getToken();
+
+            if (token != null)
+            {
+                GetOrganisation();
+            }
         }
 
         private IPage currentPage;
@@ -57,6 +64,14 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
             {
                 pages = value; OnPropertyChanged("Pages");
             }
+        }
+
+        private Organisation _organisation;
+
+        public Organisation Organisation
+        {
+            get { return _organisation; }
+            set { _organisation = value; OnPropertyChanged("Organisation"); }
         }
 
         public ICommand ChangePageCommand
@@ -83,5 +98,19 @@ namespace nmct.ba.cashlessproject.ui.customers.ViewModel
         }
 
         public static Customer customer = null;
+
+        private async void GetOrganisation()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage response = await client.GetAsync("http://localhost:55853/api/organisation");
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Organisation = JsonConvert.DeserializeObject<Organisation>(json);
+                }
+            }
+        }
     }
 }

@@ -110,7 +110,7 @@ namespace nmct.ba.cashlessproject.model
         private string _phone;
 
         [Required(ErrorMessage = "Telefoonnummer is verplicht")]
-        [RegularExpression(@"^[0-9]{3,50}$", ErrorMessage = "Telefoonnummer tussen de 3 en 50 karakters")]
+        [RegularExpression(@"^[0-9]{3,50}$", ErrorMessage = "Telefoonnummer tussen de 3 en 50 karakters, enkel cijfers")]
         public string Phone
         {
             get { return _phone; }

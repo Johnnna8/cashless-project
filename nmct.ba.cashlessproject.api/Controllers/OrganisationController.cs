@@ -13,6 +13,14 @@ namespace nmct.ba.cashlessproject.api.Controllers
     [Authorize]
     public class OrganisationController : ApiController
     {
+        public Organisation GetOrganisation()
+        {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            string dbLogin = p.Claims.ElementAt(1).Value;
+            string dbPassword = p.Claims.ElementAt(2).Value;
+            return OrganisationDA.getOrganisation(dbLogin, dbPassword);
+        }
+
         // GET: api/Organisation
         public Boolean GetPasswordCorrect(string oldPassword)
         {

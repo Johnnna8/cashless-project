@@ -23,7 +23,7 @@ namespace nmct.ba.cashlessproject.model
 
         [DisplayName("Naam kassa")]
         [Required(ErrorMessage = "Naam kassa is verplicht")]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Naam kassa tussen de 2 en 50 karakters, geen cijfers en speciale tekens")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Naam kassa tussen de 2 en 50 karakters, geen speciale tekens")]
         public string RegisterName
         {
             get { return _registerName; }
@@ -34,7 +34,7 @@ namespace nmct.ba.cashlessproject.model
 
         [DisplayName("Soort toestel")]
         [Required(ErrorMessage = "Naam toestel is verplicht")]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Naam kassa tussen de 2 en 50 karakters, geen cijfers en speciale tekens")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{2,50}$", ErrorMessage = "Soort toestel tussen de 2 en 50 karakters, geen speciale tekens")]
         public string Device
         {
             get { return _device; }

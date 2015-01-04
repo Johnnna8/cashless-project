@@ -63,10 +63,10 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             set { _error = value; OnPropertyChanged("Error"); }
         }
 
-        public ICommand InputPincodeCommand
-        {
-            get { return new RelayCommand<string>(inputPincode); }
-        }
+        //public ICommand InputPincodeCommand
+        //{
+        //    get { return new RelayCommand<string>(inputPincode); }
+        //}
 
         //public ICommand ClearPincodeCommand
         //{
@@ -78,18 +78,18 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             get { return new RelayCommand(IdentifyEmployee); }
         }
 
-        private void inputPincode(string input)
-        {
-            if (Pincode == null)
-            {
-                Pincode = input;
+        //private void inputPincode(string input)
+        //{
+        //    if (Pincode == null)
+        //    {
+        //        Pincode = input;
 
-            //als de lengte bv. 3 is wordt er nog 1 keer een cijfertje achter gezet
-            } else if (Pincode.Length < 4)
-            {
-                Pincode += input;
-            }
-        }
+        //    //als de lengte bv. 3 is wordt er nog 1 keer een cijfertje achter gezet
+        //    } else if (Pincode.Length < 4)
+        //    {
+        //        Pincode += input;
+        //    }
+        //}
 
         //private void clearPincode()
         //{

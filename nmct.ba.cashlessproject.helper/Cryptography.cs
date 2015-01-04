@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.helper
 {
+    //gekopieerd van Frederik Duchi
     public class Cryptography
     {
         public static string Encrypt(string input)

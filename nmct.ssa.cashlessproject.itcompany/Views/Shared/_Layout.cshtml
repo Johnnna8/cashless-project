@@ -30,7 +30,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li>@Html.ActionLink("Beheer organisaties", "Index", "Organisation")</li>
                     <li>@Html.ActionLink("Beheer kassa's", "Index", "Register")</li>
-                    <li>@Html.ActionLink("Error logs", "Index", "ErrorLog")</li>
+                    <li>@Html.ActionLink("Overzicht error logs", "Index", "ErrorLog")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -40,7 +40,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Jonathan Houck</p>
         </footer>
     </div>
 </body>

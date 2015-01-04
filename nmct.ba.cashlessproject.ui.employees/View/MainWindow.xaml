@@ -40,7 +40,7 @@
 
             <Border Style="{StaticResource BorderOnder}"/>
             <TextBlock Style="{StaticResource Copyright}" Text="© Houck IT solutions"/>
-            <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging"/><LineBreak/><Run Text="Adres vereniging"/></TextBlock>
+            <TextBlock Style="{StaticResource GegevensVereniging}"><Run Text="Naam vereniging:"/><LineBreak/><Run Text="{Binding Organisation.OrganisationName}"/></TextBlock>
             <Button Style="{StaticResource Afmelden}" Content="Afmelden" Command="{Binding LogoutCommand}" />
         </Grid>
     </Grid>

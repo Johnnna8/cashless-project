@@ -30,13 +30,13 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="6" Text="Welkom, gelieve u aan te melden om door te gaan naar het management systeem"/>
+        <TextBlock Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="6" Style="{StaticResource TitelStart}" Text="Welkom, gelieve u aan te melden om door te gaan naar het management systeem"/>
         <TextBlock Grid.Column="3" Grid.Row="2" Text="Login:"/>
         <TextBox Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="2" Text="{Binding Username}"/>
         <TextBlock Grid.Column="3" Grid.Row="3" Text="Password:"/>
         <!-- replace with password box and "break" the MVVM pattern: http://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm-->
         <PasswordBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Margin="8,20,8,20" VerticalContentAlignment="Center" Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged"/>
         <Button Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="6" Content="Aanmelden" Command="{Binding LoginCommand}"/>
-        <TextBlock Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="6" Foreground="Red" Text="{Binding Error}"/>
+        <TextBlock Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="6" Style="{StaticResource Melding}" Text="{Binding Error}"/>
     </Grid>
 </Window>
