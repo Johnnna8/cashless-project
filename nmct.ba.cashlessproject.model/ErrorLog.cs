@@ -28,7 +28,7 @@ namespace nmct.ba.cashlessproject.model
 
         private DateTime _timestamp;
 
-        [DisplayName("Gelogt op")]
+        [DisplayName("Gelogd op")]
         public DateTime Timestamp
         {
             get { return _timestamp; }

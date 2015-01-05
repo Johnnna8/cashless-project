@@ -16,8 +16,8 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<Organisation> organisations = OrganisationDA.GetOrganisations();
-            return View(organisations);
+            //vereniging die geen vereniging voorstel niet tonen
+            return View(OrganisationDA.GetOrganisations().Where(r => r.ID != -1));
         }
 
         [HttpGet]
@@ -30,12 +30,6 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 
             if (organisation == null)
                 return RedirectToAction("Index");
-
-            organisation.Login = Cryptography.Decrypt(organisation.Login);
-            //organisation.Password = Cryptography.Decrypt(organisation.Password);
-            organisation.DbName = Cryptography.Decrypt(organisation.DbName);
-            organisation.DbLogin = Cryptography.Decrypt(organisation.DbLogin);
-            //organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
 
             return View(organisation);
         }
@@ -91,36 +85,30 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public ActionResult Delete(int? id)
-        {
-            if (!id.HasValue)
-                return RedirectToAction("Index");
+        //[HttpGet]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (!id.HasValue)
+        //        return RedirectToAction("Index");
 
-            Organisation organisation = OrganisationDA.GetOrganisationByID(id.Value);
+        //    Organisation organisation = OrganisationDA.GetOrganisationByID(id.Value);
 
-            if (organisation == null)
-                return RedirectToAction("Index");
+        //    if (organisation == null)
+        //        return RedirectToAction("Index");
 
-            organisation.Login = Cryptography.Decrypt(organisation.Login);
-            //organisation.Password = Cryptography.Decrypt(organisation.Password);
-            organisation.DbName = Cryptography.Decrypt(organisation.DbName);
-            organisation.DbLogin = Cryptography.Decrypt(organisation.DbLogin);
-            //organisation.DbPassword = Cryptography.Decrypt(organisation.DbPassword);
+        //    return View(organisation);
+        //}
 
-            return View(organisation);
-        }
+        //[HttpPost]
+        //[ActionName("Delete")]
+        //public ActionResult DeleteByID(int? id)
+        //{
+        //    if (id.HasValue)
+        //    {
+        //        OrganisationDA.DeleteOrganisation(id.Value);
+        //    }
 
-        [HttpPost]
-        [ActionName("Delete")]
-        public ActionResult DeleteByID(int? id)
-        {
-            if (id.HasValue)
-            {
-                OrganisationDA.DeleteOrganisation(id.Value);
-            }
-
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }

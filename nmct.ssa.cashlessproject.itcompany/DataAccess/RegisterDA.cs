@@ -17,10 +17,11 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
         {
             List<OrganisationRegister> organisationsRegisters = new List<OrganisationRegister>();
 
+            //waarom right join? ook kassa's selecteren zonder vereniging, waarbij OrganisationID gelijk is aan 0 in tabel OrganisationRegister
             string sql = "SELECT o.OrganisationName, orgr.ID, orgr.OrganisationID, r.ID as RegisterID, orgr.FromDate, orgr.UntilDate , r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
             sql += "FROM Organisations AS o ";
-            sql += "RIGHT JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
-            sql += "RIGHT JOIN Register as r ON orgr.RegisterID = r.ID";
+            sql += "INNER JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
+            sql += "INNER JOIN Register as r ON orgr.RegisterID = r.ID";
 
             DbDataReader reader = Database.GetData(CONNECTIONSTRING, sql);
             while (reader.Read())
@@ -38,8 +39,8 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
 
             string sql = "SELECT o.OrganisationName, orgr.ID, orgr.OrganisationID, r.ID as RegisterID, orgr.FromDate, orgr.UntilDate , r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
             sql += "FROM Organisations AS o ";
-            sql += "RIGHT JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
-            sql += "RIGHT JOIN Register as r ON orgr.RegisterID = r.ID ";
+            sql += "INNER JOIN OrganisationRegister AS orgr ON o.ID = orgr.OrganisationID ";
+            sql += "INNER JOIN Register as r ON orgr.RegisterID = r.ID ";
             sql += "WHERE orgr.ID = @ID";
 
             DbParameter par1 = Database.AddParameter(CONNECTIONSTRING, "@ID", id);

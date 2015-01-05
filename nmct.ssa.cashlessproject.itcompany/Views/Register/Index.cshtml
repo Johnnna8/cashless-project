@@ -40,7 +40,7 @@
     </div>
     }
 
-<h3>Alle (beschikbare) kassa's of kassa's per vereniging</h3>
+<h3>@ViewBag.titleRegisters</h3>
 
 <table class="table">
     <tr>
@@ -71,14 +71,7 @@
 @foreach (var item in Model)
 {
     <tr>
-        @if (item.Organisation.OrganisationName == "")
-        {
-            <td>Geen</td>
-        }
-        else
-        {
-            <td>@Html.DisplayFor(modelItem => item.Organisation.OrganisationName)</td>
-        }
+        <td>@Html.DisplayFor(modelItem => item.Organisation.OrganisationName)</td>
 
         @if (item.FromDate.ToString() == "1/1/1970 12:00:00 PM")
         {

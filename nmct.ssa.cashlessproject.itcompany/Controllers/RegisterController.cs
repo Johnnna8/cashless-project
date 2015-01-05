@@ -18,21 +18,30 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
             List<OrganisationRegister> organisationsRegisters = new List<OrganisationRegister>();
             organisationsRegisters = RegisterDA.GetOrganisationsWithRegisters();
 
-            ViewBag.Organisations = OrganisationDA.GetOrganisations();
+            //vereniging die geen vereniging is niet in viewbag plaatsen
+            //--> wordt handmatig in dropdownlist (view) geplaatst voor beter naamgeving
+            ViewBag.Organisations = OrganisationDA.GetOrganisations().Where(r => r.ID != -1);
 
             //bij het opstarten en bij het klikken op alle kassa's --> alles weergeven
             if (sort == null || sort  == "allRegisters")
             {
+                ViewBag.titleRegisters = "Alle kassa's";
                 return View(organisationsRegisters);
 
             //bij het klikken op beschikbare kassa's --> enkel records weergeven zonder organisatie
-            } else if (sort == "availableRegisters") {
-
-                return View(organisationsRegisters.Where(or => or.Organisation.ID == 0));
+            } else if (sort == "availableRegisters")
+            {
+                ViewBag.titleRegisters = "Beschikbare kassa's";
+                return View(organisationsRegisters.Where(or => or.Organisation.ID == -1));
             
             //standaard sorteren op de aangeklikte organisatie
             } else
             {
+                Organisation organisation = OrganisationDA.GetOrganisationByID(Convert.ToInt32(sort));
+                if (organisation == null)
+                    return RedirectToAction("Index");
+
+                ViewBag.titleRegisters = "Kassa's van vereniging " + organisation.OrganisationName;
                 return View(organisationsRegisters.Where(or => or.Organisation.ID == Convert.ToInt32(sort)));
             }
         }
@@ -44,7 +53,11 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 
             //bij het toevoegen van een nieuw register
             //bij gekocht op: dag van vandaag invullen en bij vervalt op: vijf jaar later
-            RegisterCompany register = new RegisterCompany() { PurchaseDate = DateTime.Today, ExpiresDate = DateTime.Today.AddYears(5) };
+            RegisterCompany register = new RegisterCompany() {
+                PurchaseDate = DateTime.Today,
+                ExpiresDate = DateTime.Today.AddYears(5) 
+            };
+
             organistationRegister.Register = register;
 
             ViewBag.Organisations = OrganisationDA.GetOrganisations();
@@ -55,21 +68,24 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
         [HttpPost]
         public ActionResult Create(OrganisationRegister organisationRegister)
         {
-            //hier kan ik niet werken met ModelState.IsValid doordat ik in mijn query niet alle waarden ophaal van het model OrganisationRegister
-            if (!string.IsNullOrEmpty(organisationRegister.Register.RegisterName) 
+            //hier kan ik niet werken met ModelState.IsValid doordat ik in niet alle waarden ophaal van het model OrganisationRegister
+            if (organisationRegister.Organisation.ID != 0
+                && !string.IsNullOrEmpty(organisationRegister.Register.RegisterName) 
                 && !string.IsNullOrEmpty(organisationRegister.Register.Device) 
                 && organisationRegister.Register.PurchaseDate != null
                 && organisationRegister.Register.ExpiresDate != null)
             {
-                //als er een organisatie is toegekend, een record plaatsen in in de tussentabel
-                if (organisationRegister.Organisation.ID == 0)
+                //als er geen organisatie is toegekend, een record plaatsen in de tussentabel met "default" datums
+                if (organisationRegister.Organisation.ID == -1)
                 {
                     organisationRegister.FromDate = new DateTime(1970, 1, 1, 12, 0, 0);
                     organisationRegister.UntilDate = new DateTime(1970, 1, 1, 12, 0, 0);
                 }
+                //indien er wel een organisatie is toegekend, dag van en tot datum instellen
+                //dag van vandaag nemen voor "van" datum en niet gekocht op datum: kassa kan bv. gisteren aangekocht zijn en vandaag pas toegekend zijn
+                //voor "tot" datum vervaldag nemen: wanneer kassa vervalt, is de kassa ook niet meer in het bedrijf
                 else
                 {
-                    //dag van vandaag en niet purchase date, kassa kan bv. gisteren aangekocht zijn en vandaag pas toegekend zijn
                     organisationRegister.FromDate = DateTime.Today;
                     organisationRegister.UntilDate = organisationRegister.Register.ExpiresDate;
                 }
@@ -89,7 +105,6 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
 
             OrganisationRegister organisationRegister = RegisterDA.GetRegisterByID(id.Value);
 
-            //hier controleren op ID en niet op null, door gebruik te maken van RIGHT JOIN is organisationRegister nooit null
             if (organisationRegister.ID == 0)
                 return RedirectToAction("Index");
 
@@ -108,19 +123,25 @@ namespace nmct.ssa.cashlessproject.itcompany.Controllers
             //bestaand record ophalen
             OrganisationRegister orOud = RegisterDA.GetRegisterByID(organisationRegister.ID);
 
-            ////van niet beschikbaar naar beschikbaar (geen organisatie)
-            if (orOud.Organisation.ID == 0 && organisationRegister.Organisation.ID != 0)
+            //controle of organisatie wel bestaat
+            if (orOud.Organisation == null)
+                return RedirectToAction("Index");
+
+            //van beschikbaar (geen organisatie) naar niet beschikbaar (wel een organisatie)
+            if (orOud.Organisation.ID == -1 && organisationRegister.Organisation.ID != -1)
             {
                 organisationRegister.FromDate = DateTime.Today;
                 organisationRegister.UntilDate = orOud.Register.ExpiresDate;
             }
 
-            //van beschikbaar naar niet beschikbaar (wel een organisatie)
-            else if (orOud.Organisation.ID != 0 && organisationRegister.Organisation.ID == 0)
+            //van niet beschikbaar (wel een organisatie) naar beschikbaar (geen organisatie)
+            else if (orOud.Organisation.ID != -1 && organisationRegister.Organisation.ID == -1)
             {
                 organisationRegister.FromDate = new DateTime(1970, 1, 1, 12, 0, 0);
                 organisationRegister.UntilDate = new DateTime(1970, 1, 1, 12, 0, 0);
             }
+
+            //bv. veranderen van organisatie: van en tot datum behouden
             else
             {
                 organisationRegister.FromDate = orOud.FromDate;

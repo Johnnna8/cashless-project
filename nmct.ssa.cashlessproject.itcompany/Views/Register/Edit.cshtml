@@ -22,15 +22,6 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <select class="form-control" name="Organisation.ID">
-                        @if (Model.Organisation.ID == 0)
-                        {
-                            <option value="0" selected>Geen vereniging</option>
-                        }
-                        else
-                        {
-                            <option value="0">Geen vereniging</option>
-                        }
-
                         @foreach (var organisation in ViewBag.Organisations)
                         {                  
                             if (Model.Organisation.ID == organisation.ID)

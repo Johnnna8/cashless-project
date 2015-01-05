@@ -45,6 +45,7 @@ namespace nmct.ba.cashlessproject.model
 
         [DisplayName("Aangekocht op")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "Aangekocht op is verplicht")]
         public DateTime PurchaseDate
         {
             get { return _purchaseDate; }
@@ -55,6 +56,7 @@ namespace nmct.ba.cashlessproject.model
 
         [DisplayName("Verloopt op")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "Verloopt op is verplicht")]
         public DateTime ExpiresDate
         {
             get { return _expiresDate; }
