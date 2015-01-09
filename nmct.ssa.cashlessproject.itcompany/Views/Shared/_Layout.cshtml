@@ -28,9 +28,12 @@
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    <li>@Html.ActionLink("Beheer verenigingen", "Index", "Organisation")</li>
-                    <li>@Html.ActionLink("Beheer kassa's", "Index", "Register")</li>
-                    <li>@Html.ActionLink("Overzicht error logs", "Index", "ErrorLog")</li>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Beheer verenigingen", "Index", "Organisation")</li>
+                        <li>@Html.ActionLink("Beheer kassa's", "Index", "Register")</li>
+                        <li>@Html.ActionLink("Overzicht error logs", "Index", "ErrorLog")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

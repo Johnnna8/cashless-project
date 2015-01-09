@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace nmct.ssa.cashlessproject.itcompany.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class RegisterController : Controller
     {
         //geen httpget of httppost bijzetten --> eerste keer laden: get, inladen met dropdownlist --> post

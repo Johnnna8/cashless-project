@@ -10,7 +10,7 @@ using nmct.ssa.cashlessproject.itcompany.Models;
 
 namespace nmct.ssa.cashlessproject.itcompany.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Administrator")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

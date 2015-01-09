@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.model
 {
+    //public class RegisterCompany : IValidatableObject
     public class RegisterCompany
     {
         private int _ID;
@@ -62,5 +63,16 @@ namespace nmct.ba.cashlessproject.model
             get { return _expiresDate; }
             set { _expiresDate = value; }
         }
+
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    List<ValidationResult> res = new List<ValidationResult>();
+        //    if (PurchaseDate > ExpiresDate)
+        //    {
+        //        ValidationResult mss = new ValidationResult("Verloopt op datum moet later zijn dan aangekocht op");
+        //        res.Add(mss);
+        //    }
+        //    return res;
+        //}
     }
 }

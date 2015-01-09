@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace nmct.ssa.cashlessproject.itcompany.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class OrganisationController : Controller
     {
         [HttpGet]
