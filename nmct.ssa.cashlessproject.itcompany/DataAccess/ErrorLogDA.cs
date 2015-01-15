@@ -19,7 +19,7 @@ namespace nmct.ssa.cashlessproject.itcompany.DataAccess
 
             string sql = "SELECT el.ID as ErrorLogID, el.RegisterID, el.Timestamp, el.Message, el.Stacktrace, ";
             sql += "r.RegisterName, r.Device, r.PurchaseDate, r.ExpiresDate ";
-            sql += "FROM Erroglog as el ";
+            sql += "FROM Errorlog as el ";
             sql += "INNER JOIN Register as r ON el.RegisterID = r.ID";
 
             DbDataReader reader = Database.GetData(CONNECTIONSTRING, sql);

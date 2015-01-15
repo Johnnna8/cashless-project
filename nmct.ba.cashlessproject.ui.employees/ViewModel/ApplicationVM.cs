@@ -86,10 +86,10 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
         private void Logout()
         {
-            ApplicationVM.employee = null;
+            ApplicationVM.employee = new Employee();
 
             changeUntilTime();
-            ApplicationVM.registerEmployee = null;
+            ApplicationVM.registerEmployee = new RegisterEmployee();
 
             currentPage = Pages[0];
             OnPropertyChanged("CurrentPage");
@@ -118,9 +118,9 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
             CurrentPage = page;
         }
 
-        public static RegisterEmployee registerEmployee = null;
-        public static Register register = null;
-        public static Employee employee = null;
+        public static RegisterEmployee registerEmployee = new RegisterEmployee();
+        public static Register register = new Register();
+        public static Employee employee = new Employee();
 
         private async void getRegister()
         {

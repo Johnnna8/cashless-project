@@ -10,18 +10,15 @@ using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
 {
+    [Authorize]
     public class ErrorLogController : ApiController
     {
-        // GET: api/ErrorLog
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         // GET: api/ErrorLog/5
-        public string Get(int id)
+        public List<ErrorLog> Get()
         {
-            return "value";
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ErrorlogDA.GetErrorLogs(p.Claims);
         }
 
         // PUT: api/ErrorLog/5
@@ -38,9 +35,11 @@ namespace nmct.ba.cashlessproject.api.Controllers
         {
         }
 
-        // DELETE: api/ErrorLog/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete()
         {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            ErrorlogDA.DeleteErrors(p.Claims);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

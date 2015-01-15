@@ -259,13 +259,13 @@ namespace nmct.ba.cashlessproject.ui.employees.ViewModel
 
             if (card == null)
             {
-                MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in", "Niet correct aangesloten");
+                MessageBox.Show("Sluit de id-reader aan en steek de kaart er correct in", "Niet correct aangesloten");
             }
             else
             {
                 if (!addCustomer(card))
                 {
-                    MessageBox.Show("Sluit de idreader aan en steek de kaart er correct in", "Niet correct aangesloten");
+                    MessageBox.Show("Sluit de id-reader aan en steek de kaart er correct in", "Niet correct aangesloten");
                     return;
                 }
 

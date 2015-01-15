@@ -58,15 +58,15 @@
         <TextBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Firstname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
         <TextBox Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Lastname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr"/>
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="Straat + nr:"/>
         <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente"/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Text="Postcode + gemeente:"/>
         <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Postcode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
         <TextBox Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
         <Image Grid.Row="4" Grid.Column="9" />
 
-        <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo"/>
+        <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="Saldo:"/>
         <TextBox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Text="{Binding SelectedCustomer.Balance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=C, ConverterCulture=nl-BE}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
 
         <Image Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}}"/>
