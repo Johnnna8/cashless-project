@@ -149,7 +149,7 @@
       <Name>nmct.ba.cashlessproject.helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj">
-      <Project>{fe043724-9ef5-497d-8df3-2f4a70437b00}</Project>
+      <Project>{8047d294-d478-4eac-8b06-f25ef2a9dc01}</Project>
       <Name>nmct.ba.cashlessproject.model</Name>
     </ProjectReference>
   </ItemGroup>
